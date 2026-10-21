@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>유물 찾기 빙고</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --bg:#e9eeeb;--surface:#fbfcfb;--ink:#1b2320;--muted:#5d6a64;--line:#cfd8d3;
+  --accent:#2d7a6a;--accent-ink:#ffffff;--stamp:#b4561c;--gold:#d39a0f;--shade:rgba(20,30,26,.42);
+  --e1:#8a6a4f;--e2:#7a5d2e;--e3:#3f6f86;--e4:#9b3d4a;--e5:#6a4f8f;--e6:#2d7a6a;--e7:#4a5a9a;
+  --display:"Black Han Sans","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#121815;--surface:#1b2420;--ink:#e4ebe7;--muted:#98a69f;--line:#2c3833;
+  --accent:#5cb8a2;--accent-ink:#0c1411;--stamp:#e6884a;--gold:#f0bf45;--shade:rgba(0,0,0,.55);
+  --e1:#c39b78;--e2:#c9a463;--e3:#79acc6;--e4:#d9808c;--e5:#a990d0;--e6:#5cb8a2;--e7:#8fa0e0;color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink);margin:0}
+body{font-family:var(--body);font-size:15px;line-height:1.5;padding:14px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+img{max-width:100%}
+[hidden]{display:none!important}
+#app{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.ticket{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:10px}
+.ticket-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted)}
+h1{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.1;margin:2px 0 0}
+.groupbtn{flex:none;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:6px 14px;font-family:var(--display);font-size:18px}
+.stats{display:flex;gap:18px;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:10px;align-items:flex-end}
+.stat{display:flex;flex-direction:column}
+.stat b{font-family:var(--mono);font-weight:500;font-size:20px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--muted)}
+.pips{display:flex;gap:5px;align-items:center;height:30px}
+.pip{width:18px;height:18px;border-radius:50%;border:2px solid var(--gold);display:inline-block}
+.pip.on{background:var(--gold)}
+.pips.sm .pip{width:11px;height:11px;border-width:2px}
+.live{margin-left:auto;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.dot.off{background:var(--stamp)}
+
+.banner{background:var(--gold);color:#1b1503;border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.banner strong{font-family:var(--display);font-weight:400;font-size:24px}
+.banner .t{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.rules{font-size:13px;color:var(--muted);margin:0}
+
+.boardwrap{position:relative}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.cell{position:relative;aspect-ratio:1;width:100%;border-radius:10px;overflow:hidden;border:2px solid var(--line);background:var(--surface);padding:0;display:block;text-align:left}
+.cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cell .noimg{position:absolute;inset:0;display:grid;place-items:center;padding:8px;text-align:center;font-family:var(--display);font-size:13px;line-height:1.15;color:var(--muted);background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(127,140,134,.18) 8px 9px)}
+.cell .era{position:absolute;top:4px;left:4px;font-size:9px;line-height:1;padding:3px 5px;border-radius:6px;color:#fff;background:var(--ec);max-width:calc(100% - 12px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cell .name{position:absolute;left:0;right:0;bottom:0;padding:14px 4px 4px;font-size:10px;line-height:1.2;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.72));text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.cell.todo img{filter:grayscale(.85) brightness(.9)}
+.cell .hint{position:absolute;bottom:4px;right:4px;width:22px;height:22px;border-radius:50%;background:var(--surface);display:grid;place-items:center;color:var(--accent)}
+.cell.found{border-color:var(--stamp)}
+.cell .stampmark{position:absolute;top:4px;right:4px;width:32px;height:32px;border-radius:50%;border:2.5px solid var(--stamp);color:var(--stamp);background:var(--surface);opacity:.92;display:grid;place-items:center;font-family:var(--display);font-size:9px;line-height:1;transform:rotate(-14deg)}
+.cell.inline{box-shadow:0 0 0 3px var(--gold)}
+.cell .busy{position:absolute;inset:0;background:rgba(0,0,0,.45);color:#fff;display:grid;place-items:center;font-size:13px}
+.lines{position:absolute;inset:0;pointer-events:none;width:100%;height:100%}
+
+.slip{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:8px}
+.slip h2{font-family:var(--display);font-weight:400;font-size:20px;margin:0}
+.list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.list li{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:var(--bg)}
+.list li.me{outline:2px solid var(--accent)}
+.list .no{font-family:var(--display);font-size:20px;color:var(--gold)}
+.list .g{font-family:var(--display);font-size:18px}
+.list .tm{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.prog li{grid-template-columns:64px 1fr auto}
+.empty,.note{color:var(--muted);font-size:13px;margin:0}
+
+.scrim{position:fixed;inset:0;background:var(--shade);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);width:100%;max-width:480px;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:12px}
+.ref{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center}
+.ref .pic{position:relative;width:96px;height:96px;border-radius:10px;overflow:hidden;background:var(--bg);display:grid;place-items:center;font-family:var(--display);color:var(--muted);text-align:center;font-size:14px;padding:4px}
+.ref .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sheet h3{font-family:var(--display);font-weight:400;font-size:22px;margin:0;line-height:1.15}
+.btn{border:0;border-radius:12px;padding:14px 16px;font-size:16px;background:var(--bg);color:var(--ink);text-align:center}
+.btn.primary{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.btn.warn{color:var(--stamp)}
+.btn.small{padding:8px 12px;font-size:14px;border-radius:10px}
+.btn:disabled{opacity:.45;cursor:default}
+.center{position:fixed;inset:0;z-index:50;background:var(--shade);display:grid;place-items:center;padding:16px}
+.win{background:var(--surface);border-radius:20px;padding:24px 20px;max-width:360px;width:100%;text-align:center;display:grid;gap:10px;border:3px solid var(--gold)}
+.win .big{font-family:var(--display);font-size:52px;line-height:1;color:var(--gold)}
+.win .grp{font-family:var(--display);font-size:26px}
+.win .t{font-family:var(--mono);font-size:20px}
+.pick{background:var(--surface);border-radius:20px;padding:22px 18px;max-width:380px;width:100%;display:grid;gap:14px}
+.pick h2{font-family:var(--display);font-weight:400;font-size:26px;margin:0;text-align:center}
+.pickgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pickgrid button{border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:14px 4px;font-family:var(--display);font-size:20px}
+canvas#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
+
+.teacher{border:2px dashed var(--accent);border-radius:14px;padding:14px 16px;display:grid;gap:12px;background:var(--surface)}
+.teacher h2{font-family:var(--display);font-weight:400;font-size:20px;margin:0}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 12px;font-size:14px}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.edit{display:grid;gap:8px}
+.erow{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center;padding:8px;border-radius:10px;background:var(--bg)}
+.thumb{width:64px;height:64px;border-radius:8px;overflow:hidden;border:1px dashed var(--muted);display:grid;place-items:center;font-size:11px;color:var(--muted);text-align:center;background:var(--surface);padding:0;position:relative}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fields{display:grid;gap:6px;min-width:0}
+.inp{font:inherit;font-size:15px;padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%;min-width:0}
+.num{width:72px}
+.linkrow{display:grid;grid-template-columns:56px 1fr auto;gap:8px;align-items:center}
+.linkrow b{font-family:var(--display);font-weight:400;font-size:16px}
+.confirm{border:2px solid var(--stamp);border-radius:12px;padding:12px;display:grid;gap:8px}
+.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:300px}
+.mini div{position:relative;aspect-ratio:1;border-radius:6px;overflow:hidden;background:var(--bg);font-size:10px;color:var(--muted);display:grid;place-items:center;text-align:center;padding:2px}
+.mini img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:70;max-width:calc(100% - 32px);text-align:center}
+@media (prefers-reduced-motion:no-preference){.cell{transition:transform .12s}.cell:active{transform:scale(.97)}}
+</style>
+</head>
+<body>
+<div id="app"><p class="empty">빙고판을 불러오는 중…</p></div>
+<input type="file" id="cam" accept="image/*" capture="environment" hidden>
+<input type="file" id="album" accept="image/*" hidden>
+<input type="file" id="tpic" accept="image/*" hidden>
+<script>
+(function(){
+"use strict";
+var API="https://script.google.com/macros/s/AKfycbw1hyCXkrlMglInTa7LMMWh7-jIO_4hwTVO0dUqquXkmzpNvZMZXeYp8W0RYF9jnjgs/exec";
+var PARAMS=(function(){var o={};try{new URLSearchParams(location.search).forEach(function(v,k){o[k]=v})}catch(e){}return o})();
+var BASE=location.origin+location.pathname;
+var ERAS=["구석기","신석기","청동기·고조선","삼국","통일신라","발해","고려"];
+var ERAVAR={"구석기":"--e1","신석기":"--e2","청동기·고조선":"--e3","삼국":"--e4","통일신라":"--e5","발해":"--e7","고려":"--e6"};
+var N=4,CELLS=16;
+var LINES=(function(){var L=[],r,c;for(r=0;r<N;r++){L.push([0,1,2,3].map(function(c){return r*N+c}))}for(c=0;c<N;c++){L.push([0,1,2,3].map(function(r){return r*N+c}))}L.push([0,5,10,15]);L.push([3,6,9,12]);return L})();
+var CAM_SVG='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+var POLL_MS=4000;
+
+var app=document.getElementById("app");
+var cam=document.getElementById("cam"),album=document.getElementById("album"),tpic=document.getElementById("tpic");
+var TEACHER=PARAMS.page==="teacher";
+
+var ST=null;            // 서버 상태
+var cache={};           // 사진 id → dataURL
+var inflight={};        // 받는 중인 사진 id
+var pendingCell={};     // 올리는 중인 칸 → 미리보기
+var online=true,polling=false;
+
+/* ---------- 작은 도구 ---------- */
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function ssGet(k){try{return sessionStorage.getItem(k)}catch(e){return null}}
+function ssSet(k,v){try{sessionStorage.setItem(k,v)}catch(e){}}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function fmt(t){return new Date(t).toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false})}
+function eraColor(e){return "var("+(ERAVAR[e]||"--muted")+")"}
+function toast(msg){var t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.remove()},2800)}
+function gs(fn){
+  var args=Array.prototype.slice.call(arguments,1);
+  return fetch(API,{method:"POST",credentials:"omit",redirect:"follow",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({fn:fn,args:args})})
+    .then(function(r){if(!r.ok)throw new Error("연결에 문제가 있어요.");return r.json()})
+    .then(function(j){if(!j.ok)throw new Error(j.error||"요청을 처리하지 못했어요.");return j.data});
+}
+function errMsg(e){return (e&&e.message)?String(e.message).replace(/^Error:\s*/,""):"연결에 문제가 있어요."}
+function shrink(file,max,q){
+  return new Promise(function(res,rej){
+    var url=URL.createObjectURL(file);var img=new Image();
+    img.onload=function(){try{var w=img.naturalWidth,h=img.naturalHeight,k=Math.min(1,max/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);var c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);URL.revokeObjectURL(url);res(c.toDataURL("image/jpeg",q))}catch(e){URL.revokeObjectURL(url);rej(e)}};
+    img.onerror=function(){URL.revokeObjectURL(url);rej(new Error("img"))};
+    img.src=url;
+  });
+}
+function boardOf(g){var b=ST&&ST.boards&&ST.boards[g];return (b&&b.length===CELLS)?b:new Array(CELLS).fill(null)}
+function linesOf(b){return LINES.filter(function(L){return L.every(function(i){return b[i]})})}
+function rankOf(g){if(!ST)return 0;for(var i=0;i<ST.ranking.length;i++)if(ST.ranking[i].g===g)return i+1;return 0}
+function closeOverlays(){var o=document.getElementById("ov");if(o)o.remove()}
+
+/* ---------- 모둠 ---------- */
+var group=parseInt(PARAMS.g||lsGet("yb.group")||"0",10)||0;
+if(PARAMS.g)lsSet("yb.group",String(group));
+
+/* ---------- 서버와 맞추기 ---------- */
+function apply(st,force){
+  if(!st)return;
+  var changed=!ST||st.rev!==ST.rev||force;
+  ST=st;
+  if(group>ST.groups)group=0;
+  if(changed){ensurePhotos();render()}
+}
+function poll(){
+  if(polling||document.hidden)return;
+  if(TEACHER&&!pin)return;
+  polling=true;
+  gs("getState").then(function(st){online=true;polling=false;apply(st)},function(){polling=false;if(online){online=false;render()}});
+}
+function neededIds(){
+  if(!ST)return[];
+  var ids=ST.items.map(function(it){return it.img}).filter(Boolean);
+  if(!TEACHER&&group)ids=ids.concat(boardOf(group).filter(Boolean));
+  if(TEACHER&&viewGroup)ids=ids.concat(boardOf(viewGroup).filter(Boolean));
+  if(TEACHER&&draft)draft.items.forEach(function(it){if(it.img)ids.push(it.img)});
+  return ids;
+}
+function ensurePhotos(){
+  var miss=neededIds().filter(function(id){return !cache[id]&&!inflight[id]});
+  if(!miss.length)return;
+  for(var i=0;i<miss.length;i+=6){
+    var chunk=miss.slice(i,i+6);
+    chunk.forEach(function(id){inflight[id]=1});
+    (function(chunk){
+      gs("getPhotos",chunk).then(function(map){
+        chunk.forEach(function(id){delete inflight[id];if(map[id])cache[id]=map[id]});render();
+      },function(){chunk.forEach(function(id){delete inflight[id]})});
+    })(chunk);
+  }
+}
+
+/* ---------- 학생 화면 ---------- */
+function renderStudent(){
+  var b=boardOf(group);
+  var view=b.map(function(id,i){return pendingCell[i]?"pending":id});
+  var lines=linesOf(view);
+  var found=view.filter(Boolean).length;
+  var rk=rankOf(group);
+  var h="";
+  h+='<header class="ticket"><div class="ticket-top"><div><div class="eyebrow">현장체험학습 · 구석기~고려</div><h1>유물 찾기 빙고</h1></div>';
+  h+='<button class="groupbtn" id="chgGroup" aria-label="모둠 바꾸기">'+(group?group+"모둠":"모둠 선택")+'</button></div>';
+  h+='<div class="stats"><div class="stat"><b>'+found+'/'+CELLS+'</b><span>찾은 유물</span></div><div class="stat"><div class="pips">';
+  for(var p=0;p<ST.goal;p++)h+='<i class="pip'+(p<lines.length?" on":"")+'"></i>';
+  h+='</div><span>빙고 '+lines.length+' / '+ST.goal+'줄</span></div>';
+  h+='<div class="live"><i class="dot'+(online?"":" off")+'"></i>'+(online?"실시간 연결":"연결 끊김 · 다시 연결 중")+'</div></div></header>';
+  if(rk){var r=ST.ranking[rk-1];h+='<div class="banner"><div><strong>'+rk+'등! '+ST.goal+'빙고 완성</strong><div class="t">'+group+'모둠 · '+fmt(r.t)+'</div></div></div>'}
+  h+='<p class="rules">유물을 찾으면 칸을 눌러 우리 모둠 사진으로 바꿔요. 가로·세로·대각선 '+ST.goal+'줄을 가장 먼저 완성한 모둠이 승리! 사진을 잘못 올렸으면 그 칸을 다시 눌러 바꾸거나 지울 수 있어요.</p>';
+  h+='<div class="boardwrap"><div class="board">';
+  var inLine={};lines.forEach(function(L){L.forEach(function(i){inLine[i]=1})});
+  ST.items.forEach(function(it,i){
+    var id=b[i],pend=pendingCell[i],mine=pend||(id&&cache[id]);
+    var has=!!(pend||id);
+    h+='<button class="cell '+(has?"found":"todo")+(inLine[i]?" inline":"")+'" data-cell="'+i+'" style="--ec:'+eraColor(it.era)+'" aria-label="'+esc(it.name)+(has?" 찾음":" 아직")+'">';
+    if(mine)h+='<img src="'+mine+'" alt="">';
+    else if(!has&&it.img&&cache[it.img])h+='<img src="'+cache[it.img]+'" alt="">';
+    else h+='<span class="noimg">'+esc(it.name)+'</span>';
+    h+='<span class="era">'+esc(it.era)+'</span>';
+    h+=has?'<span class="stampmark">찾았다</span>':'<span class="hint">'+CAM_SVG+'</span>';
+    if(mine||(it.img&&cache[it.img]))h+='<span class="name">'+esc(it.name)+'</span>';
+    if(pend)h+='<span class="busy">올리는 중…</span>';
+    h+='</button>';
+  });
+  h+='</div>'+linesSvg(lines)+'</div>';
+  h+=rankingHTML(false)+progressHTML();
+  app.innerHTML=h;
+  if(!group)showPicker();
+  else{
+    var seenKey="yb.seen."+ST.gameId+"."+group;
+    if(rk&&!lsGet(seenKey)){lsSet(seenKey,"1");showWin(rk)}
+  }
+}
+function linesSvg(lines){
+  if(!lines.length)return"";
+  var h='<svg class="lines" viewBox="0 0 400 400" preserveAspectRatio="none" aria-hidden="true">';
+  lines.forEach(function(L){var a=L[0],b=L[L.length-1];h+='<line x1="'+((a%N)*100+50)+'" y1="'+(Math.floor(a/N)*100+50)+'" x2="'+((b%N)*100+50)+'" y2="'+(Math.floor(b/N)*100+50)+'" stroke="var(--gold)" stroke-width="8" stroke-linecap="round" opacity=".85"/>'});
+  return h+'</svg>';
+}
+function rankingHTML(withUndo){
+  var h='<section class="slip"><h2>🏆 랭킹</h2>';
+  if(!ST.ranking.length)return h+'<p class="empty">아직 '+ST.goal+'빙고를 완성한 모둠이 없어요. 완성하는 순간 자동으로 순위가 떠요.</p></section>';
+  h+='<ol class="list">';
+  ST.ranking.forEach(function(r,i){
+    h+='<li'+(r.g===group&&!TEACHER?' class="me"':'')+'><span class="no">'+(i+1)+'등</span><span class="g">'+r.g+'모둠</span>';
+    h+=withUndo?'<button class="btn small warn" data-unrank="'+r.g+'">취소</button>':'<span class="tm">'+fmt(r.t)+'</span>';
+    h+='</li>';
+  });
+  return h+'</ol></section>';
+}
+function progressHTML(clickable){
+  var h='<section class="slip"><h2>실시간 현황</h2><ul class="list prog">';
+  for(var g=1;g<=ST.groups;g++){
+    var b=boardOf(g),ln=linesOf(b).length,f=b.filter(Boolean).length,rk=rankOf(g);
+    var pips='<span class="pips sm">';for(var p=0;p<ST.goal;p++)pips+='<i class="pip'+(p<ln?" on":"")+'"></i>';pips+='</span>';
+    var inner='<span class="g">'+g+'모둠</span>'+pips+'<span class="tm">'+(rk?rk+"등":f+"/"+CELLS)+'</span>';
+    h+=clickable?'<li style="padding:0"><button class="btn" data-viewg="'+g+'" style="display:grid;grid-template-columns:64px 1fr auto;gap:8px;align-items:center;width:100%;text-align:left;padding:8px 10px;background:transparent">'+inner+'</button></li>':'<li'+(g===group&&!TEACHER?' class="me"':'')+'>'+inner+'</li>';
+  }
+  return h+'</ul></section>';
+}
+var curCell=-1;
+function showPicker(){
+  closeOverlays();
+  var o=document.createElement("div");o.className="center";o.id="ov";
+  var g="";for(var i=1;i<=ST.groups;i++)g+='<button data-g="'+i+'">'+i+'모둠</button>';
+  o.innerHTML='<div class="pick" role="dialog" aria-label="모둠 고르기"><h2>우리 모둠은?</h2><div class="pickgrid">'+g+'</div><p class="note" style="text-align:center">모둠 친구들은 모두 같은 번호를 골라요.</p></div>';
+  document.body.appendChild(o);
+}
+function showSheet(i){
+  closeOverlays();curCell=i;
+  var it=ST.items[i],id=boardOf(group)[i],mine=id&&cache[id];
+  var ref=mine||(it.img&&cache[it.img]);
+  var o=document.createElement("div");o.className="scrim";o.id="ov";
+  o.innerHTML='<div class="sheet" role="dialog" aria-label="'+esc(it.name)+'"><div class="ref"><div class="pic">'+(ref?'<img src="'+ref+'" alt="">':esc(it.name))+'</div><div><div class="eyebrow">'+esc(it.era)+'</div><h3>'+esc(it.name)+'</h3><p class="note">'+(id?"우리 모둠이 찾은 사진이에요.":"박물관에서 이 유물을 찾아 사진을 찍어요.")+'</p></div></div>'+
+    '<button class="btn primary" data-act="cam">'+(id?"다시 찍기":"사진 찍기")+'</button>'+
+    '<button class="btn" data-act="album">앨범에서 고르기</button>'+
+    (id?'<button class="btn warn" data-act="del">사진 지우기</button>':'')+
+    '<button class="btn" data-act="close">닫기</button></div>';
+  document.body.appendChild(o);
+}
+function showWin(rk){
+  closeOverlays();
+  var o=document.createElement("div");o.className="center";o.id="ov";
+  o.innerHTML='<div class="win" role="dialog" aria-label="빙고 완성"><div class="big">'+rk+'등!</div><div class="grp">'+group+'모둠 '+ST.goal+'빙고 완성</div><div class="t">'+fmt(ST.ranking[rk-1].t)+'</div><button class="btn primary" data-act="close">확인</button></div>';
+  document.body.appendChild(o);confetti();
+}
+function onPhoto(file){
+  if(!file||curCell<0||!group)return;
+  var i=curCell,g=group,gameId=ST.gameId;
+  closeOverlays();
+  shrink(file,640,.7).then(function(d){
+    pendingCell[i]=d;render();
+    return gs("uploadPhoto",g,i,d,gameId).then(function(r){
+      delete pendingCell[i];
+      if(r.stale){toast("새 게임이 시작됐어요. 다시 찍어 주세요.");apply(r.state,true);return}
+      cache[r.id]=d;apply(r.state,true);
+      var n=linesOf(boardOf(g)).length;if(n>0&&n<ST.goal)toast("빙고 "+n+"줄!");
+    });
+  }).catch(function(e){delete pendingCell[i];render();toast("사진을 올리지 못했어요. 다시 해 주세요.")});
+}
+cam.addEventListener("change",function(){var f=cam.files[0];cam.value="";onPhoto(f)});
+album.addEventListener("change",function(){var f=album.files[0];album.value="";onPhoto(f)});
+
+function confetti(){
+  try{if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return}catch(e){}
+  var c=document.createElement("canvas");c.id="confetti";document.body.appendChild(c);
+  var dpr=window.devicePixelRatio||1,W=c.width=innerWidth*dpr,H=c.height=innerHeight*dpr,ctx=c.getContext("2d");
+  var cs=getComputedStyle(document.documentElement);
+  var cols=["--gold","--accent","--stamp","--e3","--e4","--e5"].map(function(v){return cs.getPropertyValue(v).trim()||"#d39a0f"});
+  var P=[];for(var i=0;i<140;i++)P.push({x:Math.random()*W,y:-Math.random()*H*.5,vx:(Math.random()-.5)*4*dpr,vy:(2+Math.random()*4)*dpr,r:(4+Math.random()*5)*dpr,a:Math.random()*6,va:(Math.random()-.5)*.3,c:cols[i%cols.length]});
+  var t0=performance.now();
+  (function f(t){ctx.clearRect(0,0,W,H);P.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.06*dpr;p.a+=p.va;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.a);ctx.fillStyle=p.c;ctx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);ctx.restore()});if(t-t0<3000)requestAnimationFrame(f);else c.remove()})(t0);
+}
+
+/* ---------- 선생님 화면 ---------- */
+var pin=ssGet("yb.pin")||"";
+var tab=ssGet("yb.tab")||"status";
+var draft=null,viewGroup=0,confirmReset=false,busy=false,delCell=-1;
+function renderLogin(err){
+  app.innerHTML='<section class="teacher"><h2>선생님 관리</h2><p class="note">앱스 스크립트 Code.gs에 적은 비밀번호를 넣어요.</p><div class="row"><input class="inp" id="pinIn" type="password" inputmode="numeric" autocomplete="off" placeholder="비밀번호" style="max-width:180px"><button class="btn primary small" data-act="login">들어가기</button></div>'+(err?'<p class="note" style="color:var(--stamp)">'+esc(err)+'</p>':'')+'</section>';
+}
+function renderTeacher(){
+  if(!pin||!ST){renderLogin();return}
+  var h='<header class="ticket"><div class="ticket-top"><div><div class="eyebrow">선생님 관리</div><h1>유물 찾기 빙고</h1></div></div><div class="stats"><div class="stat"><b>'+ST.ranking.length+'/'+ST.groups+'</b><span>완성한 모둠</span></div><div class="live"><i class="dot'+(online?"":" off")+'"></i>'+(online?"실시간 연결":"연결 끊김")+'</div></div></header>';
+  h+='<div class="tabs" role="tablist">'+[["status","현황·순위"],["board","빙고판 편집"],["links","학생 링크"],["reset","새 게임"]].map(function(t){return '<button role="tab" data-tab="'+t[0]+'" aria-selected="'+(tab===t[0])+'">'+t[1]+'</button>'}).join("")+'</div>';
+  if(tab==="status"){
+    h+=rankingHTML(true)+progressHTML(true);
+    if(viewGroup){
+      var b=boardOf(viewGroup);
+      h+='<section class="slip"><h2>'+viewGroup+'모둠 빙고판</h2><div class="mini">';
+      ST.items.forEach(function(it,i){var id=b[i];h+=id?'<button class="thumb" style="width:100%;height:auto;aspect-ratio:1" data-tdel="'+i+'" aria-label="'+esc(it.name)+' 사진 지우기">'+(cache[id]?'<img src="'+cache[id]+'" alt="">':"불러오는 중")+'</button>':'<div>'+esc(it.name)+'</div>'});
+      h+='</div>'+(delCell>=0?'<div class="confirm"><strong>'+esc(ST.items[delCell].name)+' 사진을 지울까요?</strong><div class="row"><button class="btn primary small" data-act="tdelok">지우기</button><button class="btn small" data-act="tdelno">취소</button></div></div>':'<p class="note">잘못 올린 사진은 눌러서 지울 수 있어요. 줄이 모자라게 되면 순위에서도 빠져요.</p>')+'</section>';
+    }
+  }else if(tab==="board"){
+    if(!draft)draft={groups:ST.groups,goal:ST.goal,items:ST.items.map(function(it){return{name:it.name,era:it.era,img:it.img,newImg:null}})};
+    h+='<section class="teacher"><div class="row"><label for="ngroups">모둠 수</label><input class="inp num" id="ngroups" type="number" min="2" max="12" value="'+esc(draft.groups)+'"><label for="ngoal">목표 빙고</label><input class="inp num" id="ngoal" type="number" min="1" max="10" value="'+esc(draft.goal)+'"></div>';
+    h+='<p class="note">사진 칸을 눌러 유물 사진을 넣어요. 순서는 빙고판 왼쪽 위부터 오른쪽 아래까지예요.</p><div class="edit">';
+    draft.items.forEach(function(it,i){
+      var src=it.newImg||(it.img&&cache[it.img]);
+      h+='<div class="erow"><button class="thumb" data-tpic="'+i+'" aria-label="'+(i+1)+'번 칸 사진 바꾸기">'+(src?'<img src="'+src+'" alt="">':(i+1)+'번<br>사진 넣기')+'</button><div class="fields"><input class="inp" type="text" id="nm'+i+'" data-nm="'+i+'" value="'+esc(it.name)+'" aria-label="'+(i+1)+'번 유물 이름"><select class="inp" id="er'+i+'" data-er="'+i+'" aria-label="'+(i+1)+'번 시대">'+ERAS.map(function(e){return '<option'+(e===it.era?" selected":"")+'>'+e+'</option>'}).join("")+'</select></div></div>';
+    });
+    h+='</div><div class="row"><button class="btn primary small" data-act="saveboard"'+(busy?" disabled":"")+'>'+(busy?"저장하는 중…":"빙고판 저장")+'</button><button class="btn small" data-act="revert">되돌리기</button></div></section>';
+  }else if(tab==="links"){
+    h+='<section class="slip"><h2>학생 링크</h2><p class="note">모둠별 링크로 들어가면 모둠을 고르지 않아도 돼요. 공통 링크로 들어가면 처음에 모둠을 골라요.</p>';
+    h+='<div class="linkrow"><b>공통</b><input class="inp" readonly value="'+esc(BASE)+'" id="lk0"><button class="btn small" data-copy="lk0">복사</button></div>';
+    for(var g=1;g<=ST.groups;g++)h+='<div class="linkrow"><b>'+g+'모둠</b><input class="inp" readonly value="'+esc(BASE+"?g="+g)+'" id="lk'+g+'"><button class="btn small" data-copy="lk'+g+'">복사</button></div>';
+    h+='</section>';
+  }else{
+    h+='<section class="teacher"><p class="note">새 게임을 시작하면 모든 모둠의 사진과 순위가 지워져요. 빙고판 유물은 그대로예요. 리허설을 한 뒤 실제 활동 전에 눌러 주세요.</p>';
+    h+=confirmReset?'<div class="confirm"><strong>정말 새 게임을 시작할까요?</strong><div class="row"><button class="btn primary small" data-act="doreset">새 게임 시작</button><button class="btn small" data-act="noreset">취소</button></div></div>':'<button class="btn small warn" data-act="askreset">새 게임 시작</button>';
+    h+='</section>';
+  }
+  app.innerHTML=h;
+}
+var curT=-1;
+tpic.addEventListener("change",function(){
+  var f=tpic.files[0];tpic.value="";if(!f||curT<0||!draft)return;var i=curT;
+  shrink(f,520,.74).then(function(d){draft.items[i].newImg=d;render()},function(){toast("사진을 읽지 못했어요.")});
+});
+
+/* ---------- 공통 ---------- */
+function render(){
+  if(TEACHER){renderTeacher();return}
+  if(!ST){app.innerHTML='<p class="empty">빙고판을 불러오는 중…</p>';return}
+  renderStudent();
+}
+document.addEventListener("click",function(e){
+  var t=e.target.closest("button");if(!t)return;
+  var act=t.dataset.act;
+  if(!TEACHER){
+    if(t.id==="chgGroup"){showPicker();return}
+    if(t.dataset.g){group=parseInt(t.dataset.g,10);lsSet("yb.group",String(group));closeOverlays();ensurePhotos();render();return}
+    if(t.dataset.cell!=null){var i=parseInt(t.dataset.cell,10);if(pendingCell[i])return;showSheet(i);return}
+    if(act==="cam"){cam.click();return}
+    if(act==="album"){album.click();return}
+    if(act==="close"){closeOverlays();return}
+    if(act==="del"){var c=curCell,gameId=ST.gameId;closeOverlays();gs("removePhoto",group,c,gameId).then(function(r){apply(r.state,true)},function(){toast("지우지 못했어요. 다시 해 주세요.")});return}
+    return;
+  }
+  if(act==="close"){closeOverlays();return}
+  if(act==="login"){
+    var v=(document.getElementById("pinIn")||{}).value||"";
+    gs("teacherLogin",v).then(function(st){pin=v;ssSet("yb.pin",v);ST=null;apply(st,true)},function(err){renderLogin(errMsg(err))});return;
+  }
+  if(t.dataset.tab){tab=t.dataset.tab;ssSet("yb.tab",tab);confirmReset=false;if(tab==="board"){draft=null}render();if(tab==="board")ensurePhotos();return}
+  if(t.dataset.viewg){viewGroup=parseInt(t.dataset.viewg,10);delCell=-1;ensurePhotos();render();return}
+  if(t.dataset.tdel!=null){delCell=parseInt(t.dataset.tdel,10);render();return}
+  if(act==="tdelno"){delCell=-1;render();return}
+  if(act==="tdelok"&&delCell>=0&&viewGroup){var dc=delCell;delCell=-1;gs("teacherRemovePhoto",pin,viewGroup,dc).then(function(st){apply(st,true);toast("사진을 지웠어요.")},function(err){render();toast(errMsg(err))});return}
+  if(t.dataset.unrank){gs("clearRank",pin,parseInt(t.dataset.unrank,10)).then(function(st){apply(st,true);toast("순위를 취소했어요.")},function(err){toast(errMsg(err))});return}
+  if(t.dataset.tpic!=null){curT=parseInt(t.dataset.tpic,10);tpic.click();return}
+  if(t.dataset.copy){var inp=document.getElementById(t.dataset.copy);inp.select();try{navigator.clipboard.writeText(inp.value).then(function(){toast("복사했어요.")},function(){toast("길게 눌러 복사해 주세요.")})}catch(x){toast("길게 눌러 복사해 주세요.")}return}
+  if(act==="saveboard"&&draft&&!busy){
+    busy=true;render();
+    var items=draft.items.map(function(it){return{name:it.name,era:it.era,img:it.img,newImg:it.newImg||null}});
+    gs("saveBoard",pin,items,draft.groups,draft.goal).then(function(st){
+      draft.items.forEach(function(it,i){if(it.newImg&&st.items[i].img)cache[st.items[i].img]=it.newImg});
+      busy=false;draft=null;apply(st,true);toast("빙고판을 저장했어요. 학생 화면에 바로 반영돼요.");
+    },function(err){busy=false;render();toast(errMsg(err))});return;
+  }
+  if(act==="revert"){draft=null;render();return}
+  if(act==="askreset"){confirmReset=true;render();return}
+  if(act==="noreset"){confirmReset=false;render();return}
+  if(act==="doreset"){confirmReset=false;gs("resetGame",pin).then(function(st){viewGroup=0;apply(st,true);toast("새 게임을 시작했어요.")},function(err){toast(errMsg(err))});return}
+});
+document.addEventListener("input",function(e){
+  var t=e.target;if(!draft)return;
+  if(t.dataset.nm!=null)draft.items[+t.dataset.nm].name=t.value;
+  else if(t.dataset.er!=null)draft.items[+t.dataset.er].era=t.value;
+  else if(t.id==="ngroups")draft.groups=t.value;
+  else if(t.id==="ngoal")draft.goal=t.value;
+});
+document.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.id==="pinIn"){var b=document.querySelector('[data-act="login"]');if(b)b.click()}});
+document.addEventListener("visibilitychange",function(){if(!document.hidden)poll()});
+
+/* ---------- 시작 ---------- */
+if(TEACHER&&pin){
+  gs("teacherLogin",pin).then(function(st){apply(st,true)},function(){pin="";ssSet("yb.pin","");renderLogin()});
+}else if(TEACHER){renderLogin()}
+else{gs("getState").then(function(st){apply(st,true)},function(){app.innerHTML='<p class="empty">연결하지 못했어요. 잠시 뒤 새로고침해 주세요.</p>'})}
+setInterval(function(){
+  if(TEACHER&&tab==="board")return; // 편집 중에는 화면이 바뀌지 않게
+  poll();
+},POLL_MS);
+})();
+</script>
+</body>
+</html>
