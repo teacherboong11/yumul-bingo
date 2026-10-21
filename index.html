@@ -351,6 +351,8 @@ function renderTeacher(){
   var h='<header class="ticket"><div class="ticket-top"><div><div class="eyebrow">선생님 관리</div><h1>유물 찾기 빙고</h1></div></div><div class="stats"><div class="stat"><b>'+ST.ranking.length+'/'+ST.groups+'</b><span>완성한 모둠</span></div><div class="live"><i class="dot'+(online?"":" off")+'"></i>'+(online?"실시간 연결":"연결 끊김")+'</div></div></header>';
   h+='<div class="tabs" role="tablist">'+[["status","현황·순위"],["board","빙고판 편집"],["links","학생 링크"],["reset","새 게임"]].map(function(t){return '<button role="tab" data-tab="'+t[0]+'" aria-selected="'+(tab===t[0])+'">'+t[1]+'</button>'}).join("")+'</div>';
   if(tab==="status"){
+    var dis=busy?" disabled":"";
+    h+='<section class="slip"><h2>미션 1 잠금</h2>'+(isLocked()?'<p class="note">잠겨 있어요. 학생 빙고판의 모든 칸에 "🔒 미션1 끝! 밴드 확인"이 보여요.</p><button class="btn small" data-act="unlock"'+dis+'>다시 열기</button>':'<p class="note">누르면 이미 열려 있는 학생 빙고판의 모든 칸이 "🔒 미션1 끝! 밴드 확인"으로 바뀌어요. 순위와 사진은 그대로예요.</p><button class="btn primary small" data-act="lock"'+dis+'>미션 1 잠그기</button>')+'</section>';
     h+=rankingHTML(true)+progressHTML(true);
     if(viewGroup){
       var b=boardOf(viewGroup);
@@ -378,6 +380,13 @@ function renderTeacher(){
     h+='</section>';
   }
   app.innerHTML=h;
+}
+var LOCK="🔒 미션1 끝! 밴드 확인 · ";
+function isLocked(){return !!(ST&&ST.items.some(function(it){return String(it.name).indexOf(LOCK)===0}))}
+function setLock(on){
+  if(busy||!ST)return;busy=true;render();
+  var items=ST.items.map(function(it){var n=String(it.name),base=n.indexOf(LOCK)===0?n.slice(LOCK.length):n;return{name:on?LOCK+base:base,era:it.era,img:it.img,newImg:null}});
+  gs("saveBoard",pin,items,ST.groups,ST.goal).then(function(st){busy=false;apply(st,true);toast(on?"잠갔어요. 열려 있는 학생 화면에도 몇 초 안에 안내가 떠요.":"다시 열었어요.")},function(err){busy=false;render();toast(errMsg(err))});
 }
 var curT=-1;
 tpic.addEventListener("change",function(){
@@ -419,6 +428,8 @@ document.addEventListener("click",function(e){
     gs("teacherLogin",v).then(function(st){pin=v;ssSet("yb.pin",v);ST=null;apply(st,true)},function(err){renderLogin(errMsg(err))});return;
   }
   if(t.dataset.tab){tab=t.dataset.tab;ssSet("yb.tab",tab);confirmReset=false;if(tab==="board"){draft=null}render();if(tab==="board")ensurePhotos();return}
+  if(act==="lock"){setLock(true);return}
+  if(act==="unlock"){setLock(false);return}
   if(t.dataset.viewg){viewGroup=parseInt(t.dataset.viewg,10);delCell=-1;ensurePhotos();render();return}
   if(t.dataset.tdel!=null){delCell=parseInt(t.dataset.tdel,10);render();return}
   if(act==="tdelno"){delCell=-1;render();return}
