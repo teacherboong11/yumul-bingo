@@ -187,6 +187,7 @@ function apply(st,force){
   if(!st)return;
   var changed=!ST||st.rev!==ST.rev||force;
   ST=st;
+  if(!TEACHER&&ST.items)ST.items.forEach(function(it){var n=String(it.name);if(n.indexOf(LOCK)===0)it.name=n.slice(LOCK.length)});
   if(group>ST.groups)group=0;
   if(changed){ensurePhotos();render()}
 }
@@ -395,7 +396,7 @@ tpic.addEventListener("change",function(){
 });
 
 /* ---------- 공통 ---------- */
-var CLOSED=true; // 미션 1 종료: 학생은 빙고판 대신 종료 화면을 봐요 (선생님 화면은 그대로)
+var CLOSED=false; // 미션 1 종료: 학생은 빙고판 대신 종료 화면을 봐요 (선생님 화면은 그대로)
 function renderClosed(){
   closeOverlays();
   var h='<header class="ticket"><div class="ticket-top"><div><div class="eyebrow">현장체험학습 · 역사 탐정단</div><h1>수사 지령 1 종료!</h1></div></div><p class="note" style="font-size:15px;color:var(--ink)">유물 16점 찾기 수사가 끝났어요. 모두 수고했어요, 탐정 여러분! 🕵️</p></header>';
