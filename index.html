@@ -386,8 +386,17 @@ tpic.addEventListener("change",function(){
 });
 
 /* ---------- 공통 ---------- */
+var CLOSED=true; // 미션 1 종료: 학생은 빙고판 대신 종료 화면을 봐요 (선생님 화면은 그대로)
+function renderClosed(){
+  closeOverlays();
+  var h='<header class="ticket"><div class="ticket-top"><div><div class="eyebrow">현장체험학습 · 역사 탐정단</div><h1>수사 지령 1 종료!</h1></div></div><p class="note" style="font-size:15px;color:var(--ink)">유물 16점 찾기 수사가 끝났어요. 모두 수고했어요, 탐정 여러분! 🕵️</p></header>';
+  if(ST)h+=rankingHTML(false);
+  h+='<section class="slip"><h2>🧩 다음 수사: 수사 지령 2</h2><p class="note" style="font-size:14px;color:var(--ink)">우리 모둠이 맡은 시대의 유물을 골라 옛사람들의 삶을 추리해요. 아래 버튼을 눌러 수사 보고서(패들렛)를 써요.</p><a class="btn primary" style="display:block;text-decoration:none" href="https://padlet.com/teacherboong11/padlet-s024p15u433s2ayn5jl7">수사 보고서 쓰러 가기 →</a></section>';
+  app.innerHTML=h;
+}
 function render(){
   if(TEACHER){renderTeacher();return}
+  if(CLOSED){renderClosed();return}
   if(!ST){app.innerHTML='<p class="empty">빙고판을 불러오는 중…</p>';return}
   renderStudent();
 }
