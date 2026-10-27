@@ -1,5 +1,5 @@
 /* 공통: 서버 주소, 선택지, 소리, 통신 */
-var VOTE_API = "";  // Apps Script 웹 앱 주소(…/exec)
+var VOTE_API = "https://script.google.com/macros/s/AKfycbw8TB782By_nQijqxPs7jLLMXAkgD9u-VMzC0bhtk-GaS8_bVUeltdNsTpKaulNq7p5/exec";  // Apps Script 웹 앱 주소(…/exec)
 var N = 22;
 var OPTS = [
   { emo: "🏠", nm: "튼튼한 집",            ds: "비바람과 맹수를 막아 주는", c: "#ff9f43" },
