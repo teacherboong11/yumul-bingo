@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>아주 오래전, 내가 살았다면? · 선생님</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 body{overflow:hidden}
@@ -12,6 +12,8 @@ body{overflow:hidden}
 header{display:flex;align-items:center;justify-content:space-between;gap:16px}
 h1{font-size:clamp(28px,4.4vw,64px)}
 .sub{font-size:clamp(18px,2.2vw,32px);color:var(--gold)}
+.gear.music{color:var(--gold);border-color:var(--gold);font-size:18px}
+.gear.music.on{background:var(--gold);color:#1a1530}
 .gear{background:none;border:2px solid #ffffff33;color:var(--dim);border-radius:12px;font:inherit;font-size:16px;padding:6px 12px;cursor:pointer}
 .opts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1.4vw;flex:1;min-height:0}
 .opt{position:relative;border-radius:24px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 30%,#0000),color-mix(in srgb,var(--c) 10%,#0000));
@@ -73,7 +75,7 @@ dialog .btn{font-size:20px}
 <div class="stage">
   <header>
     <div><h1>아주 오래전, 내가 살았다면?</h1><div class="sub">딱 하나 더 가질 수 있다면, 무엇을 고를까?</div></div>
-    <button class="gear" id="gear" type="button">⚙ 설정</button>
+    <div style="display:flex;gap:10px;flex:none"><button class="gear music" id="music" type="button">🎵 음악 켜기</button><button class="gear" id="gear" type="button">⚙ 설정</button></div>
   </header>
   <main class="opts" id="opts"></main>
   <footer>
@@ -104,7 +106,7 @@ dialog .btn{font-size:20px}
     <div class="row"><button class="btn ghost" value="cancel" type="submit">닫기</button><button class="btn" value="ok" type="submit">저장</button></div>
   </form>
 </dialog>
-<script src="common.js?v=2"></script>
+<script src="common.js?v=3"></script>
 <script>
 (function(){
 "use strict";
@@ -136,7 +138,8 @@ function apply(st){
   ST = st;
   var ph = st.phase;
   if(ph!==lastPhase){
-    if(ph==="vote") { audio(); sfx.start(); }
+    if(ph==="vote") { bgm.stop(); audio(); sfx.start(); }
+    if(ph==="wait" && musicWanted) bgm.start();
     if(ph==="closed" && lastPhase==="vote") flash();
     if(ph==="result" && shownRound!==st.round){ shownRound=st.round; renderAll(true); lastPhase=ph; return; }
     lastPhase=ph; renderAll(false); return;
@@ -270,6 +273,11 @@ function bridge(){
 /* ---------- 설정 ---------- */
 function openSet(){ $("#pin").value=pin; $("#secs").value=SECS; $("#dlg").showModal(); }
 $("#gear").onclick=openSet;
+var musicWanted=true;
+function musicBtn(){ var b=$("#music"), p=bgm.playing()&&ac&&ac.state==="running"; b.classList.toggle("on",p); b.textContent=p?"🎵 음악 끄기":"🎵 음악 켜기"; }
+$("#music").onclick=function(e){ e.stopPropagation(); audio(); if(bgm.playing()&&ac.state==="running"){ musicWanted=false; bgm.stop(); } else { musicWanted=true; if(!ST||ST.phase==="wait") bgm.start(); } musicBtn(); };
+document.addEventListener("pointerdown",function(e){ audio(); if(e.target.closest&&e.target.closest("#music,#gear,dialog")) return; if(musicWanted && !bgm.playing() && (!ST||ST.phase==="wait")){ bgm.start(); musicBtn(); } });
+setInterval(musicBtn,1000);
 $("#setForm").addEventListener("submit",function(e){
   if(e.submitter && e.submitter.value==="ok"){ pin=$("#pin").value.trim(); SECS=Math.min(120,Math.max(5,+$("#secs").value||25)); lsSet("vote.pin",pin); lsSet("vote.secs",SECS); renderFooter(); }
 });
