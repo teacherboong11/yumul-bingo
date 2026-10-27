@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>아주 오래전, 내가 살았다면? · 선생님</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+body{overflow:hidden}
+.stage{position:relative;height:100%;display:flex;flex-direction:column;padding-block:2.2vh 2vh;gap:2vh;max-width:1500px;margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+h1{font-size:clamp(28px,4.4vw,64px)}
+.sub{font-size:clamp(18px,2.2vw,32px);color:var(--gold)}
+.gear{background:none;border:2px solid #ffffff33;color:var(--dim);border-radius:12px;font:inherit;font-size:16px;padding:6px 12px;cursor:pointer}
+.opts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1.4vw;flex:1;min-height:0}
+.opt{position:relative;border-radius:24px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 30%,#0000),color-mix(in srgb,var(--c) 10%,#0000));
+  border:4px solid var(--c);display:flex;flex-direction:column;align-items:center;padding:2vh 10px;gap:1vh;min-height:0;overflow:hidden;
+  box-shadow:0 8px 0 color-mix(in srgb,var(--c) 45%,#000),0 0 40px color-mix(in srgb,var(--c) 30%,#0000);animation:pop .6s cubic-bezier(.3,1.6,.5,1) both}
+.opt:nth-child(2){animation-delay:.08s}.opt:nth-child(3){animation-delay:.16s}.opt:nth-child(4){animation-delay:.24s}.opt:nth-child(5){animation-delay:.32s}
+.opt .no{position:absolute;top:10px;left:14px;font-family:var(--disp);font-size:22px;color:var(--c)}
+.opt .emo{font-size:clamp(48px,7vw,110px);line-height:1;filter:drop-shadow(0 6px 0 #0005);animation:bob 2.4s ease-in-out infinite}
+.opt:nth-child(even) .emo{animation-delay:-1.2s}
+.opt .nm{font-family:var(--disp);font-size:clamp(20px,2.4vw,38px);text-align:center;line-height:1.15;word-break:keep-all}
+.opt .ds{font-size:clamp(14px,1.4vw,22px);color:var(--dim);text-align:center;word-break:keep-all}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-content:flex-start;margin-top:1vh;width:100%}
+.chips .chip{font-size:clamp(20px,2.2vw,34px)}
+.cnt{font-family:var(--disp);font-size:clamp(28px,3.4vw,54px);color:var(--c);margin-top:auto}
+.opt.win{animation:win 1s ease-in-out infinite alternate}
+.opt.win::before{content:"👑";position:absolute;top:-6px;right:12px;font-size:44px;animation:bob 1.2s infinite}
+.opt.click{cursor:pointer}.opt.click:hover{transform:translateY(-4px)}
+footer{display:flex;align-items:center;gap:2vw;flex:none}
+.qr{background:#fff;padding:8px;border-radius:14px;flex:none}
+.qr img,.qr canvas{display:block;width:clamp(90px,13vh,170px)!important;height:auto!important}
+.how{flex:1;min-width:0;font-size:clamp(16px,1.9vw,30px);line-height:1.45}
+.how b{color:var(--gold)}
+.how small{display:block;font-size:.6em;color:var(--dim);word-break:break-all}
+.btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+.timer{position:fixed;inset:0;display:grid;place-items:center;z-index:5;background:#070a1f99}
+.tbox{display:flex;flex-direction:column;align-items:center;gap:3vh}
+.ring{width:min(46vh,46vw);aspect-ratio:1;position:relative;display:grid;place-items:center;background:#0b1030ee;border-radius:50%;box-shadow:0 0 0 10px #ffffff10,0 20px 60px #000a}
+.ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.ring .num{font-family:var(--disp);font-size:min(22vh,22vw);line-height:1;color:var(--gold)}
+.ring.hurry .num{color:var(--hot);animation:thump .5s infinite}
+.ring .lbl{position:absolute;bottom:16%;font-size:min(3.4vh,3vw);color:var(--dim)}
+.dots{display:grid;grid-template-columns:repeat(11,1fr);gap:10px}
+.dot{font-family:var(--disp);width:min(5.4vh,4.4vw);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:min(2.4vh,2vw);
+  background:#ffffff12;color:#ffffff55;border:2px solid #ffffff22;transition:all .25s}
+.dot.on{background:var(--gold);color:#1a1530;border-color:var(--gold);transform:scale(1.12);box-shadow:0 0 18px var(--gold)}
+.voted{font-family:var(--disp);font-size:min(5vh,4vw);color:var(--ink)}
+.voted b{color:var(--gold)}
+.spot{position:fixed;inset:0;z-index:8;background:#070a1fe6;display:grid;place-items:center;padding:4vh max(16px,env(safe-area-inset-right,0px)) 4vh max(16px,env(safe-area-inset-left,0px))}
+.card{max-width:1100px;width:100%;text-align:center;display:flex;flex-direction:column;gap:3vh;align-items:center}
+.card .emo{font-size:min(16vh,20vw);line-height:1}
+.card .q{font-family:var(--disp);font-size:clamp(30px,4.6vw,72px);line-height:1.25;text-wrap:balance}
+.card .q em{font-style:normal;color:var(--gold)}
+.card .who{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.card .who .chip{font-size:clamp(22px,2.6vw,40px)}
+.card .step{font-size:clamp(16px,1.8vw,26px);color:var(--dim)}
+.miss{font-size:clamp(15px,1.6vw,24px);color:var(--dim)}
+.miss b{color:var(--ink)}
+.status{font-size:clamp(14px,1.4vw,20px)}
+dialog{background:var(--sky2);color:var(--ink);border:2px solid #ffffff33;border-radius:18px;padding:22px;width:min(560px,92vw);font-family:var(--body)}
+dialog::backdrop{background:#000a}
+dialog label{display:block;font-size:18px;margin:10px 0 6px}
+dialog input{width:100%;font:inherit;font-size:18px;padding:10px;border-radius:10px;border:2px solid #ffffff33;background:#0b1030;color:var(--ink)}
+dialog .row{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+dialog .btn{font-size:20px}
+@media (max-width:760px){body{overflow:auto}.opts{grid-template-columns:repeat(2,minmax(0,1fr))}.stage{height:auto}footer{flex-wrap:wrap}}
+</style>
+</head><body>
+<canvas id="stars"></canvas>
+<div class="stage">
+  <header>
+    <div><h1>아주 오래전, 내가 살았다면?</h1><div class="sub">딱 하나 더 가질 수 있다면, 무엇을 고를까?</div></div>
+    <button class="gear" id="gear" type="button">⚙ 설정</button>
+  </header>
+  <main class="opts" id="opts"></main>
+  <footer>
+    <div class="qr" id="qr"></div>
+    <div class="how" id="how"></div>
+    <div class="btns" id="btns"></div>
+  </footer>
+</div>
+<div class="timer" id="timer" hidden>
+  <div class="tbox">
+    <div class="ring" id="ring">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#ffffff18" stroke-width="6"/><circle id="arc" cx="50" cy="50" r="46" fill="none" stroke="#ffcc33" stroke-width="6" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0"/></svg>
+      <div class="num" id="num">25</div><div class="lbl">초 남았어요</div>
+    </div>
+    <div class="voted" id="voted"></div>
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+<div class="flash" id="flash" hidden><span>땡!</span></div>
+<div class="spot" id="spot" hidden><div class="card" id="card"></div></div>
+<dialog id="dlg">
+  <form method="dialog" id="setForm">
+    <div style="font-family:var(--disp);font-size:24px">선생님 설정</div>
+    <label for="pin">선생님 PIN</label>
+    <input id="pin" type="password" inputmode="numeric" autocomplete="off">
+    <label for="secs">고르는 시간 (초)</label>
+    <input id="secs" type="number" min="5" max="120" value="25">
+    <div class="row"><button class="btn ghost" value="cancel" type="submit">닫기</button><button class="btn" value="ok" type="submit">저장</button></div>
+  </form>
+</dialog>
+<script src="common.js"></script>
+<script>
+(function(){
+"use strict";
+stars(document.getElementById("stars"));
+var STUDENT_URL = location.href.replace(/board\.html.*$/,"").replace(/[?#].*$/,"");
+var pin = lsGet("vote.pin",""), SECS = +lsGet("vote.secs",25) || 25;
+var ST = null, lastPhase = null, shownRound = null, ticker = null, busy = false;
+
+function mk(cls,txt,fn){ var b=document.createElement("button"); b.type="button"; b.className=cls; b.textContent=txt; b.onclick=fn; return b; }
+function say(msg,err){ var s=$("#st"); if(s){ s.className="status"+(err?" err":""); s.textContent=msg||""; } }
+
+/* ---------- 서버 ---------- */
+function poll(){
+  var t=Date.now();
+  gs("state").then(function(st){ syncClock(st,t); apply(st); }, function(e){ say(errMsg(e),true); })
+    .then(function(){ setTimeout(poll, ST && ST.phase==="vote" ? 800 : 1500); });
+}
+function act(fn,extra){
+  if(busy) return; if(!pin){ openSet(); return; }
+  busy=true; var a={pin:pin}; for(var k in extra) a[k]=extra[k];
+  var t=Date.now();
+  return gs(fn,a).then(function(st){ syncClock(st,t); apply(st); }, function(e){ say(errMsg(e),true); if(/PIN/.test(errMsg(e))) openSet(); })
+    .then(function(){ busy=false; });
+}
+
+/* ---------- 화면 ---------- */
+function apply(st){
+  if(st.phase==="vote" && serverNow()>=st.endsAt) st.phase="closed";
+  ST = st;
+  var ph = st.phase;
+  if(ph!==lastPhase){
+    if(ph==="vote") { audio(); sfx.start(); }
+    if(ph==="closed" && lastPhase==="vote") flash();
+    if(ph==="result" && shownRound!==st.round){ shownRound=st.round; renderAll(true); lastPhase=ph; return; }
+    lastPhase=ph; renderAll(false); return;
+  }
+  if(ph==="vote") updateDots();
+  if(ph==="closed" || ph==="wait") { var c=$("#cntline"); if(c) c.innerHTML=countLine(); }
+}
+function countLine(){ return ST ? "골라서 올린 친구 <b>"+ST.count+"</b> / "+N+"명" : ""; }
+
+function byOpt(){
+  var by = OPTS.map(function(){return [];});
+  var v = (ST && ST.votes) || {};
+  Object.keys(v).forEach(function(n){ var k=+v[n]; if(by[k]) by[k].push(+n); });
+  by.forEach(function(a){ a.sort(function(x,y){return x-y;}); });
+  return by;
+}
+function renderOpts(withRes, animate){
+  var box=$("#opts"); box.innerHTML="";
+  var by = withRes ? byOpt() : null;
+  var max = by ? Math.max.apply(null, by.map(function(a){return a.length;})) : 0;
+  OPTS.forEach(function(o,i){
+    var d=document.createElement("div"); d.className="opt"; d.style.setProperty("--c",o.c);
+    d.innerHTML='<div class="no">'+(i+1)+'</div><div class="emo">'+o.emo+'</div><div class="nm">'+o.nm+'</div><div class="ds">'+o.ds+'</div>';
+    if(by){
+      var ch=document.createElement("div"); ch.className="chips"; d.appendChild(ch);
+      var cnt=document.createElement("div"); cnt.className="cnt"; d.appendChild(cnt);
+      if(!animate){ by[i].forEach(function(n){ var c=document.createElement("span"); c.className="chip"; c.textContent=n; ch.appendChild(c); }); cnt.textContent=by[i].length+"명"; if(max>0&&by[i].length===max) d.classList.add("win"); }
+      else { cnt.textContent="0명"; d.dataset.win = (max>0&&by[i].length===max) ? "1":""; }
+      d.classList.add("click"); d.tabIndex=0; d.setAttribute("role","button");
+      d.onclick=d.onkeydown=function(e){ if(e.type==="keydown"&&e.key!=="Enter"&&e.key!==" ") return; sfx.click(); spotlight(i,by[i]); };
+    }
+    box.appendChild(d);
+  });
+  if(by && animate) animateChips(by);
+}
+function animateChips(by){
+  var cards=[].slice.call(document.querySelectorAll(".opt"));
+  var q=[]; by.forEach(function(a,i){ a.forEach(function(n){ q.push([i,n]); }); });
+  q.sort(function(){return Math.random()-.5;});
+  var counts=OPTS.map(function(){return 0;});
+  sfx.roll();
+  q.forEach(function(p,j){ setTimeout(function(){
+    var i=p[0],n=p[1],c=cards[i],box=c.querySelector(".chips");
+    var el=document.createElement("span"); el.className="chip"; el.textContent=n;
+    var nums=[].map.call(box.children,function(x){return +x.textContent;}); nums.push(n); nums.sort(function(a,b){return a-b;});
+    box.insertBefore(el, box.children[nums.indexOf(n)]||null);
+    counts[i]++; c.querySelector(".cnt").textContent=counts[i]+"명"; sfx.blip(j);
+  }, 1300 + j*170); });
+  setTimeout(function(){ cards.forEach(function(c){ if(c.dataset.win) c.classList.add("win"); }); if(q.length) sfx.fan(); }, 1500 + q.length*170);
+}
+function renderFooter(){
+  var ph = ST ? ST.phase : "wait", how=$("#how"), btns=$("#btns"), qr=$("#qr");
+  btns.innerHTML=""; qr.innerHTML=""; qr.hidden = (ph==="result");
+  if(!qr.hidden && window.QRCode){ try{ new QRCode(qr,{text:STUDENT_URL,width:300,height:300,correctLevel:QRCode.CorrectLevel.M}); }catch(e){} }
+  $("#timer").hidden = (ph!=="vote");
+  if(ph==="vote"){ startTicker(); } else { clearInterval(ticker); }
+  if(!VOTE_API){ how.innerHTML='투표 서버 주소가 아직 없어요.<div class="status err" id="st"></div>'; return; }
+  if(ph==="wait"){
+    how.innerHTML='<b>QR을 찍고</b> 내 번호를 눌러 기다려요.<br>선생님이 시작하면 <b>'+SECS+'초</b> 안에 골라요!<small>'+esc(STUDENT_URL)+'</small><div class="status" id="st"></div>';
+    btns.append(mk("btn","시작! ("+SECS+"초)",function(){ act("start",{secs:SECS}); }));
+  } else if(ph==="vote"){
+    how.innerHTML='지금 고르는 중!<div class="status" id="st"></div>';
+  } else if(ph==="closed"){
+    how.innerHTML='시간 끝! <span id="cntline">'+countLine()+'</span><div class="status" id="st"></div>';
+    btns.append(mk("btn ghost","다시 하기",function(){ act("start",{secs:SECS}); }), mk("btn red","결과 보기",function(){ act("reveal"); }));
+  } else if(ph==="result"){
+    var got={}; Object.keys(ST.votes||{}).forEach(function(n){got[n]=1;});
+    var miss=[]; for(var i=1;i<=N;i++) if(!got[i]) miss.push(i);
+    how.innerHTML='<div class="miss">물건을 누르면 고른 친구가 나와요. '+(miss.length?'· 안 고른 번호: <b>'+miss.join(", ")+'</b>':'· 22명 모두 골랐어요! 🎉')+'</div><div class="status" id="st"></div>';
+    btns.append(mk("btn ghost","처음으로",function(){ act("reset"); }), mk("btn","그럼 옛날 사람들은?",bridge));
+  }
+}
+function renderAll(animate){ renderOpts(ST && ST.phase==="result", animate); renderFooter(); }
+
+/* ---------- 카운트다운 ---------- */
+function startTicker(){
+  var num=$("#num"), arc=$("#arc"), ring=$("#ring"), last=-1;
+  var total = Math.max(1,(ST.endsAt-ST.round)/1000);
+  buildDots(); updateDots();
+  clearInterval(ticker);
+  ticker=setInterval(function(){
+    var left=Math.max(0,(ST.endsAt-serverNow())/1000), s=Math.ceil(left);
+    num.textContent=s; arc.style.strokeDashoffset=100-left/total*100;
+    arc.style.stroke = s<=5 ? "#ff5a5f" : "#ffcc33";
+    ring.classList.toggle("hurry", s<=5);
+    if(s!==last){ last=s; if(s>0){ s<=5 ? sfx.hurry() : sfx.tick(); } }
+    if(left<=0){ clearInterval(ticker); ST.phase="closed"; lastPhase="closed"; flash(); renderAll(false); }
+  },50);
+}
+function buildDots(){ var d=$("#dots"); if(d.children.length) return; for(var i=1;i<=N;i++){ var e=document.createElement("div"); e.className="dot"; e.textContent=i; d.appendChild(e); } }
+var seen={};
+function updateDots(){
+  var on={}; (ST.voted||[]).forEach(function(n){on[n]=1;});
+  [].forEach.call($("#dots").children,function(el,i){ var n=i+1; if(on[n]&&!seen[n]) sfx.blip(n); el.classList.toggle("on",!!on[n]); });
+  seen=on;
+  $("#voted").innerHTML=countLine();
+}
+function flash(){ audio(); sfx.buzz(); var f=$("#flash"); f.hidden=false; var sp=f.firstElementChild; sp.style.animation="none"; void sp.offsetHeight; sp.style.animation=""; setTimeout(function(){f.hidden=true;},1300); }
+
+/* ---------- 발문 카드 ---------- */
+function slides(list){
+  var step=0;
+  function draw(){
+    var s=list[step];
+    $("#card").innerHTML=(s.emo?'<div class="emo">'+s.emo+'</div>':'')+(s.who||'')+'<div class="q">'+s.q+'</div><div class="step">'+(step+1)+' / '+list.length+'</div>';
+    var row=document.createElement("div"); row.className="btns"; row.style.justifyContent="center";
+    if(step<list.length-1) row.append(mk("btn","다음",function(){ step++; step===list.length-1&&list.fanLast?sfx.fan():sfx.click(); draw(); }));
+    row.append(mk("btn ghost","닫기",function(){ $("#spot").hidden=true; }));
+    $("#card").append(row);
+  }
+  draw(); $("#spot").hidden=false;
+}
+function spotlight(i,nums){
+  var o=OPTS[i];
+  var who='<div class="who">'+(nums.length?nums.map(function(n){return '<span class="chip" style="--c:'+o.c+'">'+n+'</span>';}).join(""):'<span class="step">아무도 안 골랐어요</span>')+'</div>';
+  slides([
+    {emo:o.emo,who:who,q:'<em>'+o.nm+'</em>'+josa(o.nm)+' 고른 친구!<br>왜 골랐나요?'},
+    {emo:o.emo,who:who,q:'그 이유는<br>어떤 <em>마음</em>일까?'},
+    {emo:o.emo,who:who,q:'그럼 이 친구는<br>무엇을 <em>중요하게 여기는</em> 사람일까?'}
+  ]);
+}
+function bridge(){
+  var l=[
+    {emo:"🗣️",q:'오늘 우리는 고른 <em>이유</em>를<br>말로 설명할 수 있었어요.'},
+    {emo:"🤐",q:'그런데 수천 년 전 사람들은<br>이유를 <em>말해 줄 수 없어요</em>.'},
+    {emo:"🏺",q:'우리에게 남은 건 무엇일까?<br>바로 <em>그들이 남긴 물건, 유물!</em>'},
+    {emo:"🔍",q:'유물에는 과거 사람들의<br>어떤 <em>생각과 가치</em>가 담겨 있을까?'}
+  ]; l.fanLast=true; slides(l);
+}
+
+/* ---------- 설정 ---------- */
+function openSet(){ $("#pin").value=pin; $("#secs").value=SECS; $("#dlg").showModal(); }
+$("#gear").onclick=openSet;
+$("#setForm").addEventListener("submit",function(e){
+  if(e.submitter && e.submitter.value==="ok"){ pin=$("#pin").value.trim(); SECS=Math.min(120,Math.max(5,+$("#secs").value||25)); lsSet("vote.pin",pin); lsSet("vote.secs",SECS); renderFooter(); }
+});
+addEventListener("keydown",function(e){ if(e.key==="Escape") $("#spot").hidden=true; });
+
+renderAll(false);
+if(!pin) openSet();
+poll();
+})();
+</script>
+</body></html>
