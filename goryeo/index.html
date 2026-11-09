@@ -3,308 +3,402 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>고려 방탈출</title>
+<title>고려 방탈출: 잠긴 개경의 집</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Myeongjo:wght@700;800&family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#10201c;--bg2:#1a332d;--ink:#fbf4e4;--dim:#b9c9c1;--cel:#6fc2a6;--cel2:#3f8f78;--gold:#f2c14e;--red:#ff6b5e;--paper:#fbf4e4;--paperInk:#2a2420;
---disp:"Black Han Sans","Jua",system-ui,sans-serif;--body:"Jua",system-ui,sans-serif;--read:"Gowun Dodum","Jua",system-ui,sans-serif;color-scheme:dark}
+:root{--bg:#07080a;--ink:#efe6d2;--dim:#9a9283;--gold:#d9b25f;--blood:#a8322b;--jade:#7fbfaa;--paper:#e9dfc8;--paperInk:#2a2118;
+--disp:"Nanum Myeongjo","Black Han Sans",serif;--title:"Black Han Sans","Nanum Myeongjo",serif;--read:"Gowun Dodum",system-ui,sans-serif;color-scheme:dark}
 *{box-sizing:border-box}[hidden]{display:none!important}
 html,body{margin:0;min-height:100%}
-body{background:radial-gradient(1100px 700px at 50% -10%,var(--bg2),var(--bg) 70%) fixed var(--bg);color:var(--ink);font-family:var(--body);
-  padding:0 max(16px,env(safe-area-inset-left)) 40px;-webkit-tap-highlight-color:transparent;font-size:18px}
-.wrap{max-width:900px;margin:0 auto}
-header{display:flex;align-items:center;gap:10px;padding:14px 0 6px}
-header .logo{font-family:var(--disp);font-size:24px;color:var(--gold);letter-spacing:1px;cursor:pointer}
-header .keys{margin-left:auto;display:flex;gap:4px;font-size:20px}
-header .keys span{opacity:.22;filter:grayscale(1);transition:.3s}header .keys span.on{opacity:1;filter:none}
-.icon{background:#ffffff14;border:0;color:var(--ink);border-radius:12px;width:40px;height:40px;font-size:18px;cursor:pointer}
-h1{font-family:var(--disp);font-weight:400;margin:0;font-size:clamp(34px,7vw,64px);line-height:1.15;text-wrap:balance;
-  background:linear-gradient(180deg,#fff 30%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #0007)}
-h2{font-family:var(--disp);font-weight:400;font-size:clamp(24px,4.5vw,36px);margin:6px 0 10px;color:var(--gold)}
-p{line-height:1.6;margin:.4em 0}
-.btn{font-family:var(--disp);border:0;border-radius:18px;padding:.55em 1.2em;cursor:pointer;color:#14231f;background:var(--gold);box-shadow:0 6px 0 #a98318;font-size:22px;transition:transform .08s;touch-action:manipulation}
-.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #a98318}
-.btn.cel{background:var(--cel);box-shadow:0 6px 0 var(--cel2)}
-.btn.ghost{background:#ffffff1c;color:var(--ink);box-shadow:0 6px 0 #0006}
-.btn:disabled{opacity:.45}
-button:focus-visible{outline:4px solid #fff;outline-offset:3px}
+body{background:#07080a;color:var(--ink);font-family:var(--read);font-size:18px;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;background:radial-gradient(ellipse at center,transparent 55%,#000c 100%)}
+body::after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:61;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(4) infinite}
+@keyframes grain{25%{transform:translate(3%,-2%)}50%{transform:translate(-2%,3%)}75%{transform:translate(2%,2%)}}
+.wrap{max-width:980px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left)) 60px}
+header{display:flex;align-items:center;gap:10px;padding:12px 0 6px;position:sticky;top:0;z-index:30;background:linear-gradient(#07080a,#07080ad0 80%,transparent)}
+header .logo{font-family:var(--title);font-size:22px;color:var(--gold);letter-spacing:2px;cursor:pointer;text-shadow:0 0 12px #d9b25f55}
+header .keys{margin-left:auto;display:flex;gap:3px;font-size:18px}
+header .keys span{opacity:.18;filter:grayscale(1);transition:.4s}header .keys span.on{opacity:1;filter:drop-shadow(0 0 6px #d9b25f)}
+.icon{background:#ffffff10;border:1px solid #ffffff22;color:var(--ink);border-radius:10px;height:40px;min-width:40px;font-size:17px;cursor:pointer;font-family:var(--read);padding:0 10px}
+h1{font-family:var(--title);font-weight:400;margin:0;font-size:clamp(36px,8vw,72px);letter-spacing:3px;color:#e8d6a8;text-shadow:0 0 30px #a8322b88,0 4px 0 #000;animation:flick 6s infinite}
+@keyframes flick{0%,100%{opacity:1}93%{opacity:1}94%{opacity:.4}95%{opacity:1}97%{opacity:.6}98%{opacity:1}}
+h2{font-family:var(--disp);font-weight:800;font-size:clamp(24px,4.5vw,34px);margin:8px 0 6px;color:#e8d6a8;letter-spacing:1px}
+p{line-height:1.7;margin:.4em 0}
+.dim{color:var(--dim)}
+.btn{font-family:var(--disp);font-weight:800;border:1px solid #d9b25f88;border-radius:6px;padding:.6em 1.3em;cursor:pointer;color:#1a1208;background:linear-gradient(#e7c574,#b98d3c);box-shadow:0 0 18px #d9b25f44,0 4px 0 #5c4316;font-size:21px;letter-spacing:1px;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #5c4316}
+.btn.dark{background:#1b1a17;color:var(--ink);border-color:#ffffff33;box-shadow:0 4px 0 #000}
+.btn:disabled{opacity:.4}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
 .center{text-align:center}
-.story{background:#0006;border-radius:20px;padding:18px 20px;margin:18px 0;font-family:var(--read);font-size:19px;line-height:1.8}
-.memo{display:flex;gap:12px;align-items:flex-start;background:#fff4c9;color:#3b2f10;border-radius:16px;padding:14px 16px;margin:14px 0;box-shadow:0 5px 0 #0006;font-size:19px;line-height:1.6;animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
-.memo .pen{font-size:30px;line-height:1}.memo b{color:#9a3d00}
-.doors{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:10px}
-.door{position:relative;border:0;cursor:pointer;border-radius:18px 18px 8px 8px;padding:16px 8px 12px;min-height:140px;background:linear-gradient(180deg,#6b4a2f,#4a3220);color:#fbe9cf;box-shadow:inset 0 0 0 4px #00000033,0 7px 0 #0008;font-family:var(--body);display:flex;flex-direction:column;align-items:center;gap:6px;transition:transform .15s}
-.door:hover{transform:translateY(-3px)}
-.door.gem{background:linear-gradient(180deg,#2f6b5f,#1d4a40)}
-.door .e{font-size:42px}.door .n{font-size:18px;text-align:center}.door .lk{position:absolute;top:8px;right:10px;font-size:18px}
-.door .s{font-size:13px;opacity:.8}
-.door.done{background:linear-gradient(180deg,var(--cel),var(--cel2));color:#08251d;cursor:default}
-.secT{font-family:var(--disp);color:var(--dim);font-size:18px;margin:18px 0 0}
-.clues{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
-@media (max-width:680px){.clues{grid-template-columns:1fr}}
-.card{background:var(--paper);color:var(--paperInk);border-radius:18px;padding:16px 18px;box-shadow:0 7px 0 #0007;transition:.3s}
-.card .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:#7a6a5a;font-size:14px}
-.card .tag{background:#2a2420;color:#fbf4e4;border-radius:999px;padding:2px 10px;font-size:13px}
-.card .no{background:var(--gold);color:#2a2420;border-radius:999px;padding:2px 10px;font-size:13px}
-.card h3{font-family:var(--disp);font-weight:400;font-size:23px;margin:6px 0 4px}
-.card .tx{font-family:var(--read);font-size:18px;line-height:1.8}
-.card .find{margin-top:8px;font-size:14px;color:#7a6a5a}
-.card.glow{box-shadow:0 0 0 5px var(--gold),0 7px 0 #0007}
-.lock{margin-top:16px;background:#0007;border-radius:20px;padding:18px}
-.lock .h{font-family:var(--disp);font-size:22px;color:var(--gold);margin-bottom:8px}
-.opts{display:grid;gap:10px}
-.opt{border:0;cursor:pointer;text-align:left;border-radius:14px;padding:14px 16px;font-family:var(--read);font-size:19px;background:#ffffff18;color:var(--ink);box-shadow:0 4px 0 #0006;touch-action:manipulation}
-.opt.no{background:#ff6b5e44;animation:shake .4s}.opt.ok{background:var(--cel);color:#08251d}
-.hint{color:#ffb0a8;min-height:1.6em;margin-top:8px;font-size:17px}
-.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
-.secret{background:#3b1f2a;border:2px dashed #ff9fb0;border-radius:16px;padding:14px 16px;margin-top:14px;font-family:var(--read);font-size:19px;line-height:1.7;animation:pop .5s both}
-.secret b{color:#ffd3dc}
-/* print game */
-.stage{background:#0007;border-radius:20px;padding:18px;margin-top:12px;text-align:center}
-.board{width:min(420px,90%);margin:12px auto;height:130px;border-radius:12px;background:linear-gradient(135deg,#c79a63,#9c7040);position:relative;overflow:hidden;box-shadow:inset 0 0 0 5px #6b4a2f}
-.board .carv{position:absolute;inset:0;background:repeating-linear-gradient(90deg,#3b2414 0 6px,transparent 6px 18px);clip-path:inset(0 100% 0 0);transition:clip-path .15s}
-.bar{height:16px;border-radius:9px;background:#ffffff22;overflow:hidden;width:min(420px,90%);margin:8px auto}
-.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .15s}
-.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:12px 0}
-.tile{border:0;cursor:pointer;width:62px;height:62px;border-radius:10px;font-family:var(--disp);font-size:30px;background:linear-gradient(180deg,#b9b9b0,#7c7c74);color:#1d1d1a;box-shadow:0 5px 0 #44443f;touch-action:manipulation}
-.tile.used{opacity:.25}.tile.no{animation:shake .4s;background:#ff8f86}
-.slots{display:flex;gap:8px;justify-content:center;margin:10px 0;min-height:66px;flex-wrap:wrap}
-.slot{width:62px;height:62px;border-radius:10px;border:3px dashed #ffffff44;display:grid;place-items:center;font-family:var(--disp);font-size:30px}
-.slot.f{border:3px solid var(--gold);background:#f2c14e22;color:var(--gold)}
-.book{display:inline-block;background:var(--paper);color:var(--paperInk);border-radius:6px 12px 12px 6px;padding:6px 12px;margin:4px;font-family:var(--read);font-size:16px;box-shadow:0 4px 0 #0007}
-.fact{background:var(--paper);color:var(--paperInk);border-radius:18px;padding:16px 18px;margin-top:12px;font-family:var(--read);font-size:19px;line-height:1.8;text-align:left}
-.fact b{color:#9a3d00}
-.big{font-family:var(--disp);font-size:40px;color:var(--gold)}
-/* kiln */
-.steps{display:grid;gap:10px;max-width:520px;margin:10px auto}
-.therm{width:min(460px,92%);height:44px;margin:16px auto 6px;border-radius:22px;background:linear-gradient(90deg,#3a6ea5 0%,#e0a040 50%,#ff3b2f 100%);position:relative;box-shadow:inset 0 0 0 3px #0006}
-.therm .zone{position:absolute;top:-6px;bottom:-6px;border:3px solid #fff;border-radius:10px;background:#ffffff26}
-.therm .needle{position:absolute;top:-10px;width:6px;height:64px;background:#fff;border-radius:3px;box-shadow:0 0 8px #000}
-.temp{font-family:var(--disp);font-size:30px}
-.fire{font-size:56px;line-height:1;height:110px;display:flex;align-items:flex-end;justify-content:center;overflow:visible}.fire span{display:inline-block;transform-origin:50% 100%;transition:transform .1s}
-/* final */
-.keyrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0}
-.kk{background:var(--paper);color:var(--paperInk);border-radius:14px;padding:8px 12px;font-size:16px;box-shadow:0 4px 0 #0007;text-align:center}
-.kk b{display:block;font-size:22px}
-.cho{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;font-family:var(--disp);font-size:30px;margin:14px 0}
-.cho input{font-family:var(--disp);font-size:30px;width:170px;text-align:center;border-radius:14px;border:3px solid var(--gold);background:#0006;color:var(--ink);padding:6px}
-.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.pk{border:0;cursor:pointer;border-radius:14px;padding:12px;font-family:var(--body);font-size:18px;background:#ffffff18;color:var(--ink);box-shadow:0 4px 0 #0006}
-.pk.sel{background:var(--gold);color:#14231f}.pk.no{animation:shake .4s;background:#ff6b5e55}.pk.ok{background:var(--cel);color:#08251d}
-.frame{background:#fff4c9;color:#3b2f10;border-radius:16px;padding:16px;font-size:21px;line-height:2;font-family:var(--read)}
-.frame u{text-decoration:none;border-bottom:3px solid #9a3d00;padding:0 30px}
-.bigdoor{font-size:110px;text-align:center;margin:10px 0;animation:bob 2s ease-in-out infinite}
-.flash{position:fixed;inset:0;display:grid;place-items:center;z-index:50;pointer-events:none}
-.flash span{font-family:var(--disp);font-size:min(20vh,22vw);color:var(--gold);text-shadow:0 8px 0 #0009;animation:slam .9s cubic-bezier(.2,1.6,.4,1) both}
-.modal{position:fixed;inset:0;background:#000a;display:grid;place-items:center;z-index:40;padding:16px}
-.modal .box{background:var(--paper);color:var(--paperInk);border-radius:20px;padding:22px;max-width:480px;width:100%;text-align:center;font-size:20px;animation:pop .35s both}
-.foot{margin-top:28px;text-align:center}
-.foot button{background:none;border:0;color:#ffffff55;font-family:var(--body);font-size:15px;cursor:pointer;text-decoration:underline}
-canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:45}
-@keyframes pop{from{transform:scale(.8) translateY(20px);opacity:0}}
-@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-@keyframes bob{50%{transform:translateY(-10px)}}
+.story{border:1px solid #ffffff1a;background:#0f0e0ccc;border-radius:6px;padding:20px 22px;margin:18px 0;font-size:19px;line-height:1.95;min-height:220px;white-space:pre-wrap}
+.story b{color:var(--gold)}
+.cursor::after{content:"▌";animation:blink 1s steps(1) infinite;color:var(--gold)}@keyframes blink{50%{opacity:0}}
+/* map */
+.house{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:8px}
+.door{position:relative;border:1px solid #ffffff1c;cursor:pointer;border-radius:4px;padding:16px 8px 12px;min-height:150px;background:radial-gradient(circle at 50% 30%,#2a231b,#0e0c0a);color:#d7c9a8;font-family:var(--disp);font-weight:800;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:inset 0 0 30px #000;transition:.25s}
+.door:hover{border-color:#d9b25f88;box-shadow:inset 0 0 30px #000,0 0 18px #d9b25f33}
+.door .e{font-size:42px;filter:grayscale(.6) brightness(.8)}.door .n{font-size:18px;text-align:center}.door .lk{position:absolute;top:8px;right:10px;font-size:18px}
+.door .s{font-family:var(--read);font-size:13px;color:var(--gold)}
+.door.done{border-color:#7fbfaa88}.door.done .e{filter:none}
+.door.gem{background:radial-gradient(circle at 50% 30%,#163029,#07110e)}
+.secT{font-family:var(--disp);font-weight:800;color:var(--dim);font-size:17px;margin:20px 0 0;letter-spacing:1px}
+/* scene */
+.scene{position:relative;height:min(62vh,560px);border-radius:6px;overflow:hidden;border:1px solid #ffffff14;touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.scene .bgdeco{position:absolute;font-size:90px;opacity:.5;filter:grayscale(.5) brightness(.6);pointer-events:none}
+.scene .obj{position:absolute;transform:translate(-50%,-50%);font-size:46px;filter:brightness(.55) saturate(.6);transition:filter .3s,transform .3s;pointer-events:none}
+.scene .obj.found{opacity:.15;filter:grayscale(1)}
+.scene .obj.hint{animation:hint 1s ease-in-out infinite}
+@keyframes hint{50%{transform:translate(-50%,-50%) scale(1.25);filter:brightness(1.4) drop-shadow(0 0 14px #fff)}}
+.scene .dark{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle var(--r,95px) at var(--x,50%) var(--y,50%),transparent 0,transparent 60%,#000000d9 85%,#000f 100%)}
+.scene .tip{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-size:15px;color:#cfc3a6aa;pointer-events:none}
+.found{color:var(--gold)}
+.count{font-family:var(--disp);font-weight:800;color:var(--gold)}
+/* discovery modal */
+.modal{position:fixed;inset:0;background:#000d;display:grid;place-items:center;z-index:50;padding:14px;animation:fade .3s both}
+@keyframes fade{from{opacity:0}}
+.disc{background:var(--paper);color:var(--paperInk);border-radius:4px;max-width:620px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 0 60px #d9b25f44;animation:pop .45s cubic-bezier(.3,1.5,.5,1) both;position:relative}
+.disc::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 30% 0,#fff6,transparent 60%),linear-gradient(transparent 85%,#c9b48a55)}
+.disc .hd{font-family:var(--disp);font-weight:800;font-size:23px;padding:16px 18px 6px;color:#7a1f1a}
+.disc img{display:block;width:100%;max-height:300px;object-fit:contain;background:#1b1813}
+.disc .bd{padding:12px 18px 18px;font-size:18px;line-height:1.75}
+.disc .src{font-size:13px;color:#7b6c55;padding:4px 18px 0}
+.piece{margin-top:12px;border:2px dashed #7a1f1a;border-radius:4px;padding:10px 12px;background:#f6efdd;font-size:18px}
+.piece b{color:#7a1f1a}
+.box{background:var(--paper);color:var(--paperInk);border-radius:4px;padding:20px;max-width:480px;width:100%;text-align:center;font-size:19px;animation:pop .35s both}
+@keyframes pop{from{transform:scale(.85) translateY(16px);opacity:0}}
+/* lock */
+.lock{margin-top:16px;border:1px solid #d9b25f55;background:linear-gradient(#17140f,#0c0b09);border-radius:6px;padding:18px;box-shadow:inset 0 0 40px #000}
+.lock .h{font-family:var(--disp);font-weight:800;font-size:22px;color:var(--gold);margin-bottom:8px}
+.cards{display:grid;gap:10px}
+.tile{border:1px solid #ffffff2a;cursor:pointer;text-align:left;border-radius:4px;padding:13px 15px;font-family:var(--read);font-size:18px;background:#ffffff0c;color:var(--ink);touch-action:manipulation}
+.tile.sel{border-color:var(--gold);background:#d9b25f22}.tile.ok{border-color:var(--jade);background:#7fbfaa30}.tile.no{animation:shake .4s;border-color:var(--blood);background:#a8322b33}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.slots{display:grid;gap:8px;margin:10px 0}
+.slot{border:1px dashed #d9b25f77;border-radius:4px;padding:12px;min-height:50px;display:flex;align-items:center;gap:10px;font-size:18px}
+.slot .n{font-family:var(--disp);font-weight:800;color:var(--gold);min-width:56px}
+.pyr .slot:nth-child(1){margin:0 26%}.pyr .slot:nth-child(2){margin:0 17%}.pyr .slot:nth-child(3){margin:0 8%}
+.match{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin:8px 0}
+.match .q{font-size:18px}
+.seg{display:flex;gap:6px}
+.seg button{border:1px solid #ffffff2a;background:#ffffff0c;color:var(--ink);border-radius:4px;padding:9px 12px;font-family:var(--read);font-size:17px;cursor:pointer}
+.seg button.sel{border-color:var(--gold);background:#d9b25f2a}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.bin{border:1px dashed #d9b25f77;border-radius:4px;min-height:120px;padding:10px;cursor:pointer}
+.bin h4{margin:0 0 6px;font-family:var(--disp);color:var(--gold)}
+.chip{display:inline-block;border:1px solid #ffffff33;border-radius:999px;padding:7px 13px;margin:4px;font-size:17px;background:#ffffff10;cursor:pointer;color:var(--ink);font-family:var(--read)}
+.chip.sel{border-color:var(--gold);background:#d9b25f33}.chip.no{animation:shake .4s;border-color:var(--blood)}
+.hint{color:#e48f86;min-height:1.6em;margin-top:8px;font-size:16px}
+.memo{display:flex;gap:12px;align-items:flex-start;background:#e9dfc8;color:#2a2118;border-radius:3px;padding:14px 16px;margin:14px 0;font-size:18px;line-height:1.65;box-shadow:0 0 30px #d9b25f33;animation:pop .45s both;transform:rotate(-.4deg)}
+.memo .pen{font-size:28px;line-height:1}.memo b{color:#7a1f1a}
+/* notebook */
+.nb{max-width:720px}
+.nbroom{margin:12px 0}
+.nbroom h4{font-family:var(--disp);margin:6px 0;color:#7a1f1a}
+.nbp{display:flex;gap:10px;align-items:flex-start;border-bottom:1px dashed #b9a57f;padding:8px 0;font-size:16px;line-height:1.6}
+.nbp img{width:64px;height:64px;object-fit:cover;border-radius:3px;flex:none;background:#2a2118}
+.nbp .em{width:64px;height:64px;display:grid;place-items:center;font-size:34px;flex:none;background:#2a211811;border-radius:3px}
+/* video/game */
+.vid{position:relative;padding-top:56.25%;border-radius:6px;overflow:hidden;border:1px solid #ffffff22;background:#000;margin-top:10px}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.stage{border:1px solid #ffffff1a;background:#0f0e0c;border-radius:6px;padding:18px;margin-top:12px;text-align:center}
+.tray{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
+.type{border:0;cursor:pointer;width:60px;height:60px;border-radius:6px;font-family:var(--title);font-size:28px;background:linear-gradient(180deg,#8b8577,#4e4a42);color:#121110;box-shadow:inset 0 0 0 2px #00000055,0 4px 0 #222;touch-action:manipulation}
+.type.used{opacity:.25}.type.no{animation:shake .4s;background:#a8322b}
+.tslots{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.tslot{width:60px;height:60px;border-radius:6px;border:2px dashed #ffffff33;display:grid;place-items:center;font-family:var(--title);font-size:28px}
+.tslot.f{border:2px solid var(--gold);color:var(--gold);background:#d9b25f15}
+.therm{width:min(460px,92%);height:40px;margin:16px auto 6px;border-radius:20px;background:linear-gradient(90deg,#2b4a6a 0%,#c8822e 50%,#ff3b2f 100%);position:relative;box-shadow:inset 0 0 0 2px #0008}
+.therm .zone{position:absolute;top:-6px;bottom:-6px;border:3px solid #fff;border-radius:8px;background:#ffffff22}
+.therm .needle{position:absolute;top:-10px;width:6px;height:60px;background:#fff;border-radius:3px;box-shadow:0 0 8px #000}
+.bar{height:12px;border-radius:6px;background:#ffffff18;overflow:hidden;width:min(420px,90%);margin:8px auto}.bar i{display:block;height:100%;width:0;background:var(--gold)}
+.fire{height:100px;display:flex;align-items:flex-end;justify-content:center;font-size:52px}.fire span{display:inline-block;transform-origin:50% 100%}
+.cho{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;font-family:var(--title);font-size:30px;margin:14px 0}
+.cho input{font-family:var(--title);font-size:30px;width:170px;text-align:center;border-radius:4px;border:2px solid var(--gold);background:#000;color:var(--ink);padding:6px}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.keyrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
+.kk{border:1px solid #d9b25f55;border-radius:4px;padding:8px 12px;font-size:15px;text-align:center;background:#d9b25f12}.kk b{display:block;font-family:var(--disp);font-size:20px;color:var(--gold)}
+.frame{background:#e9dfc8;color:#2a2118;border-radius:3px;padding:16px;font-size:20px;line-height:2.1}
+.frame u{text-decoration:none;border-bottom:2px solid #7a1f1a;padding:0 34px}
+.flash{position:fixed;inset:0;display:grid;place-items:center;z-index:70;pointer-events:none}
+.flash span{font-family:var(--title);font-size:min(18vh,20vw);color:#e8d6a8;text-shadow:0 0 40px #a8322b,0 6px 0 #000;animation:slam .9s cubic-bezier(.2,1.6,.4,1) both}
 @keyframes slam{from{transform:scale(3);opacity:0}60%{opacity:1}to{transform:scale(1)}}
+.foot{margin-top:30px;text-align:center}.foot button{background:none;border:0;color:#ffffff40;font-family:var(--read);font-size:14px;cursor:pointer;text-decoration:underline}
+.candle{font-size:70px;animation:cf 2.2s ease-in-out infinite;display:inline-block;filter:drop-shadow(0 0 20px #ffb84d)}
+@keyframes cf{50%{transform:scale(1.04) rotate(-2deg);filter:drop-shadow(0 0 30px #ffb84d)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<canvas id="fx"></canvas>
 <div class="wrap">
-  <header><span class="logo" id="home">🔐 고려 방탈출</span><div class="keys" id="keys"></div>
-  <button class="icon" id="snd" aria-label="소리 켜고 끄기">🔊</button></header>
+  <header><span class="logo" id="home">🕯️ 잠긴 개경의 집</span><div class="keys" id="keys"></div>
+  <button class="icon" id="nbBtn" aria-label="탐사 수첩">📓 수첩</button><button class="icon" id="snd" aria-label="음악 켜고 끄기">🔊</button></header>
   <main id="app"></main>
   <div class="foot"><button id="restart">처음부터 다시 하기</button></div>
 </div>
 <script>
-/* ===== 방 데이터 ===== */
+var IMG='img/';
+/* ============ 방 데이터 ============ */
 var ROOMS=[
- {id:'r1',name:'개경 귀족의 집',emo:'🏯',key:'신분',
-  clues:[{type:'유적',name:'박익 벽화묘의 그림',when:'고려 말 · 경상남도 밀양',src:'교과서 58쪽',text:'고려 관리 박익의 무덤 벽에 그려진 그림이에요. 여러 사람이 술병과 음식, 물건을 들고 줄지어 서 있어요. 무덤 주인의 시중을 들러 가는 사람들이에요.'},
-         {type:'기록',name:'노비 만적의 외침',when:'1198년 · 『고려사』',src:'교과서 58쪽 · 검색어: 만적',text:'고려에서 노비는 주인의 재산처럼 여겨져 사고팔리기도 했어요. 어느 날 노비 만적이 다른 노비들을 모아 외쳤어요. “장군과 재상이 될 씨가 어찌 따로 있겠는가? 노비 문서를 불태우자!” 하지만 계획이 들켜 붙잡히고 말았어요.'}],
-  q:'두 쪽지에 함께 나오는 사람은 누구일까요?',
-  opts:[['주인을 섬기며 일하는 사람(노비)',1,''],['과거 시험을 보는 선비',0,'선비는 두 쪽지 어디에도 없어요.'],['외국에서 온 상인',0,'상인은 두 쪽지 어디에도 없어요.'],['절의 스님',0,'스님은 나오지 않아요. 다시 읽어 봐요!']],
-  think:'두 쪽지를 보면, 고려 사람들은 모두 똑같이 살았을까요?'},
- {id:'r2',name:'과거 시험장',emo:'📜',key:'유교',
-  clues:[{type:'제도',name:'과거 시험',when:'고려 · 나라의 제도',src:'교과서 53쪽',text:'고려는 나라에서 일할 관리를 뽑으려고 과거 시험을 열었어요. 시험에는 유교 책의 내용이 중요하게 나왔어요. 나라는 개경과 지방에 학교를 세워 유교를 가르쳤어요.'},
-         {type:'기록',name:'최승로가 올린 글',when:'982년 · 『고려사』',src:'검색어: 최승로 시무 28조',text:'신하 최승로가 성종 임금께 글을 올렸어요. “불교는 몸과 마음을 닦는 바탕이고, 유교는 나라를 다스리는 바탕입니다.” 성종은 이 말을 받아들여 유교에 맞게 나라의 제도를 정비했어요.'}],
-  q:'두 쪽지에 함께 나오는 것은 무엇일까요?',
-  opts:[['유교',1,''],['불교',0,'불교는 쪽지 ②에만 나와요.'],['노비',0,'노비는 두 쪽지에 나오지 않아요.'],['무역',0,'무역은 두 쪽지에 나오지 않아요.']],
-  think:'두 쪽지를 보면, 고려는 나라를 무엇으로 다스렸을까요? 관리가 되고 싶은 사람은 무엇을 했을까요?'},
- {id:'r3',name:'등불 거리',emo:'🏮',key:'불교',
-  clues:[{type:'행사',name:'연등회',when:'해마다 봄',src:'교과서 61쪽',text:'연등회는 나라의 지원을 받아 열린 불교 행사예요. 사람들은 전국 곳곳에서 등불을 밝히고 줄지어 돌아다니며 소원을 빌었어요. 왕부터 백성까지 모두 함께했어요.'},
-         {type:'생활',name:'마을의 절',when:'고려 · 전국 곳곳',src:'교과서 60쪽',text:'개경뿐 아니라 전국 곳곳에 절이 세워졌어요. 사람들은 절에서 가족의 건강과 마을의 평안을 빌었어요. 절은 쌀을 빌려주고 물건을 사고팔기도 했어요. 장례와 제사도 불교식으로 지내는 사람이 많았어요.'}],
-  q:'두 쪽지에서 사람들이 함께 한 일은 무엇일까요?',
-  opts:[['부처님께 소원을 빌었다',1,''],['과거 시험을 보았다',0,'과거 시험은 두 쪽지에 나오지 않아요.'],['재산을 나누었다',0,'재산 나누기는 나오지 않아요.'],['외국과 물건을 바꾸었다',0,'외국은 나오지 않아요. 다시 읽어 봐요!']],
-  think:'두 쪽지를 보면, 불교는 고려 사람들의 생활에 어떤 역할을 했을까요?'},
- {id:'r4',name:'어머니의 안방',emo:'🏠',key:'가족',
-  clues:[{type:'기록',name:'어머니의 재산 나누기',when:'『고려사』',src:'교과서 59쪽',text:'나익희의 어머니는 여섯 남매에게 재산을 나눠 줄 때, 외아들인 나익희에게만 노비 40명을 더 주려 했어요. 나익희는 “외아들이라고 더 받으면 남매가 화목할 수 없습니다.”라며 사양했어요. 어머니는 그 말이 옳다며 그대로 따랐어요.'},
-         {type:'기록',name:'손변의 재판',when:'『고려사』',src:'검색어: 손변',text:'한 아버지가 딸에게 재산을 모두 주고, 어린 아들에게는 옷과 갓, 종이 한 권만 남겼어요. 다 자란 남매가 재판을 하자 관리 손변이 말했어요. “아들이 크면 이 종이에 글을 써 억울함을 알리라는 뜻이다. 자식에게 줄 재산은 똑같아야 한다.” 손변은 재산을 반씩 나누게 했어요.'}],
-  q:'두 쪽지에 함께 나오는 생각은 무엇일까요?',
-  opts:[['아들과 딸에게 재산을 똑같이 나눠야 한다',1,''],['재산은 아들만 받아야 한다',0,'두 쪽지를 다시 봐요. 누가 얼마나 받았나요?'],['노비 문서를 불태워야 한다',0,'그건 다른 방 이야기예요!'],['유교 책을 공부해야 한다',0,'공부 이야기는 나오지 않아요.']],
-  secret:'🔍 <b>숨은 쪽지 발견!</b> “하지만 고려의 여성은 과거 시험을 볼 수 없었고, 벼슬에 오를 수도 없었다.” <small>(교과서 59쪽)</small>',
-  think:'두 쪽지와 숨은 쪽지를 보면, 고려 여성의 모습은 집 안에서와 나라 일에서 어떻게 달랐을까요?'},
- {id:'r5',name:'벽란도 항구',emo:'⛵',key:'교류',
-  clues:[{type:'유적',name:'국제 무역항 벽란도',when:'고려 · 예성강',src:'교과서 56~57쪽',text:'벽란도는 수도 개경 가까이에 있던 큰 항구예요. 송나라 상인은 물론 멀리 아라비아 상인까지 드나들었어요. 고려는 인삼, 종이, 청자를 팔고 비단, 책, 약재를 사 왔어요.'},
-         {type:'행사',name:'팔관회',when:'해마다 11월 · 개경',src:'교과서 61쪽',text:'팔관회는 나라와 왕실의 평안을 비는 큰 행사예요. 이날 송나라 상인, 여진과 탐라 사람, 외국 사신들이 찾아와 선물을 바치고 함께 축하했어요.'}],
-  q:'두 쪽지에 함께 나오는 사람들은 누구일까요?',
-  opts:[['다른 나라에서 온 상인과 사신',1,''],['노비',0,'노비는 나오지 않아요.'],['과거를 보는 선비',0,'선비는 나오지 않아요.'],['무덤을 그린 화가',0,'다시 읽어 봐요!']],
-  think:'두 쪽지를 보면, 고려는 다른 나라와 어떻게 지냈을까요?'},
- {id:'g1',name:'흥덕사 인쇄방',emo:'📖',gem:true,key:'금속 활자'},
- {id:'g2',name:'강진 가마터',emo:'🏺',gem:true,key:'고려청자'}
+{id:'r1',name:'귀족의 사랑채',emo:'🏯',key:'신분',organizer:'❶-1 신분 피라미드',
+ intro:'촛불이 꺼진 넓은 사랑채. 비단 방석 옆에 먼지 쌓인 물건들이 흩어져 있다…',
+ deco:[['🏮',8,14],['🪑',82,70],['🗄️',12,74]],
+ objs:[
+  {e:'🖼️',x:24,y:34,name:'무덤 벽화가 그려진 두루마리',img:'mural.jpg',src:'박익 벽화묘 · 교과서 58쪽',text:'고려 관리 박익의 무덤 벽에 그려진 그림을 옮겨 그린 두루마리다. 술병과 음식, 물건을 든 사람들이 줄지어 주인의 시중을 들러 간다. 박익의 집안은 대대로 높은 벼슬을 한 집안이었다.',piece:'<b>지배층</b> — 왕족과 대대로 높은 벼슬을 한 가문. 많은 사람의 시중을 받으며 살았다.'},
+  {e:'🗡️',x:70,y:30,name:'군인의 칼과 관청 도장',text:'칼집에는 “나라를 지키는 군사”라는 글씨가, 도장에는 관청의 낮은 관리 이름이 새겨져 있다. 이들은 왕족·귀족과 농민 사이에서 나라 일을 맡았다.',src:'교과서 58쪽',piece:'<b>중간 계층</b> — 관청에서 일하는 낮은 직급의 관리와 직업 군인.'},
+  {e:'🌾',x:46,y:62,name:'곡식 자루와 세금 장부',text:'장부에는 마을마다 바친 곡식, 나라 일을 하러 나간 날짜, 고을의 특산물이 빼곡히 적혀 있다. 이름이 가장 많이 적힌 사람들은 농민이다.',src:'교과서 58쪽',piece:'<b>농민</b> — 양인 가운데 가장 많았다. 나라에 세금, 노동력, 특산물을 바쳤다.'},
+  {e:'📜',x:86,y:46,name:'찢어진 노비 문서',text:'“노비 아무개를 쌀 몇 섬에 넘긴다.” 노비를 물건처럼 사고판 문서다. 뒷면에 누군가 급히 써 놓았다. “장군과 재상의 씨가 어찌 따로 있겠는가! 노비 문서를 불태우자!” — 1198년, 노비 만적',src:'『고려사』 · 교과서 58쪽',piece:'<b>노비</b> — 천인의 대다수. 재산처럼 사고팔리며 심한 차별을 받았다.'},
+  {e:'🧾',x:58,y:84,name:'집안의 족보',text:'할아버지의 신분이 아버지에게, 아버지의 신분이 아들에게 그대로 적혀 내려온다. 고려 사람들은 크게 양인과 천인으로 나뉘었다.',src:'교과서 58쪽',piece:'<b>신분 제도</b> — 양인과 천인으로 나뉘고, 신분은 자손에게 그대로 이어졌다.'}],
+ decoys:[['🕸️',36,14,'거미줄뿐이다… 무언가 기어간 자국이 있다.'],['🐀',14,52,'찍찍! 쥐 한 마리가 어둠 속으로 사라졌다.']],
+ lock:{type:'order',title:'신분의 자물쇠',q:'자물쇠에 칸 네 개가 피라미드처럼 쌓여 있다. 위에서부터 높은 신분 순서로 끼워 넣어라.',items:['지배층','중간 계층','농민','노비'],labels:['맨 위','','','맨 아래']}},
+{id:'r2',name:'과거 시험장',emo:'📜',key:'유교와 여러 사상',organizer:'❶-2 나라를 다스린 생각',
+ intro:'빈 시험장. 바닥에 붓과 벼루가 흩어져 있고, 벽에는 오래된 현판이 걸려 있다…',
+ deco:[['🪔',90,12],['🖌️',30,80]],
+ objs:[
+  {e:'📝',x:22,y:40,name:'과거 시험 답안지',img:'gwageo.jpg',src:'교과서 53쪽',text:'나라의 관리를 뽑는 시험, 과거의 답안지다. 문제는 대부분 유교 책에서 나왔다. 관리가 되고 싶은 사람은 유교를 열심히 공부해야 했다.',piece:'<b>과거제</b> — 관리를 뽑는 시험. 유교 지식이 중요한 과목이었다.'},
+  {e:'🏫',x:74,y:24,name:'학교 현판',text:'“국자감” — 개경에 세운 나라의 학교. 그 옆에는 지방 고을 학교들의 이름이 적힌 목록이 있다. 나라는 개경과 지방에 학교를 세워 유교를 가르쳤다.',src:'교과서 53쪽',piece:'<b>학교</b> — 개경과 지방에 학교를 세워 유학(유교) 교육을 장려했다.'},
+  {e:'📃',x:52,y:64,name:'임금께 올린 글',img:'king.jpg',src:'최승로의 시무 28조(982년) · 교과서 53쪽',text:'신하 최승로가 성종 임금께 올린 글이다. “불교는 몸과 마음을 닦는 바탕이고, 유교는 나라를 다스리는 바탕입니다.” 임금은 이 글을 받아들여 유교에 맞게 나라의 제도를 정비했다.',piece:'<b>최승로의 글</b> — 나라는 유교로 다스리고, 불교는 마음을 닦는 데 쓰였다.'},
+  {e:'⭐',x:84,y:72,name:'별자리가 그려진 제단',text:'하늘과 별에게 나라의 평안을 비는 제사에 쓰던 제단이다. 이런 제사는 도교에서 온 것이다. 고려에서는 유교, 불교, 도교가 함께 발달했다.',src:'교과서 53쪽',piece:'<b>도교</b> — 하늘과 별에 제사를 지냈다. 고려에는 유교·불교·도교가 함께 발달했다.'}],
+ decoys:[['🗑️',12,78,'구겨진 종이… “떨어졌다”고만 적혀 있다.'],['🦇',46,16,'박쥐가 퍼드득 날아갔다!']],
+ lock:{type:'match',title:'세 사상의 자물쇠',q:'자물쇠에 세 개의 구멍이 있다. 어떤 일에 어떤 생각(사상)이 쓰였는지 맞춰라.',
+  pairs:[['나라를 다스리고 관리를 뽑을 때','유교'],['마음을 닦고 복을 빌 때','불교'],['하늘과 별에 제사를 지낼 때','도교']],opts:['유교','불교','도교']}},
+{id:'r3',name:'등불 거리의 절',emo:'🏮',key:'불교',organizer:'❶-3 생활 속의 불교',
+ intro:'꺼진 등이 바람에 흔들리는 절 마당. 어디선가 목탁 소리가 들리는 것 같다…',
+ deco:[['🛕',50,16],['🌲',8,40],['🌲',92,38]],
+ objs:[
+  {e:'🏮',x:26,y:44,name:'연등',img:'temple.jpg',src:'연등회 · 교과서 60~61쪽',text:'봄마다 열린 불교 행사, 연등회에 쓰던 등이다. 이날 사람들은 전국 곳곳에서 등불을 밝히고 줄지어 다니며 소원을 빌었다. 왕부터 백성까지 모두 함께했다.',piece:'<b>연등회</b> — 봄마다 전국에서 등불을 밝히고 행렬하며 소원을 빌었다. 왕부터 백성까지 함께했다.'},
+  {e:'🍚',x:72,y:58,name:'쌀자루와 빌려준 장부',img:'village.jpg',src:'교과서 60쪽',text:'“봄에 쌀 두 말을 빌려 가고, 가을에 갚기로 함.” 절에서 쌀을 빌려준 기록이다. 절 앞에서는 물건을 사고팔기도 했다.',piece:'<b>절의 경제 활동</b> — 절은 쌀을 빌려주고, 물건을 사고팔기도 했다.'},
+  {e:'🙏',x:50,y:78,name:'기도 쪽지 묶음',text:'“우리 아이 병이 낫게 해 주세요.” “올해 마을에 풍년이 들게 해 주세요.” “나라가 평안하게 해 주세요.” 전국 곳곳의 절에 이런 쪽지가 쌓여 있었다.',src:'교과서 60쪽',piece:'<b>기도</b> — 전국 곳곳의 절에서 개인과 마을, 나라의 평안을 빌었다.'},
+  {e:'⚱️',x:84,y:30,name:'장례에 쓰던 그릇',text:'불교식 장례를 치를 때 쓰던 그릇이다. 고려에서는 장례와 제사를 불교식으로 지내는 사람이 많았다.',src:'교과서 60쪽',piece:'<b>장례와 제사</b> — 장례와 제사를 불교식으로 지내는 사람이 많았다.'}],
+ decoys:[['🐈‍⬛',12,80,'검은 고양이가 노려보더니 사라졌다…'],['🍂',62,26,'바스락… 낙엽뿐이다.']],
+ lock:{type:'multi',title:'절의 자물쇠',q:'자물쇠에 글이 새겨져 있다. “고려의 절이 한 일을 모두 누르면 열린다.” (4개)',
+  opts:[['소원 빌기',1],['쌀 빌려주기',1],['물건 사고팔기',1],['장례 치르기',1],['과거 시험 보기',0],['세금 걷기',0]]}},
+{id:'r4',name:'어머니의 안방',emo:'🏠',key:'가족 안의 남녀',organizer:'❶-4 집 안 · 나라 일 비교표',
+ intro:'작은 안방. 경대 위에 빗과 편지가 놓여 있고, 장롱 문이 살짝 열려 있다…',
+ deco:[['🪞',86,18],['🧺',10,82]],
+ objs:[
+  {e:'📜',x:22,y:36,name:'재산을 나눈 문서',img:'family.jpg',src:'『고려사』 · 교과서 59쪽',text:'어머니가 여섯 남매에게 재산을 나누며 외아들 나익희에게만 노비 40명을 더 주려 했다. 나익희는 “외아들이라고 더 받으면 남매가 화목할 수 없습니다.”라며 사양했고, 어머니는 그 뜻을 따랐다.',piece:'<b>재산</b> — 아들과 딸이 부모의 재산을 똑같이 나누어 받았다.'},
+  {e:'⚖️',x:70,y:30,name:'재판 기록',text:'아버지가 딸에게 재산을 모두 주고 어린 아들에게는 옷과 갓, 종이 한 권만 남겼다. 관리 손변은 “자식에게 줄 재산은 똑같아야 한다.”며 남매가 반씩 나누게 했다.',src:'『고려사』 손변 이야기',piece:'<b>손변의 재판</b> — 재산은 아들과 딸에게 똑같이 나누는 것이 원칙이었다.'},
+  {e:'🕯️',x:48,y:66,name:'제사 차례표',text:'“올해 제사는 첫째 딸, 내년은 둘째 아들, 그다음은 외손자.” 제사 비용도 자식들이 똑같이 나누어 냈다.',src:'교과서 59쪽',piece:'<b>제사</b> — 제사 비용을 자식들이 똑같이 냈고, 딸이나 외손자가 제사를 모시기도 했다.'},
+  {e:'🚫',x:84,y:68,name:'과거 합격자 명단',text:'벼슬에 오른 사람들의 이름이 적힌 명단이다. 아무리 찾아도 여자의 이름은 하나도 없다. 여성은 과거를 볼 수도, 벼슬에 오를 수도 없었다.',src:'교과서 59쪽',piece:'<b>벼슬</b> — 하지만 여성은 벼슬에 오를 수 없었고, 사회 활동에 제약이 많았다.'}],
+ decoys:[['🧵',12,56,'반짇고리 속엔 실과 바늘뿐…'],['🦗',58,14,'귀뚜라미 소리만 울린다.']],
+ lock:{type:'toggle',title:'저울의 자물쇠',q:'자물쇠에 작은 저울 세 개가 달려 있다. 고려의 모습에 맞게 저울을 맞춰라.',
+  rows:[['부모의 재산은?',['아들이 더 많이','아들딸 똑같이'],1],['제사는?',['아들만 모신다','딸도 모신다'],1],['벼슬은?',['남녀 모두 할 수 있다','남자만 할 수 있다'],1]]}},
+{id:'r5',name:'벽란도 항구 창고',emo:'⛵',key:'다른 나라와 교류',organizer:'❶-5 벽란도 무역 지도',
+ intro:'파도 소리가 들리는 창고. 낯선 글씨가 적힌 상자들이 높이 쌓여 있다…',
+ deco:[['⚓',88,80],['🛶',12,20]],
+ objs:[
+  {e:'🗺️',x:20,y:46,name:'낡은 바닷길 지도',img:'map.jpg',src:'교과서 56쪽',text:'개경 가까이 예성강 어귀에 벽란도가 표시되어 있다. 송나라뿐 아니라 일본, 거란·여진, 멀리 아라비아에서 온 상인의 바닷길까지 그려져 있다.',piece:'<b>벽란도</b> — 개경 가까운 국제 무역항. 송·일본·아라비아 상인까지 드나들었다.'},
+  {e:'🪞',x:70,y:26,name:'배가 그려진 청동 거울',img:'mirror.jpg',src:'국립중앙박물관 · 교과서 56쪽',text:'거울 뒷면에 돛을 단 큰 배가 파도를 헤치고 가는 모습이 새겨져 있다. 고려 사람들에게 바다를 건너는 배는 아주 익숙한 모습이었다.',piece:'<b>청동 거울</b> — 큰 배가 새겨진 고려 거울. 바다를 오가는 배가 많았다.'},
+  {e:'📦',x:52,y:70,name:'수출품 상자',img:'exports.jpg',src:'교과서 56쪽',text:'상자에 “송나라로” 라고 적혀 있다. 안에는 인삼, 삼베, 나전 칠기가 들어 있다. 옆 상자에는 송나라에서 들여온 비단, 약재, 책이, 아라비아 상인에게서 산 수은과 향신료가 있다.',piece:'<b>무역품</b> — 판 것: 인삼, 삼베, 나전 칠기 / 사 온 것: 비단, 약재, 책, 향신료'},
+  {e:'🎊',x:86,y:56,name:'팔관회 초대장',text:'“11월, 개경에서 팔관회를 연다.” 나라와 왕실의 평안을 비는 큰 잔치다. 송나라 상인, 여진과 탐라 사람, 외국 사신들이 찾아와 선물을 바치고 함께 축하했다.',src:'교과서 61쪽',piece:'<b>팔관회</b> — 외국 사신과 상인도 참여해 선물을 바치고 함께 축하했다.'}],
+ decoys:[['🦀',10,78,'게 한 마리가 옆으로 도망쳤다.'],['🪢',40,18,'젖은 밧줄뿐이다.']],
+ lock:{type:'sort',title:'창고의 자물쇠',q:'자물쇠 상자 두 개. 물건을 알맞은 상자에 넣어라. (물건을 누르고 → 상자를 눌러요)',
+  bins:['고려가 판 것','고려가 사 온 것'],items:[['인삼',0],['삼베',0],['나전 칠기',0],['비단',1],['약재',1],['책',1],['향신료',1]]}},
+{id:'g1',name:'흥덕사 인쇄방',emo:'📖',gem:true,key:'금속 활자',organizer:'❷ 보물 방',
+ intro:'쇠 냄새가 나는 작은 방. 탁자 위에 까만 쇠붙이 조각들이 수북하다…',
+ deco:[['🔥',86,78],['🪵',12,80]],
+ objs:[
+  {e:'🔩',x:24,y:40,name:'작은 쇠붙이 글자',img:'type1.jpg',src:'개성에서 출토된 금속 활자 · 국립중앙박물관 · 교과서 63쪽',text:'손톱만 한 쇠붙이에 글자가 거꾸로 새겨져 있다. 이것이 금속 활자다. 글자 하나하나를 따로 만들어 필요한 글자만 골라 짜 맞추었다.',piece:'<b>금속 활자</b> — 쇠로 만든 낱개의 글자. 필요한 글자를 골라 짜 맞춰 인쇄했다.'},
+  {e:'🗃️',x:70,y:60,name:'활자를 짜 맞춘 판',img:'typetray.jpg',src:'교과서 63쪽',text:'수천 개의 활자를 한 줄 한 줄 짜 맞춘 판이다. 다 찍고 나면 활자를 빼서 다른 책을 찍을 때 다시 쓸 수 있었다. 단단해서 오래 쓸 수 있었다.',piece:'<b>활자판</b> — 활자를 빼서 다른 책에 다시 쓸 수 있었다. 단단해서 오래 썼다.'},
+  {e:'📖',x:50,y:28,name:'낡은 책 한 권',img:'jikji.jpg',src:'『직지』 · 프랑스 국립 도서관 · 교과서 63쪽',text:'1377년 청주 흥덕사에서 금속 활자로 찍은 불교 책 『직지』다. 지금 남아 있는 금속 활자 책 가운데 세계에서 가장 오래되었다. 유네스코 세계 기록 유산이다.',piece:'<b>『직지』</b> — 1377년, 지금 남아 있는 가장 오래된 금속 활자 책(유네스코 세계 기록 유산).'}],
+ decoys:[['🕯️',88,22,'촛농이 흘러내린 촛대다.']],video:{id:'NIgUExYct4Y',title:'책을 빠르게 간행하는 금속활자 제작과정 (YTN 사이언스)',alt:'tooKjSk4Tzk'}},
+{id:'g2',name:'강진 가마터',emo:'🏺',gem:true,key:'고려청자',organizer:'❷ 보물 방',
+ intro:'아직 온기가 남은 가마 앞. 깨진 그릇 조각들 사이로 푸른빛이 번뜩인다…',
+ deco:[['🔥',50,86],['🧱',90,30]],
+ objs:[
+  {e:'🏺',x:22,y:36,name:'학이 날아가는 병',img:'maebyeong.jpg',src:'청자 상감 운학문 매병 · 간송미술관 · 교과서 64쪽',text:'푸른 병 위로 구름 사이를 나는 학이 가득하다. 붓으로 그린 것이 아니라, 겉을 파내고 흰 흙과 붉은 흙을 채워 넣은 ‘상감’ 무늬다.',piece:'<b>상감 기법</b> — 겉을 파서 무늬를 새기고, 그 자리에 다른 색 흙을 채워 구웠다.'},
+  {e:'🛏️',x:72,y:30,name:'청자 베개',img:'pillow.jpg',src:'청자 상감 모란 구름 학 무늬 베개 · 국립중앙박물관',text:'잠잘 때 베던 베개까지 청자로 만들었다. 고려의 지배층은 청자를 생활용품으로 썼다.',piece:'<b>생활 속 청자</b> — 지배층은 베개까지 청자로 만들어 썼다.'},
+  {e:'🪑',x:46,y:66,name:'구멍이 뚫린 청자 의자',img:'chair.jpg',src:'청자 투각 의자 · 국립중앙박물관',text:'흙을 정교하게 뚫어 무늬를 낸(투각) 의자다. 물병, 찻잔, 주전자, 기와, 의자까지 청자로 만들었다.',piece:'<b>투각 의자</b> — 의자·기와·주전자까지 청자로 만들었다.'},
+  {e:'🐉',x:84,y:62,name:'용 머리 주전자',img:'ewer.jpg',src:'청자 어룡형 주전자 · 국립중앙박물관',text:'머리는 용, 몸은 물고기 모양을 한 상상의 동물 주전자다. 푸른빛을 ‘비색’이라 했고, 송나라 사람도 “고려 비색은 천하제일”이라 감탄했다.',piece:'<b>비색</b> — 고려청자의 푸른빛. 송나라도 “천하제일”이라 감탄했다.'}],
+ decoys:[['🧱',12,80,'깨진 벽돌 조각뿐이다.']],video:{id:'YM7FhGcR_5E',title:'[청자실] 상감청자는 어떻게 만들까? (국립중앙박물관)'}}
 ];
-/* ===== 상태 ===== */
-var K='goryeo-escape-v2';
-function fresh(){return{step:'intro',done:[],cur:null,phase:null,fin:0}}
-var S=load()||fresh(),sound=true;
+/* ============ 상태 ============ */
+var K='goryeo-mystery-v1';
+function fresh(){return{step:'intro',done:[],cur:null,phase:null,found:{},fin:0,pair:null}}
+var S=load()||fresh();
 function load(){try{return JSON.parse(localStorage.getItem(K))}catch(e){return null}}
 function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
 function $(s){return document.querySelector(s)}
 function R(id){return ROOMS.filter(function(r){return r.id===id})[0]}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
-/* ===== 소리 ===== */
-var ac=null;
-function audio(){if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac}
-function tone(f,d,type,vol,when,slide){if(!sound)return;var a=audio();if(!a)return;d=d||.12;var t=a.currentTime+(when||0);var o=a.createOscillator(),g=a.createGain();o.type=type||'square';o.frequency.setValueAtTime(f,t);if(slide)o.frequency.exponentialRampToValueAtTime(slide,t+d);g.gain.setValueAtTime(vol||.08,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.02)}
-var sfx={click:function(){tone(900,.05,'square',.05)},door:function(){tone(120,.35,'sawtooth',.08,0,60);tone(300,.2,'triangle',.06,.25)},
- ok:function(){[660,880,1320].forEach(function(f,i){tone(f,.12,'square',.07,i*.08)})},no:function(){tone(180,.4,'sawtooth',.1,0,100)},
- chip:function(){tone(320+Math.random()*120,.06,'triangle',.08)},clack:function(){tone(1400,.04,'square',.06);tone(700,.05,'square',.05,.03)},
- fire:function(){tone(90+Math.random()*40,.25,'sawtooth',.05,0,60)},
- key:function(){[784,988,1175,1568].forEach(function(f,i){tone(f,.16,'triangle',.09,i*.09)})},
- win:function(){[523,659,784,1047,784,1047,1319].forEach(function(f,i){tone(f,.24,'square',.08,i*.13)})}};
-$('#snd').onclick=function(){sound=!sound;this.textContent=sound?'🔊':'🔇'};
-/* ===== 효과 ===== */
-var cv=$('#fx'),cx=cv.getContext('2d'),P=[],running=false;
-function sz(){cv.width=innerWidth;cv.height=innerHeight}sz();addEventListener('resize',sz);
-function confetti(n){var cols=['#f2c14e','#6fc2a6','#ff6b5e','#fbf4e4','#9fd3ff'];for(var i=0;i<n;i++)P.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*16,vy:Math.random()*-14-4,c:cols[i%5],r:Math.random()*6+4,a:Math.random()*6,l:120});if(!running){running=true;tick()}}
-function tick(){cx.clearRect(0,0,cv.width,cv.height);P.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.45;p.vx*=.99;p.a+=.2;p.l--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.r/2,-p.r/2,p.r,p.r*.6);cx.restore()});P=P.filter(function(p){return p.l>0&&p.y<innerHeight+40});if(P.length)requestAnimationFrame(tick);else{running=false;cx.clearRect(0,0,cv.width,cv.height)}}
+function fnd(id){return S.found[id]||(S.found[id]=[])}
+function josa(w,a,b){var c=w.charCodeAt(w.length-1)-0xAC00;return (c>=0&&c%28)?a:b}
+/* ============ 소리: 음산한 배경음 ============ */
+var ac=null,master=null,musicOn=true,amb=null;
+function audio(){if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.9;master.connect(ac.destination)}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac}
+function tone(f,d,type,vol,when,slide){var a=audio();if(!a)return;d=d||.12;var t=a.currentTime+(when||0);var o=a.createOscillator(),g=a.createGain();o.type=type||'sine';o.frequency.setValueAtTime(f,t);if(slide)o.frequency.exponentialRampToValueAtTime(slide,t+d);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol||.08,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.05)}
+function bell(f,vol,when){tone(f,2.6,'sine',vol||.06,when);tone(f*2.76,1.4,'sine',(vol||.06)*.35,when);tone(f*5.4,.6,'sine',(vol||.06)*.15,when)}
+var sfx={step:function(){tone(70,.12,'sine',.12)},
+ door:function(){tone(90,1.1,'sawtooth',.05,0,55);tone(140,.9,'triangle',.03,.1,90)},
+ find:function(){bell(659,.07);bell(988,.05,.12)},
+ nope:function(){tone(110,.5,'sawtooth',.06,0,70)},
+ click:function(){tone(1200,.03,'square',.03)},
+ lock:function(){tone(300,.05,'square',.05);tone(180,.08,'square',.05,.06);tone(900,.04,'triangle',.05,.16)},
+ key:function(){[523,622,784,1046].forEach(function(f,i){bell(f,.06,i*.14)})},
+ clack:function(){tone(1400,.04,'square',.05);tone(600,.05,'square',.04,.03)},
+ fire:function(){tone(80+Math.random()*40,.3,'sawtooth',.04,0,50)},
+ chip:function(){tone(250+Math.random()*90,.06,'triangle',.07)},
+ win:function(){[392,466,523,622,784,1046].forEach(function(f,i){bell(f,.07,i*.18)})}};
+function startAmb(){var a=audio();if(!a||amb)return;var g=a.createGain();g.gain.value=0;g.gain.linearRampToValueAtTime(.22,a.currentTime+3);g.connect(master);
+ var lp=a.createBiquadFilter();lp.type='lowpass';lp.frequency.value=380;lp.Q.value=4;lp.connect(g);
+ var lfo=a.createOscillator(),lg=a.createGain();lfo.frequency.value=.07;lg.gain.value=180;lfo.connect(lg);lg.connect(lp.frequency);lfo.start();
+ var oscs=[55,55.6,82.4,65.4].map(function(f,i){var o=a.createOscillator();o.type=i<2?'sawtooth':'triangle';o.frequency.value=f;var og=a.createGain();og.gain.value=i<2?.18:.08;o.connect(og);og.connect(lp);o.start();return o});
+ var nb=a.createBuffer(1,a.sampleRate*2,a.sampleRate),d=nb.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+ var ns=a.createBufferSource();ns.buffer=nb;ns.loop=true;var bp=a.createBiquadFilter();bp.type='bandpass';bp.frequency.value=500;bp.Q.value=.8;var ngain=a.createGain();ngain.gain.value=.05;
+ var wl=a.createOscillator(),wg=a.createGain();wl.frequency.value=.11;wg.gain.value=350;wl.connect(wg);wg.connect(bp.frequency);wl.start();ns.connect(bp);bp.connect(ngain);ngain.connect(g);ns.start();
+ var scale=[220,233.1,261.6,293.7,311.1,349.2,415.3,440];var timer=setInterval(function(){if(Math.random()<.55){var f=scale[Math.floor(Math.random()*scale.length)];bell(f*(Math.random()<.3?2:1),.035)}if(Math.random()<.12)tone(36,2.5,'sine',.12)},2600);
+ amb={g:g,stop:function(){g.gain.cancelScheduledValues(a.currentTime);g.gain.linearRampToValueAtTime(0,a.currentTime+1);clearInterval(timer);setTimeout(function(){oscs.forEach(function(o){try{o.stop()}catch(e){}});try{ns.stop();lfo.stop();wl.stop()}catch(e){};g.disconnect()},1200)}}}
+function stopAmb(){if(amb){amb.stop();amb=null}}
+$('#snd').onclick=function(){musicOn=!musicOn;this.textContent=musicOn?'🔊':'🔇';if(master)master.gain.value=musicOn?.9:0;if(musicOn)startAmb()};
+/* ============ 공통 UI ============ */
 function flash(t){var d=document.createElement('div');d.className='flash';d.innerHTML='<span>'+t+'</span>';document.body.appendChild(d);setTimeout(function(){d.remove()},1100)}
-function ask(msg,yes,no,cb){var m=document.createElement('div');m.className='modal';m.innerHTML='<div class="box"><p>'+msg+'</p><div class="row"><button class="btn cel">'+yes+'</button><button class="btn ghost" style="color:#2a2420;background:#0001;box-shadow:none">'+no+'</button></div></div>';document.body.appendChild(m);
- var b=m.querySelectorAll('button');b[0].onclick=function(){m.remove();cb(true)};b[1].onclick=function(){m.remove();cb(false)};b[0].focus()}
+function modal(html,btns,cb){var m=document.createElement('div');m.className='modal';m.innerHTML=html;var row=document.createElement('div');row.className='row';row.style.padding='0 18px 18px';
+ (btns||[['계속',1]]).forEach(function(b){var x=document.createElement('button');x.className='btn'+(b[1]?'':' dark');x.textContent=b[0];x.onclick=function(){m.remove();cb&&cb(b[1])};row.appendChild(x)});
+ (m.querySelector('.disc')||m.querySelector('.box')).appendChild(row);document.body.appendChild(m);row.querySelector('button').focus()}
+function ask(msg,yes,no,cb){modal('<div class="box"><p>'+msg+'</p></div>',[[yes,1],[no,0]],function(v){cb(!!v)})}
 function memo(h){return '<div class="memo"><span class="pen">📝</span><div>'+h+'</div></div>'}
 function keys(){$('#keys').innerHTML=ROOMS.map(function(r){return '<span class="'+(S.done.indexOf(r.id)>=0?'on':'')+'" title="'+r.name+'">'+(r.gem?'💎':'🗝️')+'</span>'}).join('')}
 function go(step,phase){S.step=step;if(phase!==undefined)S.phase=phase;save();render();scrollTo({top:0,behavior:'smooth'})}
-function finishRoom(r){if(S.done.indexOf(r.id)<0)S.done.push(r.id);S.phase=null;save();sfx.key();flash(r.gem?'💎':'🗝️');confetti(80);setTimeout(function(){go('map')},1000)}
-var loop=null;function stopLoop(){if(loop){cancelAnimationFrame(loop);loop=null}}
-/* ===== 화면 ===== */
-function render(){stopLoop();keys();var a=$('#app');
- if(S.step==='intro'){a.innerHTML='<div class="center" style="margin-top:20px"><div class="bigdoor">🚪</div><h1>고려 방탈출</h1></div>'+
-  '<div class="story">눈을 떠 보니 낯선 방이에요. 창밖으로 기와지붕과 등불이 보여요. 여기는… <b>천 년 전 고려</b>!<br>문 위에 글씨가 새겨져 있어요.<br><b>“고려가 어떤 나라였는지 알아낸 사람만 나갈 수 있다.”</b><br><br>🗝️ 쪽지 방 <b>5개</b>에서 열쇠를, 💎 보물 방 <b>2개</b>에서 보물을 모으면 🚪 마지막 문이 열려요!</div>'+
-  memo('활동지를 옆에 두세요. 이런 <b>노란 쪽지</b>가 나오면 그때 활동지를 채우면 돼요.')+
-  '<div class="row"><button class="btn" id="b">시작하기</button></div>';$('#b').onclick=function(){sfx.door();go('map')};return}
+var loop=null,timers=[];function cleanup(){if(loop){cancelAnimationFrame(loop);loop=null}timers.forEach(clearTimeout);timers=[]}
+/* 수첩 */
+$('#nbBtn').onclick=function(){var html='<div class="disc nb"><div class="hd">📓 탐사 수첩</div><div class="bd">';var any=false;
+ ROOMS.forEach(function(r){var f=fnd(r.id);if(!f.length)return;any=true;html+='<div class="nbroom"><h4>'+r.emo+' '+r.name+'</h4>'+r.objs.filter(function(o,i){return f.indexOf(i)>=0}).map(function(o){return '<div class="nbp">'+(o.img?'<img src="'+IMG+o.img+'" alt="">':'<div class="em">'+o.e+'</div>')+'<div>'+o.piece+'</div></div>'}).join('')+'</div>'});
+ if(!any)html+='<p>아직 발견한 단서가 없어요. 방에 들어가 등불을 비춰 보세요.</p>';html+='</div></div>';modal('<div style="width:100%;display:grid;place-items:center">'+html+'</div>',[['닫기',1]])};
+/* ============ 화면 ============ */
+function render(){cleanup();keys();var a=$('#app');
+ if(S.step==='intro'){a.innerHTML='<div class="center" style="margin-top:26px"><div class="candle">🕯️</div><h1>잠긴 개경의 집</h1><p class="dim">고려 방탈출</p></div><div class="story" id="st"></div><div class="row"><button class="btn" id="b" hidden>문을 연다</button></div>';
+  var txt='……눈을 떠 보니 차가운 마룻바닥이다.\n촛불 하나가 흔들리고, 문은 밖에서 잠겨 있다.\n창밖으로 보이는 기와지붕… 여기는 <b>천 년 전, 고려의 도읍 개경</b>.\n\n문 위에 붉은 글씨가 새겨져 있다.\n<b>“고려가 어떤 나라였는지 밝혀낸 자만이 나갈 수 있다.”</b>\n\n이 집에는 잠긴 방이 일곱 개.\n등불을 비춰 단서를 찾고, 자물쇠를 풀어라.\n찾은 단서는 모두 📓 탐사 수첩에 적힌다.';
+  var st=$('#st'),i=0,plain=txt.replace(/<[^>]+>/g,'');st.classList.add('cursor');
+  (function ty(){if(i<=plain.length){var shown=0,out='',j=0;while(j<txt.length&&shown<i){if(txt[j]==='<'){var e=txt.indexOf('>',j);out+=txt.slice(j,e+1);j=e+1;continue}out+=txt[j];shown++;j++}st.innerHTML=out;i+=2;timers.push(setTimeout(ty,35))}else{st.classList.remove('cursor');$('#b').hidden=false}})();
+  st.onclick=function(){i=plain.length};
+  $('#b').onclick=function(){audio();if(musicOn)startAmb();sfx.door();go('map')};return}
  if(S.step==='map'){var nd=S.done.length,all=nd>=ROOMS.length;
   function door(r){var d=S.done.indexOf(r.id)>=0;return '<button class="door'+(r.gem?' gem':'')+(d?' done':'')+'" data-id="'+r.id+'"><span class="lk">'+(d?(r.gem?'💎':'🗝️'):'🔒')+'</span><span class="e">'+r.emo+'</span><span class="n">'+r.name+'</span>'+(d?'<span class="s">'+r.key+'</span>':'')+'</button>'}
-  a.innerHTML='<h2>고려의 개경</h2><p>어느 방부터 열어도 괜찮아요. ('+nd+'/7)</p>'+
-  '<div class="secT">🗝️ 쪽지 방 · 쪽지 두 장의 공통점을 찾아라</div><div class="doors">'+ROOMS.filter(function(r){return !r.gem}).map(door).join('')+'</div>'+
-  '<div class="secT">💎 보물 방 · 고려 장인이 되어 직접 만들어 보라</div><div class="doors">'+ROOMS.filter(function(r){return r.gem}).map(door).join('')+'</div>'+
-  (all?'<div class="row" style="margin-top:22px"><button class="btn" id="fin">🚪 마지막 문으로!</button></div>':'');
-  a.querySelectorAll('.door').forEach(function(b){b.onclick=function(){var id=b.dataset.id;if(S.done.indexOf(id)>=0)return;sfx.door();S.cur=id;go('room',R(id).gem?'p1':'read')}});
+  a.innerHTML='<h2>잠긴 개경의 집</h2><p class="dim">어느 방부터 열어도 좋다. ('+nd+'/7)</p>'+
+   (nd===0?memo('방 안은 어둡다. <b>화면을 누르거나 끌면 등불</b>이 비춰진다. 물건을 찾아 누르면 단서를 얻는다.<br>방을 하나 풀 때마다 <b>활동지</b>를 채우게 된다.'):'')+
+   '<div class="secT">🗝️ 단서의 방 — 고려 사람들은 어떻게 살았나</div><div class="house">'+ROOMS.filter(function(r){return !r.gem}).map(door).join('')+'</div>'+
+   '<div class="secT">💎 보물의 방 — 고려 장인의 솜씨</div><div class="house">'+ROOMS.filter(function(r){return r.gem}).map(door).join('')+'</div>'+
+   (all?'<div class="row" style="margin-top:24px"><button class="btn" id="fin">🚪 붉은 글씨의 문으로</button></div>':'');
+  a.querySelectorAll('.door').forEach(function(b){b.onclick=function(){var id=b.dataset.id;if(S.done.indexOf(id)>=0){sfx.nope();return}audio();if(musicOn)startAmb();sfx.door();S.cur=id;go('room','search')}});
   if(all)$('#fin').onclick=function(){sfx.door();S.fin=0;go('final',0)};return}
- if(S.step==='room'){var r=R(S.cur);if(r.gem){r.id==='g1'?printRoom(a):kilnRoom(a)}else pairRoom(a,r);return}
+ if(S.step==='room'){roomScreen(a,R(S.cur));return}
  if(S.step==='final'){finalRoom(a);return}
- if(S.step==='end'){a.innerHTML='<div class="center"><div class="bigdoor">🌅</div><h1>탈출 성공!</h1><p style="font-size:22px">천 년 전 고려에서 무사히 돌아왔어요.</p></div>'+
-  memo('활동지 <b>❹ 소감</b>을 써요. 고려에서 가장 놀라웠던 점은 무엇인가요?')+
-  '<div class="keyrow">'+ROOMS.map(function(r){return '<div class="kk">'+r.emo+'<b>'+r.key+'</b>'+r.name+'</div>'}).join('')+'</div>';confetti(180);sfx.win();return}
+ if(S.step==='end'){stopAmb();a.innerHTML='<div class="center" style="margin-top:30px"><div style="font-size:90px">🌅</div><h1 style="animation:none;text-shadow:0 0 30px #d9b25f">탈출 성공</h1><p style="font-size:21px">문이 열리고, 아침 햇살이 쏟아진다.</p></div>'+
+  memo('활동지 <b>❹ 탈출 소감</b>을 써요. 고려에서 가장 놀라웠던 단서는 무엇이었나요?')+
+  '<div class="keyrow">'+ROOMS.map(function(r){return '<div class="kk">'+r.emo+'<b>'+r.key+'</b>'+r.name+'</div>'}).join('')+'</div>';sfx.win();return}
 }
-/* --- 쪽지 방 --- */
-function cluesHTML(r){return '<div class="clues">'+r.clues.map(function(c,i){return '<div class="card"><div class="meta"><span class="no">쪽지 '+(i?'②':'①')+'</span><span class="tag">'+c.type+'</span>'+esc(c.when)+'</div><h3>'+esc(c.name)+'</h3><div class="tx">'+esc(c.text)+'</div><div class="find">🔍 '+esc(c.src)+'</div></div>'}).join('')+'</div>'}
-function pairRoom(a,r){var head='<h2>'+r.emo+' '+r.name+'</h2><p>탁자 위에 쪽지 두 장이 놓여 있어요.</p>'+cluesHTML(r);
- if(S.phase==='read'){var o=shuffle(r.opts);
-  a.innerHTML=head+'<div class="lock"><div class="h">🔒 자물쇠 · 두 쪽지의 공통점</div><p>'+r.q+'</p><div class="opts">'+o.map(function(x){return '<button class="opt" data-ok="'+x[1]+'" data-why="'+esc(x[2])+'">'+esc(x[0])+'</button>'}).join('')+'</div><div class="hint" id="hint"></div></div>';
-  a.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){if(b.dataset.ok==='1'){b.classList.add('ok');sfx.ok();a.querySelectorAll('.card').forEach(function(c){c.classList.add('glow')});flash('철컥!');setTimeout(function(){go('room','write')},1100)}
-   else{b.classList.remove('no');void b.offsetWidth;b.classList.add('no');sfx.no();$('#hint').textContent=b.dataset.why||'다시 읽어 봐요!'}}});return}
- if(S.phase==='write'){a.innerHTML=head+(r.secret?'<div class="secret">'+r.secret+'</div>':'')+
-  '<div class="lock"><div class="h">🔓 자물쇠가 풀렸어요! 마지막으로 생각의 열쇠</div><p style="font-size:21px">'+r.think+'</p><p style="color:var(--dim)">쪽지에 직접 쓰여 있지 않은 것을 짐작해 봐요.</p></div>'+
-  memo('활동지 <b>❶ 표의 「'+r.name+'」 줄</b>을 채워요.<br>· <b>함께 보이는 것</b>: 방금 찾은 공통점<br>· <b>그래서 고려는?</b>: “고려는 ~했을 것이다.”')+
-  '<div class="row"><button class="btn cel" id="b">다 썼어요</button></div>';
-  $('#b').onclick=function(){ask('“고려는 <b>~했을 것이다.</b>”로 썼나요?','네! 열쇠 받기','잠깐, 고칠래',function(y){if(y)finishRoom(r)})};return}
+/* ---- 방: 탐색 ---- */
+function roomScreen(a,r){var ph=S.phase;
+ if(ph==='search'){var f=fnd(r.id),total=r.objs.length;
+  a.innerHTML='<h2>'+r.emo+' '+r.name+'</h2><p class="dim">'+r.intro+'</p><p>단서 <span class="count" id="cnt">'+f.length+' / '+total+'</span></p>'+
+  '<div class="scene" id="sc" style="background:radial-gradient(circle at 50% 60%,#3a2f22,#14100b 70%)">'+
+   r.deco.map(function(d){return '<span class="bgdeco" style="left:'+d[1]+'%;top:'+d[2]+'%;transform:translate(-50%,-50%)">'+d[0]+'</span>'}).join('')+
+   r.objs.map(function(o,i){return '<span class="obj'+(f.indexOf(i)>=0?' found':'')+'" data-i="'+i+'" style="left:'+o.x+'%;top:'+o.y+'%">'+o.e+'</span>'}).join('')+
+   r.decoys.map(function(o,i){return '<span class="obj decoy" data-d="'+i+'" style="left:'+o[1]+'%;top:'+o[2]+'%;font-size:36px">'+o[0]+'</span>'}).join('')+
+   '<div class="dark" id="dk"></div><div class="tip">화면을 누르거나 끌어서 등불을 비춰요 🔦</div></div>'+
+   '<div class="row"><button class="btn dark" id="back">← 복도로</button>'+(f.length>=total?'<button class="btn" id="go">🔒 자물쇠를 살펴본다</button>':'')+'</div>';
+  var sc=$('#sc'),dk=$('#dk'),lx=50,ly=50,last=Date.now();
+  function setL(e){var b=sc.getBoundingClientRect();lx=(e.clientX-b.left)/b.width*100;ly=(e.clientY-b.top)/b.height*100;dk.style.setProperty('--x',lx+'%');dk.style.setProperty('--y',ly+'%')}
+  function hitTest(e){var b=sc.getBoundingClientRect(),px=e.clientX,py=e.clientY,best=null,bd=1e9;
+   sc.querySelectorAll('.obj').forEach(function(el){var r2=el.getBoundingClientRect(),cx=r2.left+r2.width/2,cy=r2.top+r2.height/2,dd=Math.hypot(cx-px,cy-py);if(dd<bd){bd=dd;best=el}});
+   return bd<52?best:null}
+  var down=false;
+  sc.addEventListener('pointerdown',function(e){down=true;setL(e);last=Date.now();var el=hitTest(e);if(el)tapObj(el)});
+  sc.addEventListener('pointermove',function(e){if(down||e.pointerType==='mouse')setL(e)});
+  addEventListener('pointerup',function(){down=false});
+  function tapObj(el){if(el.classList.contains('decoy')){var d=r.decoys[+el.dataset.d];sfx.nope();modal('<div class="box"><div style="font-size:50px">'+d[0]+'</div><p>'+d[3]+'</p></div>',[['다시 찾자',1]]);return}
+   var i=+el.dataset.i;if(f.indexOf(i)>=0)return;var o=r.objs[i];f.push(i);save();el.classList.add('found');el.classList.remove('hint');sfx.find();$('#cnt').textContent=f.length+' / '+total;
+   modal('<div class="disc"><div class="hd">🔍 '+esc(o.name)+josa(o.name,'을','를')+' 발견했다!</div>'+(o.img?'<img src="'+IMG+o.img+'" alt="'+esc(o.name)+'">':'<div style="font-size:90px;text-align:center;padding:10px;background:#1b1813">'+o.e+'</div>')+
+    '<div class="src">'+esc(o.src||'')+'</div><div class="bd">'+esc(o.text)+'<div class="piece">📓 수첩에 적었다 — '+o.piece+'</div></div></div>',[['수첩에 넣기',1]],function(){if(f.length>=total){sfx.lock();render()}})}
+  (function hintLoop(){timers.push(setTimeout(function(){if(Date.now()-last>25000){var left=[].filter.call(sc.querySelectorAll('.obj:not(.found):not(.decoy)'),function(){return 1});if(left[0])left[0].classList.add('hint')}hintLoop()},5000))})();
+  $('#back').onclick=function(){go('map')};if($('#go'))$('#go').onclick=function(){sfx.lock();go('room',r.gem?'video':'lock')};return}
+ if(ph==='lock'){lockScreen(a,r);return}
+ if(ph==='write'){var pieces=r.objs.map(function(o){return '<div class="nbp">'+(o.img?'<img src="'+IMG+o.img+'" alt="">':'<div class="em">'+o.e+'</div>')+'<div>'+o.piece+'</div></div>'}).join('');
+  a.innerHTML='<h2>🔓 '+r.name+'</h2><p>자물쇠가 풀렸다. 하지만 문을 나서기 전, 단서를 기록해야 한다.</p>'+
+  '<div class="disc" style="max-width:none;animation:none"><div class="hd">📓 이 방의 단서 조각 '+r.objs.length+'개</div><div class="bd">'+pieces+'</div></div>'+
+  (r.gem?memo('활동지 <b>❷ 보물의 방 「'+r.name+'」</b> 칸을 채워요.<br>· 단서 조각에서 <b>대단하다고 느낀 점 2가지</b>를 구체적으로<br>· 영상과 체험에서 <b>직접 느낀 점</b>, 고려 장인에게 한마디'):memo('활동지 <b>'+r.organizer+'</b> 칸을 채워요.<br>· 단서 조각 <b>'+r.objs.length+'개를 모두</b> 넣어요. (사람·물건·하는 일을 구체적으로!)<br>· 마지막 줄: <b>“그래서 고려는 ~했을 것이다.”</b>'))+
+  '<div class="row"><button class="btn" id="b">기록을 마쳤다</button></div>';
+  $('#b').onclick=function(){ask(r.gem?'대단한 점 2가지와 느낀 점을 다 썼나요?':'단서 조각 '+r.objs.length+'개를 모두 넣고,<br>“그래서 고려는 <b>~했을 것이다</b>”까지 썼나요?','네, 다 썼어요','아직이에요',function(y){if(y)finish(r)})};return}
+ if(ph==='video'){var v=r.video;a.innerHTML='<h2>'+r.emo+' '+r.name+'</h2><p>벽에 걸린 낡은 거울이 빛나더니, 장인의 모습이 비친다…</p>'+
+  '<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/'+v.id+'?rel=0" title="'+esc(v.title)+'" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'+
+  '<p class="dim" style="font-size:15px">🎬 '+esc(v.title)+' · 영상이 안 나오면 <a style="color:var(--gold)" href="https://www.youtube.com/watch?v='+v.id+'" target="_blank" rel="noopener">유튜브에서 보기</a>'+(v.alt?' · <a style="color:var(--gold)" href="https://www.youtube.com/watch?v='+v.alt+'" target="_blank" rel="noopener">다른 영상</a>':'')+'</p>'+
+  memo('영상을 보며 <b>“와, 이건 대단하다!”</b> 싶은 장면을 하나 기억해 두세요. 활동지 <b>❷</b>에 쓸 거예요.')+
+  '<div class="row"><button class="btn" id="b">이제 직접 해 본다 →</button></div>';$('#b').onclick=function(){go('room',r.id==='g1'?'t1':'k1')};return}
+ if(r.id==='g1')printGame(a,r,ph);else kilnGame(a,r,ph);
 }
-/* --- 보물 방 1: 인쇄 --- */
-var BOOKS=['부처님 말씀','고려 이야기'];
-function printRoom(a){var r=R('g1'),head='<h2>📖 흥덕사 인쇄방</h2>';
- var ph=S.phase;
- if(ph==='p1'||ph==='p2'){var bi=ph==='p1'?0:1,need=14,n=0;
-  a.innerHTML=head+'<p>스님이 부탁했어요. <b>“책을 찍어 주시오!”</b> 먼저 옛날 방법, <b>목판</b>으로 찍어 봐요.</p>'+
-  '<div class="stage"><div style="font-size:20px">'+(bi?'두 번째 책 『'+BOOKS[1]+'』은 글이 달라요… <b>판을 처음부터 새로 새겨야 해요!</b> 😩':'첫 번째 책 『'+BOOKS[0]+'』')+'</div>'+
-  '<div class="board"><div class="carv" id="cv"></div></div><div class="bar"><i id="pb"></i></div>'+
-  '<button class="btn" id="b" style="font-size:24px">🔨 끌로 한 글자씩 새기기 (탭!)</button><div style="margin-top:10px">'+(bi?'<span class="book">📕 '+BOOKS[0]+'</span>':'')+'</div></div>';
-  $('#b').onclick=function(){n++;sfx.chip();var p=Math.min(1,n/need);$('#pb').style.width=(p*100)+'%';$('#cv').style.clipPath='inset(0 '+(100-p*100)+'% 0 0)';
-   if(n>=need){this.disabled=true;sfx.ok();flash('📕');setTimeout(function(){go('room',bi?'p3':'p2')},900)}};return}
- if(ph==='p3'){a.innerHTML=head+'<div class="stage"><div style="font-size:22px;line-height:1.7">세 번째 책을 찍으려면… 또 판 하나를 통째로 새겨야 해요. 😵<br>고려 장인들은 생각했어요.<br><b class="big">“글자를 하나씩 따로 만들어서<br>다시 쓰면 어떨까?”</b></div>'+
-  '<p style="margin-top:12px">쇠로 만든 낱개의 글자, <b>금속 활자</b>를 써 봐요!</p><button class="btn" id="b">금속 활자 상자 열기</button></div>';$('#b').onclick=function(){sfx.clack();go('room','p4')};return}
- if(ph==='p4'||ph==='p5'){var target=ph==='p4'?['고','려','이','야','기']:['부','처','님','이','야','기'];
-  var tray=['고','려','이','야','기','부','처','님','말','씀','책'];
-  a.innerHTML=head+'<div class="stage"><div style="font-size:20px">'+(ph==='p4'?'금속 활자를 순서대로 골라 『고려 이야기』를 짜 맞춰요.':'판을 풀어 활자를 <b>다시 써요</b>! 이번엔 『부처님 이야기』를 짜 맞춰요.')+'</div>'+
-  '<div class="slots">'+target.map(function(){return '<div class="slot"></div>'}).join('')+'</div><div class="chips">'+shuffle(tray).map(function(t){return '<button class="tile">'+t+'</button>'}).join('')+'</div>'+
-  '<div class="hint" id="hint"></div></div>';var k=0,slots=a.querySelectorAll('.slot');
-  a.querySelectorAll('.tile').forEach(function(b){b.onclick=function(){if(b.textContent===target[k]&&!(ph==='p4'&&b.classList.contains('used'))){sfx.clack();slots[k].textContent=target[k];slots[k].classList.add('f');if(ph==='p4')b.classList.add('used');k++;
-     if(k===target.length){sfx.ok();flash(ph==='p4'?'📗':'📘');setTimeout(function(){go('room',ph==='p4'?'p5':'p6')},1000)}}
-    else{b.classList.remove('no');void b.offsetWidth;b.classList.add('no');sfx.no();$('#hint').textContent='다음 글자는 「'+target[k]+'」예요!'}}});
-  if(ph==='p5'){var h=document.createElement('p');h.innerHTML='💡 「이」「야」「기」는 방금 쓴 활자를 <b>그대로 다시</b> 써요. 새로 새길 필요가 없어요!';h.style.color='var(--gold)';a.querySelector('.stage').appendChild(h)}return}
- if(ph==='p6'){a.innerHTML=head+'<div class="stage"><div class="big">💎 보물 발견! 『직지』</div>'+
-  '<div class="fact">목판은 책마다 판을 통째로 새로 새겨야 했지만, <b>금속 활자</b>는 단단해서 오래 쓸 수 있고, 필요한 글자만 골라 <b>몇 번이고 다시</b> 짜 맞출 수 있었어요.<br><br>'+
-  '📖 <b>1377년</b> 청주 흥덕사에서 금속 활자로 찍은 불교 책 『직지』는 <b>지금 남아 있는 금속 활자 책 가운데 세계에서 가장 오래되었어요.</b> 서양에서 금속 활자로 성경을 찍은 것보다 <b>70년도 더 앞서요.</b> 그래서 유네스코 세계 기록 유산이 되었어요.<br><br>'+
-  '🔥 활자 하나를 만들려면 밀랍에 글자를 새기고 → 흙 거푸집으로 감싸 → 밀랍을 녹이고 → <b>펄펄 끓는 쇳물</b>을 부어야 했어요. 글자 하나하나가 장인의 손으로 만들어졌어요.</div></div>'+
-  memo('활동지 <b>❷ 보물 방 「흥덕사 인쇄방」</b>을 채워요.<br>· 직접 해 보니 금속 활자는 <b>어떤 점이 대단한가요?</b><br>· 고려 장인에게 한마디!')+'<div class="row"><button class="btn cel" id="b">다 썼어요</button></div>';
-  $('#b').onclick=function(){finishRoom(r)};return}
+function finish(r){if(S.done.indexOf(r.id)<0)S.done.push(r.id);S.phase=null;save();sfx.key();flash(r.gem?'💎':'🗝️');timers.push(setTimeout(function(){go('map')},1100))}
+/* ---- 자물쇠 ---- */
+function lockScreen(a,r){var L=r.lock;var head='<h2>🔒 '+L.title+'</h2><p>'+L.q+'</p><p class="dim" style="font-size:15px">막히면 오른쪽 위 📓 수첩을 열어 단서를 다시 읽어 봐요.</p>';
+ function solved(){sfx.lock();flash('철컥');timers.push(setTimeout(function(){go('room','write')},1000))}
+ function fail(msg){sfx.nope();$('#hint').textContent=msg||'자물쇠가 꿈쩍도 하지 않는다… 수첩을 다시 읽어 보자.'}
+ if(L.type==='order'){var pick=[];a.innerHTML=head+'<div class="lock"><div class="slots pyr" id="sl">'+L.items.map(function(x,i){return '<div class="slot"><span class="n">'+(L.labels[i]||'')+'</span><span></span></div>'}).join('')+'</div><div class="cards" id="cd">'+shuffle(L.items).map(function(x){return '<button class="tile">'+x+'</button>'}).join('')+'</div><div class="row"><button class="btn dark" id="rs">다시 놓기</button></div><div class="hint" id="hint"></div></div>';
+  var sl=a.querySelectorAll('.slot span:last-child');
+  a.querySelectorAll('#cd .tile').forEach(function(b){b.onclick=function(){if(b.disabled)return;sfx.click();pick.push(b.textContent);sl[pick.length-1].textContent=b.textContent;b.disabled=true;b.style.opacity=.3;
+   if(pick.length===L.items.length){if(pick.join()===L.items.join())solved();else{fail('순서가 맞지 않는다… 누가 누구의 시중을 들고, 누가 세금을 바쳤을까?');timers.push(setTimeout(reset,1300))}}}});
+  function reset(){pick=[];sl.forEach(function(s){s.textContent=''});a.querySelectorAll('#cd .tile').forEach(function(b){b.disabled=false;b.style.opacity=1})}
+  $('#rs').onclick=reset;return}
+ if(L.type==='match'){var ans={};a.innerHTML=head+'<div class="lock">'+L.pairs.map(function(p,i){return '<div class="match"><span class="q">'+p[0]+'</span><div class="seg" data-i="'+i+'">'+L.opts.map(function(o){return '<button>'+o+'</button>'}).join('')+'</div></div>'}).join('')+'<div class="row"><button class="btn" id="ck">자물쇠를 돌린다</button></div><div class="hint" id="hint"></div></div>';
+  a.querySelectorAll('.seg').forEach(function(s){s.querySelectorAll('button').forEach(function(b){b.onclick=function(){sfx.click();s.querySelectorAll('button').forEach(function(x){x.classList.remove('sel')});b.classList.add('sel');ans[s.dataset.i]=b.textContent}})});
+  $('#ck').onclick=function(){var ok=L.pairs.every(function(p,i){return ans[i]===p[1]});if(ok)solved();else fail('하나가 어긋났다… 최승로의 글과 제단을 다시 읽어 보자.')};return}
+ if(L.type==='multi'){a.innerHTML=head+'<div class="lock"><div>'+shuffle(L.opts).map(function(o){return '<button class="chip" data-ok="'+o[1]+'">'+o[0]+'</button>'}).join('')+'</div><div class="row"><button class="btn" id="ck">자물쇠를 돌린다</button></div><div class="hint" id="hint"></div></div>';
+  a.querySelectorAll('.chip').forEach(function(c){c.onclick=function(){sfx.click();c.classList.toggle('sel')}});
+  $('#ck').onclick=function(){var sel=[].slice.call(a.querySelectorAll('.chip.sel'));var good=sel.length===4&&sel.every(function(c){return c.dataset.ok==='1'});if(good)solved();else fail(sel.some(function(c){return c.dataset.ok==='0'})?'절에서 하지 않은 일이 섞여 있다…':'아직 빠진 것이 있다. 4개를 모두!')};return}
+ if(L.type==='toggle'){var ans={};a.innerHTML=head+'<div class="lock">'+L.rows.map(function(rw,i){return '<div class="match"><span class="q">⚖️ '+rw[0]+'</span><div class="seg" data-i="'+i+'">'+rw[1].map(function(o,j){return '<button data-j="'+j+'">'+o+'</button>'}).join('')+'</div></div>'}).join('')+'<div class="row"><button class="btn" id="ck">저울을 내려놓는다</button></div><div class="hint" id="hint"></div></div>';
+  a.querySelectorAll('.seg').forEach(function(s){s.querySelectorAll('button').forEach(function(b){b.onclick=function(){sfx.click();s.querySelectorAll('button').forEach(function(x){x.classList.remove('sel')});b.classList.add('sel');ans[s.dataset.i]=+b.dataset.j}})});
+  $('#ck').onclick=function(){var ok=L.rows.every(function(rw,i){return ans[i]===rw[2]});if(ok)solved();else fail('저울이 기울어졌다… 재산, 제사, 벼슬 단서를 다시 보자.')};return}
+ if(L.type==='sort'){var place={},cur=null;a.innerHTML=head+'<div class="lock"><div id="pool">'+shuffle(L.items).map(function(it){return '<button class="chip" data-b="'+it[1]+'">'+it[0]+'</button>'}).join('')+'</div><div class="bins">'+L.bins.map(function(b,i){return '<div class="bin" data-i="'+i+'"><h4>📦 '+b+'</h4><div class="in"></div></div>'}).join('')+'</div><div class="row"><button class="btn" id="ck">상자를 닫는다</button></div><div class="hint" id="hint"></div></div>';
+  a.querySelectorAll('.chip').forEach(function(c){c.onclick=function(e){e.stopPropagation();sfx.click();a.querySelectorAll('.chip').forEach(function(x){x.classList.remove('sel')});c.classList.add('sel');cur=c}});
+  a.querySelectorAll('.bin').forEach(function(bn){bn.onclick=function(){if(!cur)return;sfx.chip();bn.querySelector('.in').appendChild(cur);place[cur.textContent]=+bn.dataset.i;cur.classList.remove('sel');cur=null}});
+  $('#ck').onclick=function(){var ok=L.items.every(function(it){return place[it[0]]===it[1]});if(ok)solved();else fail(Object.keys(place).length<L.items.length?'아직 바닥에 물건이 남아 있다.':'상자가 닫히지 않는다… 수출품 상자 단서를 다시 보자.')};return}
 }
-/* --- 보물 방 2: 청자 --- */
-var KSTEPS=['흙으로 그릇 모양 빚기','그릇 겉면을 파서 구름과 학 무늬 새기기','파낸 자리에 흰 흙과 붉은 흙 채우기','한 번 굽기','유약을 바르고 아주 뜨겁게 다시 굽기'];
-function kilnRoom(a){var r=R('g2'),head='<h2>🏺 강진 가마터</h2>',ph=S.phase;
- if(ph==='p1'){var k=0;a.innerHTML=head+'<p>가마터 장인이 말했어요. <b>“고려에만 있는 비법, 상감 청자를 만들어 보게!”</b></p><div class="stage"><div style="font-size:20px">만드는 순서대로 눌러요.</div>'+
-  '<div class="steps">'+shuffle(KSTEPS).map(function(s){return '<button class="opt">'+s+'</button>'}).join('')+'</div><div class="hint" id="hint"></div></div>';
-  a.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){if(b.classList.contains('ok'))return;if(b.textContent===KSTEPS[k]){k++;b.classList.add('ok');b.textContent=k+'. '+b.textContent;sfx.ok();if(k===KSTEPS.length){flash('🏺');setTimeout(function(){go('room','p2')},1000)}}
-   else{b.classList.remove('no');void b.offsetWidth;b.classList.add('no');sfx.no();$('#hint').textContent=k===0?'맨 처음엔 그릇이 있어야겠죠?':k===2?'무늬를 판 다음엔?':k===3?'흙을 채웠으면 이제 불에!':'다음 순서를 생각해 봐요!'}}});return}
- if(ph==='p2'){a.innerHTML=head+'<div class="stage"><div style="font-size:20px">이제 가마에 넣고 <b>1,250도</b> 안팎의 불을 지켜요!<br>흰 칸 안에 바늘을 <b>5초</b> 동안 머물게 하세요. 너무 뜨거우면 그릇이 깨져요!</div>'+
-  '<div class="fire"><span id="fi">🔥</span></div><div class="therm"><div class="zone" id="zn"></div><div class="needle" id="nd"></div></div><div class="temp" id="tp"></div><div class="bar"><i id="pb"></i></div>'+
-  '<button class="btn" id="b" style="font-size:24px">🪵 장작 넣기 (탭!)</button><div class="hint" id="hint"></div></div>';
-  var lo=900,hi=1450,zl=1200,zh=1300,T=1000,prog=0,last=performance.now(),fin=false;
-  var W=function(t){return (t-lo)/(hi-lo)*100};$('#zn').style.left=W(zl)+'%';$('#zn').style.width=(W(zh)-W(zl))+'%';
-  $('#b').onclick=function(){if(fin)return;T+=55;sfx.fire()};
-  (function f(now){var dt=Math.min(.1,(now-last)/1000);last=now;if(!fin){T-=60*dt;if(T<lo)T=lo;
-    if(T>1380){T=1150;prog=Math.max(0,prog-1.5);sfx.no();$('#hint').textContent='앗, 너무 뜨거워서 금이 갈 뻔했어요! 천천히 넣어요.'}
-    if(T>=zl&&T<=zh){prog+=dt;$('#hint').textContent=''}
-    $('#nd').style.left='calc('+Math.max(0,Math.min(100,W(T)))+'% - 3px)';$('#tp').textContent=Math.round(T)+'℃';$('#pb').style.width=Math.min(100,prog/5*100)+'%';
-    $('#fi').style.transform='scale('+(0.7+Math.max(0,(T-lo))/550)+')';
-    if(prog>=5){fin=true;sfx.ok();flash('✨');setTimeout(function(){go('room','p3')},1000)}}
-   loop=requestAnimationFrame(f)})(last);return}
- if(ph==='p3'){a.innerHTML=head+'<div class="stage"><div class="big">💎 보물 발견! 상감 청자</div><div style="font-size:90px">🏺</div>'+
-  '<div class="fact"><b>청자 상감 구름 학 무늬 매병</b> — 푸른 그릇 위로 구름 사이를 나는 학들이 가득해요. 붓으로 그린 게 아니라, 방금 내가 한 것처럼 <b>겉을 파내고 다른 색 흙을 채워</b> 무늬를 넣었어요. 이 <b>상감 기법</b>은 고려 장인들이 새롭게 발달시킨 방법이에요.<br><br>'+
-  '✨ 고려청자의 은은한 푸른빛을 <b>‘비색’</b>이라고 해요. 이웃 송나라 사람들도 <b>“고려의 비색은 천하제일”</b>이라고 감탄했어요.<br><br>'+
-  '🏯 고려의 지배층은 청자로 물병, 찻잔, 베개, 의자, 심지어 <b>지붕 기와</b>까지 만들어 생활 속에서 썼어요. <small>(교과서 64쪽)</small></div></div>'+
-  memo('활동지 <b>❷ 보물 방 「강진 가마터」</b>를 채워요.<br>· 직접 해 보니 고려청자는 <b>어떤 점이 대단한가요?</b><br>· 고려 장인에게 한마디!')+'<div class="row"><button class="btn cel" id="b">다 썼어요</button></div>';
-  $('#b').onclick=function(){finishRoom(r)};return}
+/* ---- 보물 방 게임 ---- */
+function printGame(a,r,ph){var head='<h2>📖 흥덕사 인쇄방</h2>';
+ if(ph==='t1'||ph==='t2'){var need=12,n=0,bi=ph==='t1'?0:1;a.innerHTML=head+'<div class="stage"><p style="font-size:19px">'+(bi?'두 번째 책은 내용이 다르다… <b>목판을 처음부터 다시 새겨야 한다!</b> 😩':'먼저 옛 방법, <b>목판</b>으로 책 한 권을 찍어 보자.')+'</p><div style="font-size:70px">🪵</div><div class="bar"><i id="pb"></i></div><button class="btn" id="b">🔨 한 글자씩 새긴다 (탭!)</button></div>';
+  $('#b').onclick=function(){n++;sfx.chip();$('#pb').style.width=Math.min(100,n/need*100)+'%';if(n>=need){this.disabled=true;flash('📕');timers.push(setTimeout(function(){go('room',bi?'t3':'t2')},900))}};return}
+ if(ph==='t3'||ph==='t4'){var target=ph==='t3'?['고','려','이','야','기']:['부','처','님','이','야','기'],tray=['고','려','이','야','기','부','처','님','말','씀','책'],k=0;
+  a.innerHTML=head+'<div class="stage"><p style="font-size:19px">'+(ph==='t3'?'이번엔 <b>금속 활자</b>! 활자를 골라 『고려 이야기』를 짜 맞추자.':'판을 풀어 활자를 <b>다시 쓴다</b>. 『부처님 이야기』를 짜 맞추자. 「이」「야」「기」는 그대로 다시!')+'</p><div class="tslots">'+target.map(function(){return '<div class="tslot"></div>'}).join('')+'</div><div class="tray">'+shuffle(tray).map(function(t){return '<button class="type">'+t+'</button>'}).join('')+'</div><div class="hint" id="hint"></div></div>';
+  var sl=a.querySelectorAll('.tslot');a.querySelectorAll('.type').forEach(function(b){b.onclick=function(){if(b.textContent===target[k]&&!b.classList.contains('used')){sfx.clack();sl[k].textContent=target[k];sl[k].classList.add('f');if(ph==='t3')b.classList.add('used');k++;if(k===target.length){flash(ph==='t3'?'📗':'📘');timers.push(setTimeout(function(){go('room',ph==='t3'?'t4':'write')},1000))}}else{b.classList.remove('no');void b.offsetWidth;b.classList.add('no');sfx.nope();$('#hint').textContent='다음 글자는 「'+target[k]+'」'}}});return}
 }
-/* --- 마지막 문 --- */
-var LINKS=[{q:'💎 고려청자를 생활 속에서 쓴 사람은 누구였지?',a:'r1',why:'청자는 지배층(높은 신분)이 썼어요 → 신분이 나뉜 「개경 귀족의 집」과 이어져요.'},
- {q:'💎 『직지』는 어떤 책이었지?',a:'r3',why:'『직지』는 불교 책이에요 → 불교가 생활 속에 있던 「등불 거리」와 이어져요.'},
- {q:'💎 벽란도에서 다른 나라에 판 물건 중, 내가 직접 만들어 본 것은?',a:'r5',why:'고려는 청자를 다른 나라에 팔았어요 → 「벽란도 항구」와 이어져요.'}];
+var KSTEPS=['흙으로 그릇 모양 빚기','겉면을 파서 구름과 학 무늬 새기기','파낸 자리에 흰 흙과 붉은 흙 채우기','한 번 굽기','유약을 바르고 아주 뜨겁게 다시 굽기'];
+function kilnGame(a,r,ph){var head='<h2>🏺 강진 가마터</h2>';
+ if(ph==='k1'){var k=0;a.innerHTML=head+'<div class="stage"><p style="font-size:19px">영상에서 본 순서대로 상감 청자를 만들어 보자.</p><div class="cards" style="max-width:520px;margin:0 auto">'+shuffle(KSTEPS).map(function(s){return '<button class="tile">'+s+'</button>'}).join('')+'</div><div class="hint" id="hint"></div></div>';
+  a.querySelectorAll('.tile').forEach(function(b){b.onclick=function(){if(b.classList.contains('ok'))return;if(b.textContent===KSTEPS[k]){k++;b.classList.add('ok');b.textContent=k+'. '+b.textContent;sfx.find();if(k===KSTEPS.length){flash('🏺');timers.push(setTimeout(function(){go('room','k2')},1000))}}else{b.classList.remove('no');void b.offsetWidth;b.classList.add('no');sfx.nope();$('#hint').textContent='순서가 틀렸다… 흙을 채우려면 먼저 파야겠지?'}}});return}
+ if(ph==='k2'){a.innerHTML=head+'<div class="stage"><p style="font-size:19px">가마의 불을 <b>1,250도</b> 안팎으로 지켜라! 흰 칸 안에 바늘을 <b>5초</b> 동안 머물게 하자. 너무 뜨거우면 금이 간다!</p><div class="fire"><span id="fi">🔥</span></div><div class="therm"><div class="zone" id="zn"></div><div class="needle" id="nd"></div></div><div style="font-family:var(--title);font-size:28px" id="tp"></div><div class="bar"><i id="pb"></i></div><button class="btn" id="b">🪵 장작을 넣는다 (탭!)</button><div class="hint" id="hint"></div></div>';
+  var lo=900,hi=1450,zl=1200,zh=1300,T=1000,prog=0,last=performance.now(),done=false,W=function(t){return (t-lo)/(hi-lo)*100};$('#zn').style.left=W(zl)+'%';$('#zn').style.width=(W(zh)-W(zl))+'%';
+  $('#b').onclick=function(){if(!done){T+=55;sfx.fire()}};
+  (function f(now){var dt=Math.min(.1,(now-last)/1000);last=now;if(!done){T-=60*dt;if(T<lo)T=lo;if(T>1380){T=1150;prog=Math.max(0,prog-1.5);sfx.nope();$('#hint').textContent='쩍! 너무 뜨거워 금이 갈 뻔했다. 천천히!'}if(T>=zl&&T<=zh){prog+=dt;$('#hint').textContent=''}
+   $('#nd').style.left='calc('+Math.max(0,Math.min(100,W(T)))+'% - 3px)';$('#tp').textContent=Math.round(T)+'℃';$('#pb').style.width=Math.min(100,prog/5*100)+'%';$('#fi').style.transform='scale('+(0.7+Math.max(0,T-lo)/550)+')';
+   if(prog>=5){done=true;flash('✨');timers.push(setTimeout(function(){go('room','write')},1000))}}loop=requestAnimationFrame(f)})(last);return}
+}
+/* ---- 마지막 문 ---- */
+var LINKS=[{q:'💎 고려청자를 생활용품으로 쓴 사람들은 누구였지?',a:'r1',why:'청자는 지배층이 썼다 → 신분이 나뉜 「귀족의 사랑채」와 이어진다.'},
+ {q:'💎 『직지』는 어떤 책이었지?',a:'r3',why:'『직지』는 불교 책이다 → 불교가 생활 속에 있던 「등불 거리의 절」과 이어진다.'},
+ {q:'💎 벽란도 상자에 들어 있던 수출품 가운데, 고려 장인의 솜씨로 만든 공예품은?',a:'r5',why:'나전 칠기 같은 고려 공예품을 다른 나라에 팔았다 → 「벽란도 항구 창고」와 이어진다.'}];
 function finalRoom(a){var soc=ROOMS.filter(function(r){return !r.gem}),ph=S.phase;
  var keyrow='<div class="keyrow">'+ROOMS.map(function(r){return '<div class="kk">'+r.emo+'<b>'+r.key+'</b>'+r.name+'</div>'}).join('')+'</div>';
- if(ph===0){a.innerHTML='<div class="center"><div class="bigdoor" style="font-size:80px">🚪</div></div><h2>마지막 문</h2><p>문에 내가 모은 열쇠와 보물을 모두 끼웠어요. 문에는 자물쇠가 세 개 더 있어요!</p>'+keyrow+
-  '<div class="lock"><div class="h">🔒 자물쇠 1 · 서로 이어지는 방</div><p>보물 방과 쪽지 방은 서로 이어져 있어요. 어느 쪽지 방과 이어질까요?</p><div id="lq"></div><div class="hint" id="hint"></div></div>';
-  var li=S.fin||0;function show(){var L=LINKS[li];$('#lq').innerHTML='<p style="font-size:21px">('+(li+1)+'/3) '+L.q+'</p><div class="pick">'+soc.map(function(r){return '<button class="pk" data-id="'+r.id+'">'+r.emo+' '+r.name+'</button>'}).join('')+'</div>';
-   $('#lq').querySelectorAll('.pk').forEach(function(b){b.onclick=function(){if(b.dataset.id===L.a){b.classList.add('ok');sfx.ok();$('#hint').innerHTML='<span style="color:var(--cel)">'+L.why+'</span>';li++;S.fin=li;save();
-     setTimeout(function(){if(li<LINKS.length)show();else{$('#hint').textContent='';go('final',1)}},1900)}else{b.classList.remove('no');void b.offsetWidth;b.classList.add('no');sfx.no();$('#hint').textContent='음… 다시 떠올려 봐요. 보물 방에서 읽은 내용을 생각해요!'}}})}
+ var head='<h2>🚪 붉은 글씨의 문</h2>';
+ if(ph===0){a.innerHTML=head+'<p>일곱 개의 열쇠와 보물을 문에 끼우자, 문에 새 자물쇠 세 개가 떠올랐다.</p>'+keyrow+'<div class="lock"><div class="h">🔒 첫째 자물쇠 · 이어진 방</div><p>보물의 방과 단서의 방은 서로 이어져 있다. 어느 방과 이어질까?</p><div id="lq"></div><div class="hint" id="hint"></div></div>';
+  var li=S.fin||0;function show(){var L=LINKS[li];$('#lq').innerHTML='<p style="font-size:20px">('+(li+1)+'/3) '+L.q+'</p><div class="pick">'+soc.map(function(r){return '<button class="tile" data-id="'+r.id+'">'+r.emo+' '+r.name+'</button>'}).join('')+'</div>';
+   $('#lq').querySelectorAll('.tile').forEach(function(b){b.onclick=function(){if(b.dataset.id===L.a){b.classList.add('ok');sfx.lock();$('#hint').innerHTML='<span style="color:var(--jade)">'+L.why+'</span>';li++;S.fin=li;save();timers.push(setTimeout(function(){if(li<LINKS.length){$('#hint').textContent='';show()}else go('final',1)},2000))}else{b.classList.remove('no');void b.offsetWidth;b.classList.add('no');sfx.nope();$('#hint').textContent='아니다… 📓 수첩을 다시 열어 보자.'}}})}
   show();return}
- if(ph===1){var sel=[];a.innerHTML='<h2>마지막 문</h2>'+keyrow+'<div class="lock"><div class="h">🔒 자물쇠 2 · 반대처럼 보이는 두 방</div><p style="font-size:20px">서로 <b>반대처럼 보이는데 고려에 함께 있었던</b> 두 방을 골라요.</p><div class="pick">'+soc.map(function(r){return '<button class="pk" data-id="'+r.id+'">'+r.emo+' '+r.name+'<br><small>'+r.key+'</small></button>'}).join('')+'</div><div class="hint" id="hint"></div></div>';
-  a.querySelectorAll('.pk').forEach(function(b){b.onclick=function(){var id=b.dataset.id,i=sel.indexOf(id);if(i>=0){sel.splice(i,1);b.classList.remove('sel');return}if(sel.length>=2)return;sel.push(id);b.classList.add('sel');sfx.click();
-   if(sel.length===2){var s=sel.slice().sort().join();var good={'r1,r4':'신분은 나뉘어 차별이 있었는데, 가족 안에서는 아들과 딸이 똑같았어요!','r2,r3':'나라는 유교로 다스렸는데, 사람들의 생활에는 불교가 가득했어요!'};
-    if(good[s]){sfx.ok();a.querySelectorAll('.pk.sel').forEach(function(x){x.classList.add('ok')});$('#hint').innerHTML='<span style="color:var(--cel)">'+good[s]+'</span>';S.pair=s;save();setTimeout(function(){go('final',2)},2200)}
-    else{sfx.no();$('#hint').textContent='이 둘은 반대라기보다는 다른 이야기예요. 다른 짝을 찾아봐요! (힌트: 쪽지 방 공통점을 다시 봐요)';setTimeout(function(){sel=[];a.querySelectorAll('.pk').forEach(function(x){x.classList.remove('sel')})},1200)}}}});return}
- if(ph===2){var tries=0;a.innerHTML='<h2>마지막 문</h2>'+keyrow+'<div class="lock"><div class="h">🔒 자물쇠 3 · 고려를 한 낱말로</div><p style="font-size:20px">신분과 가족 평등, 유교와 불교, 고려 안과 바깥 세상… 이 모든 것이 함께 있었던 고려! 교과서 3주제 이름을 완성해요.</p>'+
-  '<div class="cho"><span>ㄷㅇㅅ</span><span>→</span><input id="in" maxlength="4" autocomplete="off" aria-label="정답 입력"><span>을 품은 고려</span></div><div class="row"><button class="btn" id="b">문 열기</button></div><div class="hint" id="hint"></div></div>';
-  $('#b').onclick=function(){var v=$('#in').value.replace(/\s/g,'');if(v==='다양성'){sfx.ok();go('final',3)}else{tries++;sfx.no();$('#hint').textContent=tries>1?'힌트: 여러 가지가 함께 있다는 뜻! “다○○”':'다시 생각해 봐요!'}};return}
- if(ph===3){var pr=S.pair==='r2,r3'?['나라는 유교로 다스리','생활에는 불교가 가득한']:['신분이 나뉘어 차별이 있으','가족 안에서는 아들딸이 똑같은'];
-  a.innerHTML='<h2>🗝️ 마지막 열쇠 문장</h2>'+keyrow+memo('활동지 <b>❸ 마지막 문</b>을 채워요.<br>· 서로 이어지는 방, 반대처럼 보이는 두 방<br>· 그리고 아래 <b>열쇠 문장</b>을 내 말로 완성해요.')+
-  '<div class="frame">고려는 <u></u> 하면서도 <u></u> 한,<br><b>다양성을 품은 나라</b>였다. 왜냐하면 <u></u> 이기 때문이다.</div>'+
-  '<p style="color:var(--dim)">💡 예를 들면 “'+pr[0]+'면서도 '+pr[1]+'…” 처럼 시작할 수 있어요. 쪽지 방 표를 다시 읽어 보면 쉬워요.</p><div class="row"><button class="btn" id="b">🚪 문 열기</button></div>';
-  $('#b').onclick=function(){ask('열쇠 문장을 <b>내 말로</b> 다 썼나요?','네! 문 열기','잠깐, 고칠래',function(y){if(!y)return;flash('탈출!');setTimeout(function(){go('end')},900)})};return}
+ if(ph===1){var sel=[];a.innerHTML=head+keyrow+'<div class="lock"><div class="h">🔒 둘째 자물쇠 · 반대처럼 보이는 두 방</div><p style="font-size:19px">서로 <b>반대처럼 보이는데 고려에 함께 있었던</b> 두 방을 골라라.</p><div class="pick">'+soc.map(function(r){return '<button class="tile" data-id="'+r.id+'">'+r.emo+' '+r.name+'<br><small class="dim">'+r.key+'</small></button>'}).join('')+'</div><div class="hint" id="hint"></div></div>';
+  a.querySelectorAll('.tile').forEach(function(b){b.onclick=function(){var id=b.dataset.id,i=sel.indexOf(id);if(i>=0){sel.splice(i,1);b.classList.remove('sel');return}if(sel.length>=2)return;sel.push(id);b.classList.add('sel');sfx.click();
+   if(sel.length===2){var s=sel.slice().sort().join(),good={'r1,r4':'신분은 엄격히 나뉘어 차별이 있었는데, 집 안에서는 아들과 딸이 똑같았다!','r2,r3':'나라는 유교로 다스렸는데, 사람들의 생활에는 불교가 가득했다!'};
+    if(good[s]){sfx.lock();a.querySelectorAll('.tile.sel').forEach(function(x){x.classList.add('ok')});$('#hint').innerHTML='<span style="color:var(--jade)">'+good[s]+'</span>';S.pair=s;save();timers.push(setTimeout(function(){go('final',2)},2300))}
+    else{sfx.nope();$('#hint').textContent='이 둘은 반대라기보다 다른 이야기다. 다시! (힌트: 신분과 가족, 또는 두 가지 생각)';timers.push(setTimeout(function(){sel=[];a.querySelectorAll('.tile').forEach(function(x){x.classList.remove('sel')})},1300))}}}});return}
+ if(ph===2){var tries=0;a.innerHTML=head+keyrow+'<div class="lock"><div class="h">🔒 마지막 자물쇠 · 고려를 한 낱말로</div><p style="font-size:19px">신분과 가족 평등, 유교와 불교와 도교, 고려 안과 바깥 세상… 이 모든 것이 함께 있었던 나라.</p><div class="cho"><span>ㄷㅇㅅ</span><span>→</span><input id="in" maxlength="4" autocomplete="off" aria-label="정답"><span>을 품은 고려</span></div><div class="row"><button class="btn" id="b">문고리를 당긴다</button></div><div class="hint" id="hint"></div></div>';
+  $('#b').onclick=function(){if($('#in').value.replace(/\s/g,'')==='다양성'){sfx.lock();go('final',3)}else{tries++;sfx.nope();$('#hint').textContent=tries>1?'힌트: 여러 가지가 함께 있다는 뜻. “다○○”':'문이 덜컹거릴 뿐이다…'}};return}
+ if(ph===3){var pr=S.pair==='r2,r3'?['나라는 유교로 다스리','생활 속에는 불교가 가득한']:['신분이 엄격히 나뉘어 있으','집 안에서는 아들딸이 똑같은'];
+  a.innerHTML=head+keyrow+memo('활동지 <b>❸ 붉은 글씨의 문</b>을 채워요.<br>· 이어진 방 하나와 그 까닭<br>· 반대처럼 보이는 두 방<br>· 그리고 <b>열쇠 문장</b> — 단서를 근거로 구체적으로!')+
+  '<div class="frame">고려는 <u></u> 하면서도 <u></u> 한,<br><b>다양성을 품은 나라</b>였다. 왜냐하면 <u></u> 이기 때문이다.</div><p class="dim">💡 예: “'+pr[0]+'면서도 '+pr[1]+' …” 처럼 시작해 보세요. 왜냐하면 뒤에는 단서 이름을 넣어요.</p><div class="row"><button class="btn" id="b">🚪 문을 연다</button></div>';
+  $('#b').onclick=function(){ask('열쇠 문장을 <b>내 말로</b> 다 썼나요?','네, 문을 연다','잠깐만요',function(y){if(!y)return;flash('탈출!');timers.push(setTimeout(function(){go('end')},900))})};return}
 }
-$('#restart').onclick=function(){ask('처음부터 다시 할까요?<br><small>지금까지 모은 열쇠가 지워져요.</small>','다시 하기','아니요',function(y){if(!y)return;S=fresh();save();render()})};
-$('#home').onclick=function(){if(S.step!=='intro'&&S.step!=='end'){go('map')}};
+$('#restart').onclick=function(){ask('처음부터 다시 할까요?<br><small>찾은 단서와 열쇠가 모두 지워져요.</small>','다시 하기','아니요',function(y){if(!y)return;S=fresh();save();render()})};
+$('#home').onclick=function(){if(S.step==='room'||S.step==='final')go('map')};
 render();
 </script>
 </body>
