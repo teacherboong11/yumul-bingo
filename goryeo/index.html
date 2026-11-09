@@ -139,7 +139,8 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
   <div class="foot"><button id="restart">처음부터 다시 하기</button></div>
 </div>
 <script>
-var IMG='img/';
+var IMG='img/';function isrc(n){return n.indexOf('cm:')===0?'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(n.slice(3))+'?width=900':IMG+n}
+function ierr(e){var d=document.createElement('div');if(e.closest('.nbp')){d.className='em'}else d.style.cssText='font-size:80px;text-align:center;padding:10px;background:#1b1813';d.textContent=e.getAttribute('data-e')||'🖼️';e.replaceWith(d)}
 /* ============ 방 데이터 ============ */
 var ROOMS=[
 {id:'r1',name:'귀족의 사랑채',emo:'🏯',key:'신분',organizer:'❶-1 신분 피라미드',
@@ -149,7 +150,7 @@ var ROOMS=[
   {e:'🖼️',x:24,y:34,name:'무덤 벽화가 그려진 두루마리',img:'mural.jpg',src:'박익 벽화묘 · 교과서 58쪽',text:'고려 관리 박익의 무덤 벽에 그려진 그림을 옮겨 그린 두루마리다. 술병과 음식, 물건을 든 사람들이 줄지어 주인의 시중을 들러 간다. 박익의 집안은 대대로 높은 벼슬을 한 집안이었다.',piece:'<b>지배층</b> — 왕족과 대대로 높은 벼슬을 한 가문. 많은 사람의 시중을 받으며 살았다.'},
   {e:'🗡️',x:70,y:30,name:'군인의 칼과 관청 도장',text:'칼집에는 “나라를 지키는 군사”라는 글씨가, 도장에는 관청의 낮은 관리 이름이 새겨져 있다. 이들은 왕족·귀족과 농민 사이에서 나라 일을 맡았다.',src:'교과서 58쪽',piece:'<b>중간 계층</b> — 관청에서 일하는 낮은 직급의 관리와 직업 군인.'},
   {e:'🌾',x:46,y:62,name:'곡식 자루와 세금 장부',text:'장부에는 마을마다 바친 곡식, 나라 일을 하러 나간 날짜, 고을의 특산물이 빼곡히 적혀 있다. 이름이 가장 많이 적힌 사람들은 농민이다.',src:'교과서 58쪽',piece:'<b>농민</b> — 양인 가운데 가장 많았다. 나라에 세금, 노동력, 특산물을 바쳤다.'},
-  {e:'📜',x:86,y:46,name:'찢어진 노비 문서',text:'“노비 아무개를 쌀 몇 섬에 넘긴다.” 노비를 물건처럼 사고판 문서다. 뒷면에 누군가 급히 써 놓았다. “장군과 재상의 씨가 어찌 따로 있겠는가! 노비 문서를 불태우자!” — 1198년, 노비 만적',src:'『고려사』 · 교과서 58쪽',piece:'<b>노비</b> — 천인의 대다수. 재산처럼 사고팔리며 심한 차별을 받았다.'},
+  {e:'📜',x:86,y:46,name:'찢어진 노비 문서',text:'“노비 아무개를 쌀 몇 섬에 넘긴다.” 노비를 물건처럼 사고판 문서다. 뒷면에 누군가 급히 써 놓았다. “장군과 재상의 씨가 어찌 따로 있겠는가! 노비 문서를 불태우자!” — 1198년, 노비 만적',img:'cm:Goryeosa,_National_Museum_of_Korea_01.jpg',src:'만적 이야기가 실린 『고려사』 · 국립중앙박물관',piece:'<b>노비</b> — 천인의 대다수. 재산처럼 사고팔리며 심한 차별을 받았다.'},
   {e:'🧾',x:58,y:84,name:'집안의 족보',text:'할아버지의 신분이 아버지에게, 아버지의 신분이 아들에게 그대로 적혀 내려온다. 고려 사람들은 크게 양인과 천인으로 나뉘었다.',src:'교과서 58쪽',piece:'<b>신분 제도</b> — 양인과 천인으로 나뉘고, 신분은 자손에게 그대로 이어졌다.'}],
  decoys:[['🕸️',36,14,'거미줄뿐이다… 무언가 기어간 자국이 있다.'],['🐀',14,52,'찍찍! 쥐 한 마리가 어둠 속으로 사라졌다.']],
  lock:{type:'order',title:'신분의 자물쇠',q:'자물쇠에 칸 네 개가 피라미드처럼 쌓여 있다. 위에서부터 높은 신분 순서로 끼워 넣어라.',items:['지배층','중간 계층','농민','노비'],labels:['맨 위','','','맨 아래']}},
@@ -157,9 +158,9 @@ var ROOMS=[
  intro:'빈 시험장. 바닥에 붓과 벼루가 흩어져 있고, 벽에는 오래된 현판이 걸려 있다…',
  deco:[['🪔',90,12],['🖌️',30,80]],
  objs:[
-  {e:'📝',x:22,y:40,name:'과거 시험 답안지',img:'gwageo.jpg',src:'교과서 53쪽',text:'나라의 관리를 뽑는 시험, 과거의 답안지다. 문제는 대부분 유교 책에서 나왔다. 관리가 되고 싶은 사람은 유교를 열심히 공부해야 했다.',piece:'<b>과거제</b> — 관리를 뽑는 시험. 유교 지식이 중요한 과목이었다.'},
+  {e:'📝',x:22,y:40,name:'과거 시험 답안지',src:'교과서 53쪽',text:'나라의 관리를 뽑는 시험, 과거의 답안지다. 문제는 대부분 유교 책에서 나왔다. 관리가 되고 싶은 사람은 유교를 열심히 공부해야 했다.',piece:'<b>과거제</b> — 관리를 뽑는 시험. 유교 지식이 중요한 과목이었다.'},
   {e:'🏫',x:74,y:24,name:'학교 현판',text:'“국자감” — 개경에 세운 나라의 학교. 그 옆에는 지방 고을 학교들의 이름이 적힌 목록이 있다. 나라는 개경과 지방에 학교를 세워 유교를 가르쳤다.',src:'교과서 53쪽',piece:'<b>학교</b> — 개경과 지방에 학교를 세워 유학(유교) 교육을 장려했다.'},
-  {e:'📃',x:52,y:64,name:'임금께 올린 글',img:'king.jpg',src:'최승로의 시무 28조(982년) · 교과서 53쪽',text:'신하 최승로가 성종 임금께 올린 글이다. “불교는 몸과 마음을 닦는 바탕이고, 유교는 나라를 다스리는 바탕입니다.” 임금은 이 글을 받아들여 유교에 맞게 나라의 제도를 정비했다.',piece:'<b>최승로의 글</b> — 나라는 유교로 다스리고, 불교는 마음을 닦는 데 쓰였다.'},
+  {e:'📃',x:52,y:64,name:'임금께 올린 글',img:'cm:고려사_(1).JPG',src:'최승로의 글이 실린 『고려사』 · 시무 28조(982년)',text:'신하 최승로가 성종 임금께 올린 글이다. “불교는 몸과 마음을 닦는 바탕이고, 유교는 나라를 다스리는 바탕입니다.” 임금은 이 글을 받아들여 유교에 맞게 나라의 제도를 정비했다.',piece:'<b>최승로의 글</b> — 나라는 유교로 다스리고, 불교는 마음을 닦는 데 쓰였다.'},
   {e:'⭐',x:84,y:72,name:'별자리가 그려진 제단',text:'하늘과 별에게 나라의 평안을 비는 제사에 쓰던 제단이다. 이런 제사는 도교에서 온 것이다. 고려에서는 유교, 불교, 도교가 함께 발달했다.',src:'교과서 53쪽',piece:'<b>도교</b> — 하늘과 별에 제사를 지냈다. 고려에는 유교·불교·도교가 함께 발달했다.'}],
  decoys:[['🗑️',12,78,'구겨진 종이… “떨어졌다”고만 적혀 있다.'],['🦇',46,16,'박쥐가 퍼드득 날아갔다!']],
  lock:{type:'match',title:'세 사상의 자물쇠',q:'자물쇠에 세 개의 구멍이 있다. 어떤 일에 어떤 생각(사상)이 쓰였는지 맞춰라.',
@@ -168,9 +169,9 @@ var ROOMS=[
  intro:'꺼진 등이 바람에 흔들리는 절 마당. 어디선가 목탁 소리가 들리는 것 같다…',
  deco:[['🛕',50,16],['🌲',8,40],['🌲',92,38]],
  objs:[
-  {e:'🏮',x:26,y:44,name:'연등',img:'temple.jpg',src:'연등회 · 교과서 60~61쪽',text:'봄마다 열린 불교 행사, 연등회에 쓰던 등이다. 이날 사람들은 전국 곳곳에서 등불을 밝히고 줄지어 다니며 소원을 빌었다. 왕부터 백성까지 모두 함께했다.',piece:'<b>연등회</b> — 봄마다 전국에서 등불을 밝히고 행렬하며 소원을 빌었다. 왕부터 백성까지 함께했다.'},
-  {e:'🍚',x:72,y:58,name:'쌀자루와 빌려준 장부',img:'village.jpg',src:'교과서 60쪽',text:'“봄에 쌀 두 말을 빌려 가고, 가을에 갚기로 함.” 절에서 쌀을 빌려준 기록이다. 절 앞에서는 물건을 사고팔기도 했다.',piece:'<b>절의 경제 활동</b> — 절은 쌀을 빌려주고, 물건을 사고팔기도 했다.'},
-  {e:'🙏',x:50,y:78,name:'기도 쪽지 묶음',text:'“우리 아이 병이 낫게 해 주세요.” “올해 마을에 풍년이 들게 해 주세요.” “나라가 평안하게 해 주세요.” 전국 곳곳의 절에 이런 쪽지가 쌓여 있었다.',src:'교과서 60쪽',piece:'<b>기도</b> — 전국 곳곳의 절에서 개인과 마을, 나라의 평안을 빌었다.'},
+  {e:'🏮',x:26,y:44,name:'연등',img:'cm:KOCIS_Korea_YeonDeungHoe_20130511_05_(8733836165).jpg',src:'오늘날의 연등회 — 고려 때부터 이어져 유네스코 인류무형문화유산이 되었다 · 교과서 61쪽',text:'봄마다 열린 불교 행사, 연등회에 쓰던 등이다. 이날 사람들은 전국 곳곳에서 등불을 밝히고 줄지어 다니며 소원을 빌었다. 왕부터 백성까지 모두 함께했다.',piece:'<b>연등회</b> — 봄마다 전국에서 등불을 밝히고 행렬하며 소원을 빌었다. 왕부터 백성까지 함께했다.'},
+  {e:'🍚',x:72,y:58,name:'쌀자루와 빌려준 장부',src:'교과서 60쪽',text:'“봄에 쌀 두 말을 빌려 가고, 가을에 갚기로 함.” 절에서 쌀을 빌려준 기록이다. 절 앞에서는 물건을 사고팔기도 했다.',piece:'<b>절의 경제 활동</b> — 절은 쌀을 빌려주고, 물건을 사고팔기도 했다.'},
+  {e:'🏺',x:50,y:78,name:'은빛 무늬 정병',img:'cm:청동_은입사_물가_풍경_무늬_정병.jpg',text:'부처님께 깨끗한 물을 바칠 때 쓰던 고려의 정병이다. 병 안에는 쪽지들이 말려 있다. “우리 아이 병이 낫게 해 주세요.” “마을에 풍년이 들게 해 주세요.” “나라가 평안하게 해 주세요.”',src:'청동 은입사 물가 풍경 무늬 정병(국보) · 국립중앙박물관 · 교과서 60쪽',piece:'<b>기도</b> — 전국 곳곳의 절에서 개인과 마을, 나라의 평안을 빌었다.'},
   {e:'⚱️',x:84,y:30,name:'장례에 쓰던 그릇',text:'불교식 장례를 치를 때 쓰던 그릇이다. 고려에서는 장례와 제사를 불교식으로 지내는 사람이 많았다.',src:'교과서 60쪽',piece:'<b>장례와 제사</b> — 장례와 제사를 불교식으로 지내는 사람이 많았다.'}],
  decoys:[['🐈‍⬛',12,80,'검은 고양이가 노려보더니 사라졌다…'],['🍂',62,26,'바스락… 낙엽뿐이다.']],
  lock:{type:'multi',title:'절의 자물쇠',q:'자물쇠에 글이 새겨져 있다. “고려의 절이 한 일을 모두 누르면 열린다.” (4개)',
@@ -179,7 +180,7 @@ var ROOMS=[
  intro:'작은 안방. 경대 위에 빗과 편지가 놓여 있고, 장롱 문이 살짝 열려 있다…',
  deco:[['🪞',86,18],['🧺',10,82]],
  objs:[
-  {e:'📜',x:22,y:36,name:'재산을 나눈 문서',img:'family.jpg',src:'『고려사』 · 교과서 59쪽',text:'어머니가 여섯 남매에게 재산을 나누며 외아들 나익희에게만 노비 40명을 더 주려 했다. 나익희는 “외아들이라고 더 받으면 남매가 화목할 수 없습니다.”라며 사양했고, 어머니는 그 뜻을 따랐다.',piece:'<b>재산</b> — 아들과 딸이 부모의 재산을 똑같이 나누어 받았다.'},
+  {e:'📜',x:22,y:36,name:'재산을 나눈 문서',img:'cm:Goryeosa,_National_Museum_of_Korea_01.jpg',src:'나익희 이야기가 실린 『고려사』 · 교과서 59쪽',text:'어머니가 여섯 남매에게 재산을 나누며 외아들 나익희에게만 노비 40명을 더 주려 했다. 나익희는 “외아들이라고 더 받으면 남매가 화목할 수 없습니다.”라며 사양했고, 어머니는 그 뜻을 따랐다.',piece:'<b>재산</b> — 아들과 딸이 부모의 재산을 똑같이 나누어 받았다.'},
   {e:'⚖️',x:70,y:30,name:'재판 기록',text:'아버지가 딸에게 재산을 모두 주고 어린 아들에게는 옷과 갓, 종이 한 권만 남겼다. 관리 손변은 “자식에게 줄 재산은 똑같아야 한다.”며 남매가 반씩 나누게 했다.',src:'『고려사』 손변 이야기',piece:'<b>손변의 재판</b> — 재산은 아들과 딸에게 똑같이 나누는 것이 원칙이었다.'},
   {e:'🕯️',x:48,y:66,name:'제사 차례표',text:'“올해 제사는 첫째 딸, 내년은 둘째 아들, 그다음은 외손자.” 제사 비용도 자식들이 똑같이 나누어 냈다.',src:'교과서 59쪽',piece:'<b>제사</b> — 제사 비용을 자식들이 똑같이 냈고, 딸이나 외손자가 제사를 모시기도 했다.'},
   {e:'🚫',x:84,y:68,name:'과거 합격자 명단',text:'벼슬에 오른 사람들의 이름이 적힌 명단이다. 아무리 찾아도 여자의 이름은 하나도 없다. 여성은 과거를 볼 수도, 벼슬에 오를 수도 없었다.',src:'교과서 59쪽',piece:'<b>벼슬</b> — 하지만 여성은 벼슬에 오를 수 없었고, 사회 활동에 제약이 많았다.'}],
@@ -203,17 +204,17 @@ var ROOMS=[
  objs:[
   {e:'🔩',x:24,y:40,name:'작은 쇠붙이 글자',img:'type1.jpg',src:'개성에서 출토된 금속 활자 · 국립중앙박물관 · 교과서 63쪽',text:'손톱만 한 쇠붙이에 글자가 거꾸로 새겨져 있다. 이것이 금속 활자다. 글자 하나하나를 따로 만들어 필요한 글자만 골라 짜 맞추었다.',piece:'<b>금속 활자</b> — 쇠로 만든 낱개의 글자. 필요한 글자를 골라 짜 맞춰 인쇄했다.'},
   {e:'🗃️',x:70,y:60,name:'활자를 짜 맞춘 판',img:'typetray.jpg',src:'교과서 63쪽',text:'수천 개의 활자를 한 줄 한 줄 짜 맞춘 판이다. 다 찍고 나면 활자를 빼서 다른 책을 찍을 때 다시 쓸 수 있었다. 단단해서 오래 쓸 수 있었다.',piece:'<b>활자판</b> — 활자를 빼서 다른 책에 다시 쓸 수 있었다. 단단해서 오래 썼다.'},
-  {e:'📖',x:50,y:28,name:'낡은 책 한 권',img:'jikji.jpg',src:'『직지』 · 프랑스 국립 도서관 · 교과서 63쪽',text:'1377년 청주 흥덕사에서 금속 활자로 찍은 불교 책 『직지』다. 지금 남아 있는 금속 활자 책 가운데 세계에서 가장 오래되었다. 유네스코 세계 기록 유산이다.',piece:'<b>『직지』</b> — 1377년, 지금 남아 있는 가장 오래된 금속 활자 책(유네스코 세계 기록 유산).'}],
- decoys:[['🕯️',88,22,'촛농이 흘러내린 촛대다.']],video:{id:'NIgUExYct4Y',title:'책을 빠르게 간행하는 금속활자 제작과정 (YTN 사이언스)',alt:'tooKjSk4Tzk'}},
+  {e:'📖',x:50,y:28,name:'낡은 책 한 권',img:'cm:Korean_book-Jikji-Selected_Teachings_of_Buddhist_Sages_and_Seon_Masters-1377.jpg',src:'『직지』(1377) · 프랑스 국립 도서관 · 교과서 63쪽',text:'1377년 청주 흥덕사에서 금속 활자로 찍은 불교 책 『직지』다. 지금 남아 있는 금속 활자 책 가운데 세계에서 가장 오래되었다. 유네스코 세계 기록 유산이다.',piece:'<b>『직지』</b> — 1377년, 지금 남아 있는 가장 오래된 금속 활자 책(유네스코 세계 기록 유산).'}],
+ decoys:[['🕯️',88,22,'촛농이 흘러내린 촛대다.']],video:[{id:'NIgUExYct4Y',title:'책을 빠르게 간행하는 금속활자 제작과정 (YTN 사이언스)'},{id:'tooKjSk4Tzk',title:'현존하는 세계 최고의 활자 제작 과정'},{id:'LBUlFfIv7QU',title:'금속활자 제작과정'}]},
 {id:'g2',name:'강진 가마터',emo:'🏺',gem:true,key:'고려청자',organizer:'❷ 보물 방',
  intro:'아직 온기가 남은 가마 앞. 깨진 그릇 조각들 사이로 푸른빛이 번뜩인다…',
  deco:[['🔥',50,86],['🧱',90,30]],
  objs:[
-  {e:'🏺',x:22,y:36,name:'학이 날아가는 병',img:'maebyeong.jpg',src:'청자 상감 운학문 매병 · 간송미술관 · 교과서 64쪽',text:'푸른 병 위로 구름 사이를 나는 학이 가득하다. 붓으로 그린 것이 아니라, 겉을 파내고 흰 흙과 붉은 흙을 채워 넣은 ‘상감’ 무늬다.',piece:'<b>상감 기법</b> — 겉을 파서 무늬를 새기고, 그 자리에 다른 색 흙을 채워 구웠다.'},
-  {e:'🛏️',x:72,y:30,name:'청자 베개',img:'pillow.jpg',src:'청자 상감 모란 구름 학 무늬 베개 · 국립중앙박물관',text:'잠잘 때 베던 베개까지 청자로 만들었다. 고려의 지배층은 청자를 생활용품으로 썼다.',piece:'<b>생활 속 청자</b> — 지배층은 베개까지 청자로 만들어 썼다.'},
-  {e:'🪑',x:46,y:66,name:'구멍이 뚫린 청자 의자',img:'chair.jpg',src:'청자 투각 의자 · 국립중앙박물관',text:'흙을 정교하게 뚫어 무늬를 낸(투각) 의자다. 물병, 찻잔, 주전자, 기와, 의자까지 청자로 만들었다.',piece:'<b>투각 의자</b> — 의자·기와·주전자까지 청자로 만들었다.'},
-  {e:'🐉',x:84,y:62,name:'용 머리 주전자',img:'ewer.jpg',src:'청자 어룡형 주전자 · 국립중앙박물관',text:'머리는 용, 몸은 물고기 모양을 한 상상의 동물 주전자다. 푸른빛을 ‘비색’이라 했고, 송나라 사람도 “고려 비색은 천하제일”이라 감탄했다.',piece:'<b>비색</b> — 고려청자의 푸른빛. 송나라도 “천하제일”이라 감탄했다.'}],
- decoys:[['🧱',12,80,'깨진 벽돌 조각뿐이다.']],video:{id:'YM7FhGcR_5E',title:'[청자실] 상감청자는 어떻게 만들까? (국립중앙박물관)'}}
+  {e:'🏺',x:22,y:36,name:'흰 무늬, 검은 무늬가 박힌 병',img:'cm:Korean_plum_blossom_vase,_Koryo_dynasty,_12th_century,_stoneware_with_celadon_glaze_and_black_and_white_slip_inlay,_HAA.JPG',src:'고려 12세기 상감 청자 매병 · 호놀룰루 미술관 (교과서 64쪽 「청자 상감 운학문 매병」과 같은 기법)',text:'푸른 병 위에 하얀 무늬와 검은 무늬가 빼곡하다. 붓으로 그린 것이 아니라, 겉을 파내고 흰 흙과 붉은 흙(구우면 검게 변함)을 채워 넣은 ‘상감’ 무늬다.',piece:'<b>상감 기법</b> — 겉을 파서 무늬를 새기고, 그 자리에 다른 색 흙을 채워 구웠다.'},
+  {e:'🫙',x:72,y:30,name:'꽃무늬 뚜껑 그릇',img:'cm:Covered_box_with_inlaid_flower_design,_Korea,_Goryeo_dynasty,_13th_century_AD,_stoneware_with_sanggam_decoration_under_celadon_glaze_-_Ethnological_Museum,_Berlin_-_DSC02042.JPG',src:'고려 13세기 상감 청자 합 · 베를린 민족학 박물관',text:'화장품이나 작은 물건을 담던 뚜껑 그릇이다. 이런 작은 그릇에도 상감 꽃무늬를 넣었다. 고려의 지배층은 물병, 찻잔, 베개, 의자, 지붕 기와까지 청자로 만들어 생활 속에서 썼다.',piece:'<b>생활 속 청자</b> — 지배층은 그릇·베개·의자·기와까지 청자로 만들어 썼다.'},
+  {e:'🪔',x:46,y:66,name:'구멍이 뚫린 향로',img:'cm:Korea_-_Seoul_-_National_Museum_-_Incense_Burner_0252-06a.jpg',src:'고려 청자 향로 · 국립중앙박물관',text:'향을 피우던 그릇이다. 뚜껑의 둥근 공 모양 부분은 흙을 하나하나 뚫어서(투각) 무늬를 냈다. 연기가 그 구멍으로 피어올랐다.',piece:'<b>투각</b> — 흙을 정교하게 뚫어 무늬를 내는 섬세한 솜씨.'},
+  {e:'🐢',x:84,y:62,name:'용 머리 거북 주전자',img:'cm:청자_거북이_모양_주자.jpg',src:'청자 거북 모양 주자(국보) · 국립중앙박물관',text:'머리는 용, 몸은 거북 모양을 한 상상의 동물 주전자다. 등껍질 무늬 하나하나까지 새겼다. 푸른빛을 ‘비색’이라 했고, 송나라 사람도 “고려 비색은 천하제일”이라 감탄했다.',piece:'<b>비색</b> — 고려청자의 푸른빛. 송나라도 “천하제일”이라 감탄했다.'}],
+ decoys:[['🧱',12,80,'깨진 벽돌 조각뿐이다.']],video:[{id:'KwG19FjqZ1o',title:'[교과서 밖 한국사] 세계 최고! 고려청자의 두 가지 비밀'},{id:'QDXEe6t55s0',title:'청자 상감기법 1부 (공예교육)'},{id:'i-mTtSK4Srs',title:'청자 상감기법 (정병민 작가)'},{id:'WHAsTnAtcj0',title:'전통 상감 기법'}]}
 ];
 /* ============ 상태 ============ */
 var K='goryeo-mystery-v1';
@@ -266,7 +267,7 @@ function go(step,phase){S.step=step;if(phase!==undefined)S.phase=phase;save();re
 var loop=null,timers=[];function cleanup(){if(loop){cancelAnimationFrame(loop);loop=null}timers.forEach(clearTimeout);timers=[]}
 /* 수첩 */
 $('#nbBtn').onclick=function(){var html='<div class="disc nb"><div class="hd">📓 탐사 수첩</div><div class="bd">';var any=false;
- ROOMS.forEach(function(r){var f=fnd(r.id);if(!f.length)return;any=true;html+='<div class="nbroom"><h4>'+r.emo+' '+r.name+'</h4>'+r.objs.filter(function(o,i){return f.indexOf(i)>=0}).map(function(o){return '<div class="nbp">'+(o.img?'<img src="'+IMG+o.img+'" alt="">':'<div class="em">'+o.e+'</div>')+'<div>'+o.piece+'</div></div>'}).join('')+'</div>'});
+ ROOMS.forEach(function(r){var f=fnd(r.id);if(!f.length)return;any=true;html+='<div class="nbroom"><h4>'+r.emo+' '+r.name+'</h4>'+r.objs.filter(function(o,i){return f.indexOf(i)>=0}).map(function(o){return '<div class="nbp">'+(o.img?'<img src="'+isrc(o.img)+'" alt="" data-e="'+o.e+'" onerror="ierr(this)">':'<div class="em">'+o.e+'</div>')+'<div>'+o.piece+'</div></div>'}).join('')+'</div>'});
  if(!any)html+='<p>아직 발견한 단서가 없어요. 방에 들어가 등불을 비춰 보세요.</p>';html+='</div></div>';modal('<div style="width:100%;display:grid;place-items:center">'+html+'</div>',[['닫기',1]])};
 /* ============ 화면 ============ */
 function render(){cleanup();keys();var a=$('#app');
@@ -312,22 +313,25 @@ function roomScreen(a,r){var ph=S.phase;
   addEventListener('pointerup',function(){down=false});
   function tapObj(el){if(el.classList.contains('decoy')){var d=r.decoys[+el.dataset.d];sfx.nope();modal('<div class="box"><div style="font-size:50px">'+d[0]+'</div><p>'+d[3]+'</p></div>',[['다시 찾자',1]]);return}
    var i=+el.dataset.i;if(f.indexOf(i)>=0)return;var o=r.objs[i];f.push(i);save();el.classList.add('found');el.classList.remove('hint');sfx.find();$('#cnt').textContent=f.length+' / '+total;
-   modal('<div class="disc"><div class="hd">🔍 '+esc(o.name)+josa(o.name,'을','를')+' 발견했다!</div>'+(o.img?'<img src="'+IMG+o.img+'" alt="'+esc(o.name)+'">':'<div style="font-size:90px;text-align:center;padding:10px;background:#1b1813">'+o.e+'</div>')+
+   modal('<div class="disc"><div class="hd">🔍 '+esc(o.name)+josa(o.name,'을','를')+' 발견했다!</div>'+(o.img?'<img src="'+isrc(o.img)+'" alt="'+esc(o.name)+'" data-e="'+o.e+'" onerror="ierr(this)">':'<div style="font-size:90px;text-align:center;padding:10px;background:#1b1813">'+o.e+'</div>')+
     '<div class="src">'+esc(o.src||'')+'</div><div class="bd">'+esc(o.text)+'<div class="piece">📓 수첩에 적었다 — '+o.piece+'</div></div></div>',[['수첩에 넣기',1]],function(){if(f.length>=total){sfx.lock();render()}})}
   (function hintLoop(){timers.push(setTimeout(function(){if(Date.now()-last>25000){var left=[].filter.call(sc.querySelectorAll('.obj:not(.found):not(.decoy)'),function(){return 1});if(left[0])left[0].classList.add('hint')}hintLoop()},5000))})();
   $('#back').onclick=function(){go('map')};if($('#go'))$('#go').onclick=function(){sfx.lock();go('room',r.gem?'video':'lock')};return}
  if(ph==='lock'){lockScreen(a,r);return}
- if(ph==='write'){var pieces=r.objs.map(function(o){return '<div class="nbp">'+(o.img?'<img src="'+IMG+o.img+'" alt="">':'<div class="em">'+o.e+'</div>')+'<div>'+o.piece+'</div></div>'}).join('');
+ if(ph==='write'){var pieces=r.objs.map(function(o){return '<div class="nbp">'+(o.img?'<img src="'+isrc(o.img)+'" alt="" data-e="'+o.e+'" onerror="ierr(this)">':'<div class="em">'+o.e+'</div>')+'<div>'+o.piece+'</div></div>'}).join('');
   a.innerHTML='<h2>🔓 '+r.name+'</h2><p>자물쇠가 풀렸다. 하지만 문을 나서기 전, 단서를 기록해야 한다.</p>'+
   '<div class="disc" style="max-width:none;animation:none"><div class="hd">📓 이 방의 단서 조각 '+r.objs.length+'개</div><div class="bd">'+pieces+'</div></div>'+
   (r.gem?memo('활동지 <b>❷ 보물의 방 「'+r.name+'」</b> 칸을 채워요.<br>· 단서 조각에서 <b>대단하다고 느낀 점 2가지</b>를 구체적으로<br>· 영상과 체험에서 <b>직접 느낀 점</b>, 고려 장인에게 한마디'):memo('활동지 <b>'+r.organizer+'</b> 칸을 채워요.<br>· 단서 조각 <b>'+r.objs.length+'개를 모두</b> 넣어요. (사람·물건·하는 일을 구체적으로!)<br>· 마지막 줄: <b>“그래서 고려는 ~했을 것이다.”</b>'))+
   '<div class="row"><button class="btn" id="b">기록을 마쳤다</button></div>';
   $('#b').onclick=function(){ask(r.gem?'대단한 점 2가지와 느낀 점을 다 썼나요?':'단서 조각 '+r.objs.length+'개를 모두 넣고,<br>“그래서 고려는 <b>~했을 것이다</b>”까지 썼나요?','네, 다 썼어요','아직이에요',function(y){if(y)finish(r)})};return}
- if(ph==='video'){var v=r.video;a.innerHTML='<h2>'+r.emo+' '+r.name+'</h2><p>벽에 걸린 낡은 거울이 빛나더니, 장인의 모습이 비친다…</p>'+
-  '<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/'+v.id+'?rel=0" title="'+esc(v.title)+'" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'+
-  '<p class="dim" style="font-size:15px">🎬 '+esc(v.title)+' · 영상이 안 나오면 <a style="color:var(--gold)" href="https://www.youtube.com/watch?v='+v.id+'" target="_blank" rel="noopener">유튜브에서 보기</a>'+(v.alt?' · <a style="color:var(--gold)" href="https://www.youtube.com/watch?v='+v.alt+'" target="_blank" rel="noopener">다른 영상</a>':'')+'</p>'+
-  memo('영상을 보며 <b>“와, 이건 대단하다!”</b> 싶은 장면을 하나 기억해 두세요. 활동지 <b>❷</b>에 쓸 거예요.')+
-  '<div class="row"><button class="btn" id="b">이제 직접 해 본다 →</button></div>';$('#b').onclick=function(){go('room',r.id==='g1'?'t1':'k1')};return}
+ if(ph==='video'){var V=r.video,vi=0;
+  a.innerHTML='<h2>'+r.emo+' '+r.name+'</h2><p>벽에 걸린 낡은 거울이 빛나더니, 장인의 모습이 비친다…</p><div class="vid" id="vw"></div><p class="dim" style="font-size:15px" id="vt"></p>'+
+  '<div class="row" style="margin-top:6px"><button class="btn dark" id="nx">🔁 영상이 안 나오면 다른 영상</button></div>'+
+  memo('영상을 보며 <b>“와, 이건 대단하다!”</b> 싶은 장면을 하나 기억해 두세요. 활동지 <b>❷</b>에 쓸 거예요.')+'<div class="row"><button class="btn" id="b">이제 직접 해 본다 →</button></div>';
+  function show(){var v=V[vi];$('#vw').innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+v.id+'?rel=0&playsinline=1" title="'+esc(v.title)+'" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+   $('#vt').innerHTML='🎬 ('+(vi+1)+'/'+V.length+') '+esc(v.title)+' · <a style="color:var(--gold)" href="https://www.youtube.com/watch?v='+v.id+'" target="_blank" rel="noopener">유튜브에서 직접 보기</a>'}
+  show();$('#nx').onclick=function(){vi=(vi+1)%V.length;show()};
+  $('#b').onclick=function(){go('room',r.id==='g1'?'t1':'k1')};return}
  if(r.id==='g1')printGame(a,r,ph);else kilnGame(a,r,ph);
 }
 function finish(r){if(S.done.indexOf(r.id)<0)S.done.push(r.id);S.phase=null;save();sfx.key();flash(r.gem?'💎':'🗝️');timers.push(setTimeout(function(){go('map')},1100))}
