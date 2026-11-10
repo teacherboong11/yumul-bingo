@@ -289,7 +289,7 @@ function render(){cleanup();keys();var a=$('#app');
  if(S.step==='room'){roomScreen(a,R(S.cur));return}
  if(S.step==='final'){finalRoom(a);return}
  if(S.step==='end'){stopAmb();a.innerHTML='<div class="center" style="margin-top:30px"><div style="font-size:90px">🌅</div><h1 style="animation:none;text-shadow:0 0 30px #d9b25f">탈출 성공</h1><p style="font-size:21px">문이 열리고, 아침 햇살이 쏟아진다.</p></div>'+
-  memo('활동지 <b>❹ 탈출 소감</b>을 써요. 고려에서 가장 놀라웠던 단서는 무엇이었나요?')+
+  memo('활동지 <b>❸ 탈출 소감</b>을 써요. 고려에서 가장 놀라웠던 단서는 무엇이었나요?')+
   '<div class="keyrow">'+ROOMS.map(function(r){return '<div class="kk">'+r.emo+'<b>'+r.key+'</b>'+r.name+'</div>'}).join('')+'</div>';sfx.win();return}
 }
 /* ---- 방: 탐색 ---- */
@@ -395,11 +395,8 @@ function finalRoom(a){var soc=ROOMS.filter(function(r){return !r.gem}),ph=S.phas
     if(good[s]){sfx.lock();a.querySelectorAll('.tile.sel').forEach(function(x){x.classList.add('ok')});$('#hint').innerHTML='<span style="color:var(--jade)">'+good[s]+'</span>';S.pair=s;save();timers.push(setTimeout(function(){go('final',2)},2300))}
     else{sfx.nope();$('#hint').textContent='이 둘은 반대라기보다 다른 이야기다. 다시! (힌트: 신분과 가족, 또는 두 가지 생각)';timers.push(setTimeout(function(){sel=[];a.querySelectorAll('.tile').forEach(function(x){x.classList.remove('sel')})},1300))}}}});return}
  if(ph===2){var tries=0;a.innerHTML=head+keyrow+'<div class="lock"><div class="h">🔒 마지막 자물쇠 · 고려를 한 낱말로</div><p style="font-size:19px">신분과 가족 평등, 유교와 불교와 도교, 고려 안과 바깥 세상… 이 모든 것이 함께 있었던 나라.</p><div class="cho"><span>ㄷㅇㅅ</span><span>→</span><input id="in" maxlength="4" autocomplete="off" aria-label="정답"><span>을 품은 고려</span></div><div class="row"><button class="btn" id="b">문고리를 당긴다</button></div><div class="hint" id="hint"></div></div>';
-  $('#b').onclick=function(){if($('#in').value.replace(/\s/g,'')==='다양성'){sfx.lock();go('final',3)}else{tries++;sfx.nope();$('#hint').textContent=tries>1?'힌트: 여러 가지가 함께 있다는 뜻. “다○○”':'문이 덜컹거릴 뿐이다…'}};return}
- if(ph===3){var pr=S.pair==='r2,r3'?['나라는 유교로 다스리','생활 속에는 불교가 가득한']:['신분이 엄격히 나뉘어 있으','집 안에서는 아들딸이 똑같은'];
-  a.innerHTML=head+keyrow+memo('활동지 <b>❸ 붉은 글씨의 문</b>을 채워요.<br>· 이어진 방 하나와 그 까닭<br>· 반대처럼 보이는 두 방<br>· 그리고 <b>열쇠 문장</b> — 단서를 근거로 구체적으로!')+
-  '<div class="frame">고려는 <u></u> 하면서도 <u></u> 한,<br><b>다양성을 품은 나라</b>였다. 왜냐하면 <u></u> 이기 때문이다.</div><p class="dim">💡 예: “'+pr[0]+'면서도 '+pr[1]+' …” 처럼 시작해 보세요. 왜냐하면 뒤에는 단서 이름을 넣어요.</p><div class="row"><button class="btn" id="b">🚪 문을 연다</button></div>';
-  $('#b').onclick=function(){ask('열쇠 문장을 <b>내 말로</b> 다 썼나요?','네, 문을 연다','잠깐만요',function(y){if(!y)return;flash('탈출!');timers.push(setTimeout(function(){go('end')},900))})};return}
+  $('#b').onclick=function(){if($('#in').value.replace(/\s/g,'')==='다양성'){sfx.lock();flash('탈출!');timers.push(setTimeout(function(){go('end')},1000))}else{tries++;sfx.nope();$('#hint').textContent=tries>1?'힌트: 여러 가지가 함께 있다는 뜻. “다○○”':'문이 덜컹거릴 뿐이다…'}};return}
+ if(ph===3){go('end');return}
 }
 $('#restart').onclick=function(){ask('처음부터 다시 할까요?<br><small>찾은 단서와 열쇠가 모두 지워져요.</small>','다시 하기','아니요',function(y){if(!y)return;S=fresh();save();render()})};
 $('#home').onclick=function(){if(S.step==='room'||S.step==='final')go('map')};
