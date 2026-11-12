@@ -200,12 +200,13 @@ var ROOMS=[
   bins:['고려가 판 것','고려가 사 온 것'],items:[['인삼',0],['삼베',0],['나전 칠기',0],['비단',1],['약재',1],['책',1],['향신료',1]]}},
 {id:'g1',name:'흥덕사 인쇄방',emo:'📖',gem:true,key:'금속 활자',organizer:'❷ 보물 방',
  intro:'쇠 냄새가 나는 작은 방. 탁자 위에 까만 쇠붙이 조각들이 수북하다…',
- deco:[['🔥',86,78],['🪵',12,80]],
+ deco:[['🔥',86,78],['📜',12,80]],
  objs:[
+  {e:'🪵',x:84,y:44,name:'커다란 나무판',img:'cm:Korea-Haeinsa_Tripitaka_Koreana_woodblock_2770-06a.jpg',src:'팔만대장경판 · 합천 해인사 · 교과서 62쪽',text:'가로 70cm쯤 되는 나무판 한 장에 책 한 쪽의 글자가 통째로, 거꾸로 새겨져 있다. 앞뒤 양면에 모두! 고려 사람들은 몽골의 침입을 부처님의 힘으로 이겨 내려고 이런 판을 8만 장 넘게 새겼다. 이것이 팔만대장경판이다.',piece:'<b>판(목판)</b> — 한 쪽의 글자를 나무판 하나에 통째로 새겼다. 팔만대장경은 8만 장이 넘는 판이다.'},
   {e:'🔩',x:24,y:40,name:'작은 쇠붙이 글자',img:'type1.jpg',src:'개성에서 출토된 금속 활자 · 국립중앙박물관 · 교과서 63쪽',text:'손톱만 한 쇠붙이에 글자가 거꾸로 새겨져 있다. 이것이 금속 활자다. 글자 하나하나를 따로 만들어 필요한 글자만 골라 짜 맞추었다.',piece:'<b>금속 활자</b> — 쇠로 만든 낱개의 글자. 필요한 글자를 골라 짜 맞춰 인쇄했다.'},
   {e:'🗃️',x:70,y:60,name:'활자를 짜 맞춘 판',img:'typetray.jpg',src:'교과서 63쪽',text:'수천 개의 활자를 한 줄 한 줄 짜 맞춘 판이다. 다 찍고 나면 활자를 빼서 다른 책을 찍을 때 다시 쓸 수 있었다. 단단해서 오래 쓸 수 있었다.',piece:'<b>활자판</b> — 활자를 빼서 다른 책에 다시 쓸 수 있었다. 단단해서 오래 썼다.'},
   {e:'📖',x:50,y:28,name:'낡은 책 한 권',img:'cm:Korean_book-Jikji-Selected_Teachings_of_Buddhist_Sages_and_Seon_Masters-1377.jpg',src:'『직지』(1377) · 프랑스 국립 도서관 · 교과서 63쪽',text:'1377년 청주 흥덕사에서 금속 활자로 찍은 불교 책 『직지』다. 지금 남아 있는 금속 활자 책 가운데 세계에서 가장 오래되었다. 유네스코 세계 기록 유산이다.',piece:'<b>『직지』</b> — 1377년, 지금 남아 있는 가장 오래된 금속 활자 책(유네스코 세계 기록 유산).'}],
- decoys:[['🕯️',88,22,'촛농이 흘러내린 촛대다.']],video:[{id:'NIgUExYct4Y',title:'책을 빠르게 간행하는 금속활자 제작과정 (YTN 사이언스)'},{id:'tooKjSk4Tzk',title:'현존하는 세계 최고의 활자 제작 과정'},{id:'LBUlFfIv7QU',title:'금속활자 제작과정'}]},
+ decoys:[['🕯️',88,16,'촛농이 흘러내린 촛대다.']],video:[{id:'NIgUExYct4Y',title:'책을 빠르게 간행하는 금속활자 제작과정 (YTN 사이언스)'},{id:'tooKjSk4Tzk',title:'현존하는 세계 최고의 활자 제작 과정'},{id:'LBUlFfIv7QU',title:'금속활자 제작과정'}]},
 {id:'g2',name:'강진 가마터',emo:'🏺',gem:true,key:'고려청자',organizer:'❷ 보물 방',
  intro:'아직 온기가 남은 가마 앞. 깨진 그릇 조각들 사이로 푸른빛이 번뜩인다…',
  deco:[['🔥',50,86],['🧱',90,30]],
@@ -361,11 +362,20 @@ function lockScreen(a,r){var L=r.lock;var head='<h2>🔒 '+L.title+'</h2><p>'+L.
 }
 /* ---- 보물 방 게임 ---- */
 function printGame(a,r,ph){var head='<h2>📖 흥덕사 인쇄방</h2>';
- if(ph==='t1'||ph==='t2'){var need=12,n=0,bi=ph==='t1'?0:1;a.innerHTML=head+'<div class="stage"><p style="font-size:19px">'+(bi?'두 번째 책은 내용이 다르다… <b>목판을 처음부터 다시 새겨야 한다!</b> 😩':'먼저 옛 방법, <b>목판</b>으로 책 한 권을 찍어 보자.')+'</p><div style="font-size:70px">🪵</div><div class="bar"><i id="pb"></i></div><button class="btn" id="b">🔨 한 글자씩 새긴다 (탭!)</button></div>';
+ if(ph==='t1'||ph==='t2'){var need=12,n=0,bi=ph==='t1'?0:1;a.innerHTML=head+'<div class="stage"><p style="font-size:19px">'+(bi?'두 번째 책은 내용이 다르다… <b>목판을 처음부터 다시 새겨야 한다!</b> 😩':'먼저 팔만대장경처럼 <b>목판</b>으로 책 한 권을 찍어 보자. 한 쪽을 통째로 새겨야 한다!')+'</p><div style="font-size:70px">🪵</div><div class="bar"><i id="pb"></i></div><button class="btn" id="b">🔨 한 글자씩 새긴다 (탭!)</button></div>';
   $('#b').onclick=function(){n++;sfx.chip();$('#pb').style.width=Math.min(100,n/need*100)+'%';if(n>=need){this.disabled=true;flash('📕');timers.push(setTimeout(function(){go('room',bi?'t3':'t2')},900))}};return}
+ if(ph==='tc'){var Q=[['팔만대장경',0],['『직지』를 찍은 쇠 글자',1],['이름이 새겨진 고무 도장',0],['냉장고에 붙이는 자석 글자',1],['컴퓨터 키보드로 글자 치기',1],['고무판에 새긴 판화',0]],qi=0;Q=shuffle(Q);
+  a.innerHTML=head+'<div class="stage" style="text-align:left"><p style="font-size:20px;text-align:center">잠깐! 고려 장인이 묻는다. <b>“판과 활자, 그 차이를 아느냐?”</b></p>'+
+  '<div class="bins" style="grid-template-columns:1fr 1fr"><div class="bin" style="cursor:default"><h4>🪵 판 (목판)</h4><img src="'+isrc("cm:Korea-Haeinsa_Tripitaka_Koreana_woodblock_2770-06a.jpg")+'" alt="" data-e="🪵" onerror="ierr(this)" style="width:100%;height:120px;object-fit:cover;border-radius:4px"><p style="font-size:17px">한 쪽의 글자를 <b>판 하나에 통째로</b> 새긴다. 다른 책을 찍으려면 <b>판을 새로</b> 새겨야 한다.<br>예: <b>팔만대장경판</b></p><p style="font-size:17px;color:var(--gold)">오늘날로 치면 📮 <b>고무 도장</b>, 🖼️ <b>판화</b><br><small class="dim">한 번 꾹! 통째로 찍히지만, 다른 글은 못 찍는다.</small></p></div>'+
+  '<div class="bin" style="cursor:default"><h4>🔤 활자 (금속 활자)</h4><img src="'+isrc('typetray.jpg')+'" alt="" data-e="🔤" onerror="ierr(this)" style="width:100%;height:120px;object-fit:cover;border-radius:4px"><p style="font-size:17px">글자를 <b>하나씩 따로</b> 만들어 골라 짜 맞춘다. 다 찍으면 빼서 <b>다른 책에 다시</b> 쓴다.<br>예: <b>고려 금속 활자, 『직지』</b></p><p style="font-size:17px;color:var(--gold)">오늘날로 치면 ⌨️ <b>키보드 자판</b>, 🧲 <b>자석 글자</b><br><small class="dim">글자를 골라 조합하면 어떤 글이든 만든다.</small></p></div></div>'+
+  '<div class="lock"><div class="h">🔒 판일까, 활자일까?</div><p id="qq" style="font-size:21px;text-align:center"></p><div class="row" style="margin-top:6px"><button class="btn dark" data-a="0">🪵 판</button><button class="btn dark" data-a="1">🔤 활자</button></div><div class="hint" id="hint" style="text-align:center"></div></div></div>';
+  function show(){$('#qq').innerHTML='('+(qi+1)+'/'+Q.length+') <b>'+Q[qi][0]+'</b>'}show();
+  a.querySelectorAll('[data-a]').forEach(function(b){b.onclick=function(){if(+b.dataset.a===Q[qi][1]){sfx.find();$('#hint').innerHTML='<span style="color:var(--jade)">맞다! '+(Q[qi][1]?'글자를 하나씩 골라 다시 쓰는 것 — 활자':'통째로 새겨 찍는 것 — 판')+'</span>';qi++;
+    if(qi>=Q.length){flash('🔓');timers.push(setTimeout(function(){go('room','write')},1100))}else timers.push(setTimeout(function(){$('#hint').textContent='';show()},900))}
+   else{sfx.nope();$('#hint').textContent=Q[qi][1]?'다시! 글자를 하나씩 골라 조합하나, 통째로 찍나?':'다시! 글자를 하나씩 바꿀 수 있나? 통째로 찍히지 않나?'}}});return}
  if(ph==='t3'||ph==='t4'){var target=ph==='t3'?['고','려','이','야','기']:['부','처','님','이','야','기'],tray=['고','려','이','야','기','부','처','님','말','씀','책'],k=0;
   a.innerHTML=head+'<div class="stage"><p style="font-size:19px">'+(ph==='t3'?'이번엔 <b>금속 활자</b>! 활자를 골라 『고려 이야기』를 짜 맞추자.':'판을 풀어 활자를 <b>다시 쓴다</b>. 『부처님 이야기』를 짜 맞추자. 「이」「야」「기」는 그대로 다시!')+'</p><div class="tslots">'+target.map(function(){return '<div class="tslot"></div>'}).join('')+'</div><div class="tray">'+shuffle(tray).map(function(t){return '<button class="type">'+t+'</button>'}).join('')+'</div><div class="hint" id="hint"></div></div>';
-  var sl=a.querySelectorAll('.tslot');a.querySelectorAll('.type').forEach(function(b){b.onclick=function(){if(b.textContent===target[k]&&!b.classList.contains('used')){sfx.clack();sl[k].textContent=target[k];sl[k].classList.add('f');if(ph==='t3')b.classList.add('used');k++;if(k===target.length){flash(ph==='t3'?'📗':'📘');timers.push(setTimeout(function(){go('room',ph==='t3'?'t4':'write')},1000))}}else{b.classList.remove('no');void b.offsetWidth;b.classList.add('no');sfx.nope();$('#hint').textContent='다음 글자는 「'+target[k]+'」'}}});return}
+  var sl=a.querySelectorAll('.tslot');a.querySelectorAll('.type').forEach(function(b){b.onclick=function(){if(b.textContent===target[k]&&!b.classList.contains('used')){sfx.clack();sl[k].textContent=target[k];sl[k].classList.add('f');if(ph==='t3')b.classList.add('used');k++;if(k===target.length){flash(ph==='t3'?'📗':'📘');timers.push(setTimeout(function(){go('room',ph==='t3'?'t4':'tc')},1000))}}else{b.classList.remove('no');void b.offsetWidth;b.classList.add('no');sfx.nope();$('#hint').textContent='다음 글자는 「'+target[k]+'」'}}});return}
 }
 var KSTEPS=['흙으로 그릇 모양 빚기','겉면을 파서 구름과 학 무늬 새기기','파낸 자리에 흰 흙과 붉은 흙 채우기','한 번 굽기','유약을 바르고 아주 뜨겁게 다시 굽기'];
 function kilnGame(a,r,ph){var head='<h2>🏺 강진 가마터</h2>';
