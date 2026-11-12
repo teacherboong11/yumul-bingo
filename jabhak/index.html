@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>잡학 베팅 골든벨</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap">
+<style>
+:root{--blue:#0b2a6b;--blue2:#163f9e;--gold:#f6c33b;--gold2:#ffdf7a;--ink:#10224d;--paper:#fffdf6;--red:#e2463b;--green:#22a35a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{font-family:'Jua','Noto Sans KR',system-ui,sans-serif;color:var(--ink);background:radial-gradient(ellipse at 50% 0%,#2f63d6 0%,#163f9e 35%,#0b2a6b 75%,#071c4a 100%);background-attachment:fixed;min-height:100vh;user-select:none}
+.wrap{max-width:820px;margin:0 auto;padding:16px 16px 40px}
+h1,.bh{font-family:'Black Han Sans','Jua',sans-serif;font-weight:400}
+.top{display:flex;align-items:center;gap:12px;color:#fff;margin-bottom:14px}
+.top .team{display:flex;align-items:center;gap:8px;font-size:22px;padding:8px 16px;border-radius:40px;background:rgba(255,255,255,.12)}
+.dot{width:22px;height:22px;border-radius:50%;border:3px solid #fff}
+.chips{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--gold);color:var(--ink);padding:8px 18px;border-radius:40px;font-size:26px;box-shadow:0 4px 0 #b88a12}
+.coin{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff3b8,#f6c33b 55%,#c9920f);border:2px solid #9a6d07;display:inline-block}
+.card{background:var(--paper);border-radius:22px;padding:20px;box-shadow:0 8px 0 rgba(0,0,0,.25)}
+.title{text-align:center;color:#fff;margin:10px 0 18px}
+.title h1{font-size:44px;margin:0;color:var(--gold);text-shadow:0 4px 0 #8a5a00,0 0 18px rgba(246,195,59,.5)}
+.title p{margin:6px 0 0;font-size:20px;opacity:.9}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.tbtn{border:none;border-radius:18px;padding:22px 0;font-family:inherit;font-size:28px;color:#fff;cursor:pointer;box-shadow:0 6px 0 rgba(0,0,0,.25)}
+.qnav{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.qn{width:52px;height:52px;border-radius:50%;border:3px solid var(--gold);background:transparent;color:#fff;font-family:'Black Han Sans','Jua',sans-serif;font-size:24px;cursor:pointer}
+.qn.on{background:var(--gold);color:var(--ink)}
+.qn.ok{background:var(--green);border-color:#fff}.qn.no{background:var(--red);border-color:#fff}
+.badge{display:inline-block;background:var(--blue2);color:#fff;font-family:'Black Han Sans','Jua',sans-serif;font-size:22px;padding:6px 18px;border-radius:30px}
+.qtext{font-size:27px;line-height:1.4;margin:14px 0 16px;word-break:keep-all}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:4px solid #d9d2bd;background:#fff;border-radius:16px;padding:14px 16px;margin-bottom:10px;font-family:inherit;font-size:23px;color:var(--ink);cursor:pointer;word-break:keep-all}
+.opt .n{flex:none;width:44px;height:44px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Black Han Sans','Jua',sans-serif;font-size:24px}
+.opt.sel{border-color:var(--blue2);background:#e8efff}
+.opt.sel .n{background:var(--blue2);color:#fff}
+.opt:disabled{cursor:default}
+.bet{display:flex;align-items:center;gap:10px;margin:14px 0 6px;font-size:23px;flex-wrap:wrap}
+.bb{width:64px;height:64px;border-radius:50%;border:4px solid #d9d2bd;background:#fff;font-family:'Black Han Sans','Jua',sans-serif;font-size:28px;cursor:pointer;color:var(--ink)}
+.bb.sel{background:var(--gold);border-color:#b88a12}
+.big{display:block;width:100%;border:none;border-radius:18px;padding:18px;font-family:'Black Han Sans','Jua',sans-serif;font-size:30px;cursor:pointer;margin-top:12px;box-shadow:0 6px 0 rgba(0,0,0,.25)}
+.b-gold{background:var(--gold);color:var(--ink)}
+.b-blue{background:var(--blue2);color:#fff}
+.b-red{background:var(--red);color:#fff}
+.big:disabled{opacity:.4;cursor:default}
+.note{font-size:19px;color:#6b6f80;text-align:center;margin-top:8px}
+.lockbox{background:#eef2fb;border-radius:16px;padding:14px;text-align:center;font-size:24px;margin-top:12px}
+.code{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:12px}
+.code input{width:140px;font-size:40px;text-align:center;border:4px solid var(--blue2);border-radius:14px;padding:6px;font-family:'Black Han Sans','Jua',sans-serif;letter-spacing:8px}
+.res{text-align:center;padding:10px 0}
+.res .bh{font-size:60px}
+.res .ok{color:var(--green)}.res .no{color:var(--red)}
+.res p{font-size:24px;margin:6px 0}
+/* full-screen hold-up card */
+.hold{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;z-index:50;text-align:center;padding:20px}
+.hold.on{display:flex}
+.hold .tm{font-size:7vw;font-family:'Black Han Sans','Jua',sans-serif}
+.hold .an{font-family:'Black Han Sans','Jua',sans-serif;font-size:42vh;line-height:1;text-shadow:0 10px 0 rgba(0,0,0,.25)}
+.hold .bt{font-size:6vw;background:rgba(0,0,0,.25);padding:8px 30px;border-radius:60px;display:flex;align-items:center;gap:14px}
+.hold small{position:absolute;bottom:14px;font-size:18px;opacity:.8}
+.final{text-align:center}
+.final .num{font-family:'Black Han Sans','Jua',sans-serif;font-size:150px;color:var(--gold);text-shadow:0 8px 0 #8a5a00;line-height:1.1}
+.reset{position:fixed;right:10px;bottom:8px;background:none;border:none;color:rgba(255,255,255,.35);font-size:14px;font-family:inherit}
+.toast{position:fixed;left:50%;top:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 22px;border-radius:30px;font-size:20px;display:none;z-index:60}
+.bell{display:inline-block;vertical-align:middle}
+@media (max-width:560px){.qtext{font-size:22px}.opt{font-size:19px}.title h1{font-size:34px}.tbtn{font-size:22px;padding:16px 0}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="hold" id="hold"></div>
+<div class="toast" id="toast"></div>
+<button class="reset" onclick="resetAll()">처음부터</button>
+<script>
+const TEAMS=[{c:'#e2463b',n:'1모둠'},{c:'#f08a1c',n:'2모둠'},{c:'#22a35a',n:'3모둠'},{c:'#2f7fe0',n:'4모둠'},{c:'#8a4fd6',n:'5모둠'}];
+const Q=[
+ {t:'신라 왕족 무덤에서 나온 유리병. 손잡이에 감긴 금색 줄의 정체는?',o:['멋 부린 금 리본','들고 다니던 끈','깨진 손잡이를 고친 금실']},
+ {t:'고구려 무덤 이름이 ‘춤 무덤(무용총)’, ‘씨름 무덤(각저총)’인 까닭은?',o:['무덤 주인이 춤·씨름 선수라서','무덤 벽에 춤·씨름 그림이 그려져 있어서','무덤 앞에서 춤·씨름 대회를 열어서']},
+ {t:'2009년 미륵사지 석탑 속 금판에 ‘절을 세운 사람’으로 적혀 있던 사람은?',o:['백제 귀족 사택적덕의 딸인 왕비','신라의 선화공주','노래를 지은 서동 혼자']},
+ {t:'신라 귀족의 14면 주사위(주령구)에 ‘여러 사람이 코 때리기’가 적힌 까닭은?',o:['코를 다친 사람을 낫게 하는 주문','코가 큰 사람에게 주는 상','주사위로 벌칙을 정하는 놀이라서']},
+ {t:'1,000년 넘게 멀쩡하던 석굴암. 일제강점기에 시멘트로 덮어 고친 뒤 생긴 일은?',o:['더 튼튼하고 깨끗해졌다','물방울이 맺히고 이끼가 끼었다','불상이 저절로 돌아앉았다']},
+ {t:'1966년 도둑이 망가뜨린 석가탑을 고치다가 탑 속에서 찾은 세계 기록은?',o:['세계에서 가장 오래된 목판 인쇄물','세계에서 가장 큰 금관','세계에서 가장 오래된 지도']},
+ {t:'발해 땅은 지금 러시아·중국에 있어요. 그래도 우리 역사라고 말할 수 있는 증거는?',o:['고구려와 똑 닮은 기와와 온돌','발해 사람이 남긴 한글 책','그냥 우리나라와 가까워서']}
+];
+// 확인 코드 → 정답 (PPT 정답 장면에 코드가 나옴)
+const K=[[37,3],[52,2],[18,1],[74,3],[29,2],[63,1],[45,1]];
+const SK='jabhak-goldenbell-v1';
+let S=load();
+function load(){try{const s=JSON.parse(localStorage.getItem(SK));if(s&&s.r)return s}catch(e){}return{team:null,chips:10,cur:0,r:Q.map(()=>({a:0,b:1,lock:false,done:null}))}}
+function save(){try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){}}
+const $=id=>document.getElementById(id);
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',1800)}
+const bellSvg=s=>`<svg class="bell" width="${s}" height="${s}" viewBox="0 0 64 64"><path d="M32 6c-2 0-3.5 1.5-3.5 3.5v1.8C19 13.3 14 21 14 30v12l-5 6v3h46v-3l-5-6V30c0-9-5-16.7-14.5-18.7V9.5C35.5 7.5 34 6 32 6z" fill="#f6c33b" stroke="#8a5a00" stroke-width="2.5"/><circle cx="32" cy="56" r="5" fill="#f6c33b" stroke="#8a5a00" stroke-width="2.5"/><path d="M21 30c0-6 4-11 9-12" stroke="#fff6cc" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+function header(){const t=TEAMS[S.team];return `<div class="top"><div class="team"><span class="dot" style="background:${t.c}"></span>${t.n}</div><div class="chips"><span class="coin"></span>${S.chips}개</div></div>`}
+function render(){
+ const app=$('app');
+ if(S.team===null){
+  app.innerHTML=`<div class="title">${bellSvg(70)}<h1>잡학 베팅 골든벨</h1><p>우리 모둠 번호를 눌러요</p></div>
+  <div class="card"><div class="grid5">${TEAMS.map((t,i)=>`<button class="tbtn" style="background:${t.c}" onclick="pickTeam(${i})">${i+1}모둠</button>`).join('')}</div>
+  <p class="note">칩 10개로 시작해요 · 맞히면 건 칩의 2배를 받고, 틀리면 건 칩을 잃어요</p></div>`;return}
+ if(S.cur>=Q.length){
+  app.innerHTML=header()+`<div class="card final"><div class="badge">최종 결과</div>${bellSvg(90)}<div class="num">${S.chips}</div><p style="font-size:28px;margin:0">칩을 모았어요!</p>
+  <button class="big b-gold" onclick="holdFinal()">들어! (크게 보여 주기)</button><button class="big b-blue" onclick="go(Q.length-1)">문제 다시 보기</button></div>`;return}
+ const i=S.cur,q=Q[i],r=S.r[i];
+ let nav=`<div class="qnav">${Q.map((_,j)=>{const d=S.r[j].done;return `<button class="qn ${j===i?'on':''} ${d==='ok'?'ok':d==='no'?'no':''}" onclick="go(${j})">${j+1}</button>`}).join('')}<button class="qn" style="width:auto;padding:0 14px;font-size:18px" onclick="go(${Q.length})">결과</button></div>`;
+ let h=header()+nav+`<div class="card"><span class="badge">문제 ${i+1}</span><div class="qtext">${q.t}</div>`;
+ h+=q.o.map((o,k)=>`<button class="opt ${r.a===k+1?'sel':''}" ${r.lock?'disabled':''} onclick="pick(${k+1})"><span class="n">${k+1}</span>${o}</button>`).join('');
+ if(!r.lock){
+  const max=Math.min(3,S.chips);
+  h+=`<div class="bet">칩 몇 개 걸까? ${[1,2,3].map(b=>`<button class="bb ${r.b===b?'sel':''}" ${b>max?'disabled style="opacity:.3"':''} onclick="bet(${b})">${b}</button>`).join('')}</div>
+  <button class="big b-blue" ${r.a?'':'disabled'} onclick="lock()">🔒 잠금 (바꿀 수 없어요)</button>
+  <p class="note">모둠 친구들과 의논하고, 답과 칩을 정한 뒤 잠가요</p>`;
+ }else if(!r.done){
+  h+=`<div class="lockbox">🔒 <b>${r.a}번</b>에 칩 <b>${r.b}개</b> 걸었어요</div>
+  <button class="big b-gold" onclick="hold()">✋ 들어! (선생님이 “하나 둘 셋!” 하면)</button>
+  <div class="code">정답 화면의 확인 코드 <input id="cd" inputmode="numeric" maxlength="2" placeholder="??"></div>
+  <button class="big b-red" onclick="check()">정답 확인</button>`;
+ }else{
+  const ok=r.done==='ok';
+  h+=`<div class="res"><div class="bh ${ok?'ok':'no'}">${ok?'딩동댕!':'땡!'}</div><p>정답은 <b>${r.ans}번</b> · ${ok?`칩 +${r.b*2}개`:`칩 -${r.b}개`}</p>${r.revive?'<p style="color:#2f7fe0">칩이 다 떨어져서 부활 칩 3개를 받았어요! 💪</p>':''}</div>
+  <button class="big b-blue" onclick="go(${i+1})">${i+1<Q.length?'다음 문제로 ▶':'최종 결과 보기 ▶'}</button>`;
+ }
+ h+='</div>';app.innerHTML=h;
+}
+function pickTeam(i){S.team=i;save();render()}
+function go(i){S.cur=i;save();render();scrollTo(0,0)}
+function pick(k){const r=S.r[S.cur];if(r.lock)return;r.a=k;save();render()}
+function bet(b){const r=S.r[S.cur];if(r.lock)return;r.b=b;save();render()}
+function lock(){const r=S.r[S.cur];if(!r.a)return;r.b=Math.min(r.b,Math.max(1,S.chips));r.lock=true;save();render()}
+function hold(){const r=S.r[S.cur],t=TEAMS[S.team];const el=$('hold');el.style.background=t.c;
+ el.innerHTML=`<div class="tm">${t.n}</div><div class="an">${r.a}</div><div class="bt"><span class="coin" style="width:5vw;height:5vw"></span>칩 ${r.b}개</div><small>화면을 누르면 돌아가요</small>`;el.classList.add('on')}
+function holdFinal(){const t=TEAMS[S.team];const el=$('hold');el.style.background=t.c;
+ el.innerHTML=`<div class="tm">${t.n}</div><div class="an" style="font-size:36vh">${S.chips}</div><div class="bt">칩</div><small>화면을 누르면 돌아가요</small>`;el.classList.add('on')}
+$('hold').onclick=()=>$('hold').classList.remove('on');
+function check(){const i=S.cur,r=S.r[i];const v=parseInt(($('cd').value||'').trim(),10);
+ if(v!==K[i][0]){toast('확인 코드가 달라요. 화면을 다시 봐요!');return}
+ r.ans=K[i][1];const ok=r.a===r.ans;r.done=ok?'ok':'no';
+ S.chips+=ok?r.b*2:-r.b;r.revive=false;if(S.chips<=0){S.chips=3;r.revive=true}
+ save();render()}
+function resetAll(){const a=prompt('처음부터 다시 할까요? 선생님 확인: “초기화”라고 입력하세요');if(a&&a.trim()==='초기화'){localStorage.removeItem(SK);S=load();render()}}
+render();
+</script>
+</body>
+</html>
