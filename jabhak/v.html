@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>구간 영상</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#061638;color:#fffdf6;font-family:'Jua','Noto Sans KR',system-ui,sans-serif}
+.wrap{display:flex;flex-direction:column;height:100%;padding:14px 18px;gap:12px}
+.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.top h1{font-family:'Black Han Sans','Jua',sans-serif;font-weight:400;font-size:28px;margin:0;color:#ffd84a}
+.segs{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.seg{border:3px solid #f6c33b;background:transparent;color:#fffdf6;font-family:inherit;font-size:20px;padding:6px 16px;border-radius:30px;cursor:pointer}
+.seg.on{background:#f6c33b;color:#10224d}
+.seg.done{opacity:.55}
+.stage{position:relative;flex:1;min-height:0;background:#000;border-radius:16px;overflow:hidden}
+#p{position:absolute;inset:0;width:100%;height:100%}
+.ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:rgba(6,22,56,.88);cursor:pointer;text-align:center;padding:20px}
+.ov.hide{display:none}
+.ov .btn{width:150px;height:150px;border-radius:50%;background:#e2463b;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 0 rgba(0,0,0,.35)}
+.ov .btn:after{content:"";border-left:56px solid #fff;border-top:34px solid transparent;border-bottom:34px solid transparent;margin-left:12px}
+.ov p{font-size:30px;margin:0}
+.ov small{font-size:20px;opacity:.8}
+.bar{display:flex;align-items:center;gap:10px;font-size:20px;flex-wrap:wrap}
+.bar button{border:none;background:#fffdf6;color:#10224d;font-family:inherit;font-size:20px;padding:8px 18px;border-radius:24px;cursor:pointer}
+.bar a{color:#ffd84a}
+#msg{margin-left:auto;opacity:.85}
+.err{display:none;position:absolute;inset:0;background:#061638;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:20px;font-size:24px}
+.err.on{display:flex}
+.err a{color:#ffd84a;font-size:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><h1 id="ttl">구간 영상</h1><div class="segs" id="segs"></div></div>
+  <div class="stage">
+    <div id="p"></div>
+    <div class="ov" id="ov"><div class="btn"></div><p id="ovt">재생</p><small id="ovs"></small></div>
+    <div class="err" id="err"></div>
+  </div>
+  <div class="bar"><button onclick="replay()">⟲ 이 구간 처음부터</button><button onclick="next()">다음 구간 ▶</button><button onclick="fs()">⛶ 전체 화면</button><span id="msg"></span></div>
+</div>
+<script>
+const q=new URLSearchParams(location.search);
+const ID=(q.get('id')||'').replace(/[^\w-]/g,'');
+const SEG=(q.get('s')||'').split(',').map(x=>x.split('-').map(Number)).filter(a=>a.length===2&&a[1]>a[0]);
+const TITLE=q.get('title')||'구간 영상';
+document.getElementById('ttl').textContent=TITLE;document.title=TITLE;
+const fmt=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+let cur=0,player=null,ready=false,timer=null,ended=false,segDone=false;
+function drawSegs(){document.getElementById('segs').innerHTML=SEG.map((g,i)=>`<button class="seg ${i===cur?'on':''} ${i<cur?'done':''}" onclick="go(${i})">구간 ${i+1} · ${fmt(g[0])}~${fmt(g[1])}</button>`).join('')}
+function msg(t){document.getElementById('msg').textContent=t}
+function showOv(t,s){const o=document.getElementById('ov');document.getElementById('ovt').textContent=t;document.getElementById('ovs').textContent=s||'';o.classList.remove('hide')}
+document.getElementById('ov').onclick=()=>{document.getElementById('ov').classList.add('hide');if(ended){ended=false;cur=0}play(cur)};
+function play(i){if(!ready)return;cur=i;drawSegs();const g=SEG[i];
+  segDone=false;player.loadVideoById({videoId:ID,startSeconds:g[0],endSeconds:g[1]});msg(`구간 ${i+1}/${SEG.length} 재생 중`);watch()}
+function watch(){clearInterval(timer);timer=setInterval(()=>{if(!player||!player.getCurrentTime)return;const t=player.getCurrentTime(),g=SEG[cur];
+  if(t>=g[1]-0.2){clearInterval(timer);player.pauseVideo();segEnd()}},250)}
+function segEnd(){if(segDone)return;segDone=true;if(cur<SEG.length-1){showOv(`다음 구간 재생 (${cur+2}/${SEG.length})`,`${fmt(SEG[cur+1][0])}~${fmt(SEG[cur+1][1])}`);cur++;drawSegs()}else{ended=true;showOv('끝! 다시 보려면 누르세요','');msg('모든 구간 끝')}}
+function go(i){document.getElementById('ov').classList.add('hide');ended=false;play(i)}
+function replay(){go(cur)}
+function next(){if(cur<SEG.length-1)go(cur+1)}
+function fs(){const e=document.documentElement;(e.requestFullscreen||e.webkitRequestFullscreen||function(){}).call(e)}
+function onYouTubeIframeAPIReady(){player=new YT.Player('p',{host:'https://www.youtube-nocookie.com',videoId:ID,
+  playerVars:{start:SEG[0]?SEG[0][0]:0,rel:0,modestbranding:1,playsinline:1},
+  events:{onReady:()=>{ready=true},onStateChange:e=>{if(e.data===0){clearInterval(timer);segEnd()}},
+  onError:()=>{const er=document.getElementById('err');er.classList.add('on');
+    er.innerHTML='<div>이 화면에서는 영상이 재생되지 않아요. 아래 링크로 유튜브에서 직접 보세요.</div>'+SEG.map((g,i)=>`<a href="https://www.youtube.com/watch?v=${ID}&t=${g[0]}s" target="_blank">구간 ${i+1}: ${fmt(g[0])}부터 ${fmt(g[1])}까지 보기</a>`).join('')}}})}
+if(!ID||!SEG.length){document.getElementById('err').classList.add('on');document.getElementById('err').textContent='영상 정보가 없어요.'}
+else{drawSegs();showOv('재생',SEG.map((g,i)=>`구간 ${i+1}: ${fmt(g[0])}~${fmt(g[1])}`).join('  ·  '));
+  const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s)}
+</script>
+</body>
+</html>
